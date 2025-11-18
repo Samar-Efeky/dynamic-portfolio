@@ -8,8 +8,8 @@ import { Router, RouterLink } from "@angular/router";
   styleUrl: './admin-portfolio.scss',
 })
 export class AdminPortfolio {
-  constructor(private router:Router){}
-   goToPortfolio(username:string) {
-    this.router.navigate(['/portfolio', username]);
-  }
+  // constructor(private router:Router){}
+  //  goToPortfolio(username:string) {
+  //   this.router.navigate(['/portfolio', username]);
+  // }
 }

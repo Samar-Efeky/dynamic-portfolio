@@ -1,9 +1,6 @@
 import { Routes } from '@angular/router';
 import { AdminPortfolio } from './admin-portfolio/admin-portfolio';
 import { Portfolio } from './portfolio/portfolio';
-import { getPrerenderParams } from '../prerender-params';
-
-
 export const routes: Routes = [
     {
         path:'portfolio-dashboard',
@@ -13,10 +10,10 @@ export const routes: Routes = [
         ]
     },
      {
-    path: 'portfolio/:username',
+    path: 'portfolio',
     component:Portfolio
   },{
-        path:'',redirectTo:'portfolio/:username',
+        path:'',redirectTo:'portfolio',
         pathMatch:'full'
     }
 ];
