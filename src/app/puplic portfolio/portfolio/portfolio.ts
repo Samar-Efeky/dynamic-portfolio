@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { HeroSection } from "../puplic components/hero-section/hero-section";
+import { HeroSection } from "../hero-section/hero-section";
+import { SliderTitles } from "../slider-titles/slider-titles";
 
 @Component({
   selector: 'app-portfolio',
-  imports: [HeroSection],
+  imports: [ HeroSection, SliderTitles],
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.scss',
 })

@@ -8,7 +8,7 @@
     --cardColor:#1D1D1D;
     --inputColor:#212529;
     --whiteColor:#FFFFFF;
-    --borderColor:rgba(255, 255, 255,0.3);
+    --borderColor:rgba(17, 226, 209,0.3);
     --fontSize:16px;
     --transition:0.5s;
 }
@@ -73,4 +73,27 @@ p{
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     text-transform: capitalize;
+}
+.logo-item{
+  display: flex;
+  align-items: center;
+  font-size: 1.8rem;
+   cursor: pointer;
+  h1{
+    font-family:'Times New Roman', Times, serif;
+    font-weight: 600;
+  }
+  i{
+    color: var(--primaryColor);
+    padding-right: 8px;
+    font-size: 1.6rem;
+  }
+}
+@media screen and (max-width:400px){
+  .logo-item{
+    font-size: 1.5rem;
+    i{
+      font-size: 1.5rem;
+    }
+  }
 }

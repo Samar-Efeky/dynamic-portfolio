@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { Portfolio } from "./portfolio/portfolio";
-
-
+import { PersonalPortfolio } from "./personal-portfolio/personal-portfolio";
 @Component({
   selector: 'app-root',
-  imports: [ Portfolio],
+  imports: [ PersonalPortfolio],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
