@@ -12,6 +12,9 @@
     --fontSize:16px;
     --transition:0.5s;
 }
+html{
+  scroll-behavior: smooth;
+}
 body {
     margin: 0;
     padding: 0;
@@ -21,7 +24,6 @@ body {
     font: {
         size: var(--fontSize);
     };
-    height: 1000px;
 }
 img {
     max-width: 100%;
@@ -87,6 +89,11 @@ p{
     color: var(--primaryColor);
     padding-right: 8px;
     font-size: 1.6rem;
+  }
+}
+@media screen and (max-width:800px){
+  p{
+    font-size: 1rem;
   }
 }
 @media screen and (max-width:400px){

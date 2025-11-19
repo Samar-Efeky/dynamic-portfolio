@@ -8,8 +8,8 @@
     <div class="left-info hidden lg:flex flex-col items-center justify-between h-[70%] px-3 text-lg gap-6">
       <img src="img/image1.png" class="cursor-pointer w-5" alt="">
       <span class="writing-vertical-rl">( +20 ) 1207-752-327</span>
-      <span class="writing-vertical-rl">SCROLL DOWN</span>
-      <img src="img/image2.png" class="cursor-pointer w-10" alt="">
+      <span (click)="onClick('information')" class="writing-vertical-rl">SCROLL DOWN</span>
+      <img (click)="onClick('information')" src="img/image2.png" class="cursor-pointer w-10" alt="">
     </div>
 
     <!-- Center & Image -->

@@ -1,0 +1,72 @@
+.skills-area {
+  margin-bottom: -25px;
+
+  .skills-item {
+    position: relative;
+    margin-bottom: 25px;
+
+    .skills-header {
+      position: relative;
+      margin-bottom: 15px;
+
+      .skills-title {
+        margin-bottom: 0;
+        color: var(--whiteColor);
+        text-transform: uppercase;
+        font-size: 14px;
+        font-weight: 400;
+        font-family: var(--fontFamily1);
+      }
+
+      .skills-percentage {
+        position: absolute;
+        right: 0;
+        top: -2px;
+        color: var(--primaryColor);
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
+
+    .skills-bar {
+      width: 100%;
+
+      .bar-inner {
+        width: 100%;
+        border-radius: 30px;
+        border-top: 2px solid #364d55;
+        border-bottom: 2px solid #364d55;
+        position: relative;
+
+        .bar {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 0;
+          height: 4px;
+          background: var(--primaryColor);
+          transition: all 1.5s ease;
+          border-radius: 30px;
+          margin-top: -2px;
+        }
+      }
+    }
+  }
+}
+
+/* Animation to fill the bars when page loads */
+.progress-line {
+  width: 0;
+  &.show{
+    animation: fillLine 1.3s forwards ease-in-out;
+  }
+}
+
+@keyframes fillLine {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: var(--target-width);
+  }
+}

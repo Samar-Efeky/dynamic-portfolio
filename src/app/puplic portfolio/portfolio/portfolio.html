@@ -1,2 +1,36 @@
 <app-hero-section></app-hero-section>
 <app-slider-titles></app-slider-titles>
+ <section>
+    <div id="information" class="information-section  py-10">
+        <div class="text-center my-5 lg:px-10 px-3 description-info">
+            <i class="fa-brands fa-cloudscale text-[2rem] md:text-[3rem] py-3"
+            style="color: var(--primaryColor);"></i>
+            <p class=" md:text-[1.3rem] md:text-[1.4rem] lg:text-[1.6rem]">I'm Samar Mohamed, I'm a Brand & Webflow Designer, Currently residing in the lush Victoria Street London, 
+                Matias operates globally and is ready to take on any design challenge.
+            </p>
+            <nav class="info-nav flex flex-wrap justify-center gap-3 mb-8 py-10">
+                <button routerLink="" routerLinkActive="active-link" 
+                [routerLinkActiveOptions]="{exact: true}"
+                class="px-4 py-2 " >Skills</button>
+                <button routerLink="experience" routerLinkActive="active-link"
+                 class="px-4 py-2 " >experience</button>
+                <button routerLink="education" routerLinkActive="active-link"
+                 class="px-4 py-2 " >education</button>
+                <button routerLink="certification" routerLinkActive="active-link"
+                 class="px-4 py-2 " >certification</button>
+            </nav>
+            <!-- SECTION CONTENT -->
+      <div class="info-content flex flex-col xl:flex-row gap-6 p-5 lg:w-[90%] w-[96%] mx-auto rounded-lg">
+        <!-- IMAGE -->
+        <div class="about-image xl:order-1 order-2 p-2">
+          <img src="img/about-image.png" alt="about image" class="lg:w-[75%] w-[60] mx-auto">
+        </div>
+
+        <!-- CONTENT -->
+        <div class="flex-1 space-y-6 xl:order-2 order-1">
+            <router-outlet></router-outlet>
+        </div>
+      </div>
+        </div>
+    </div>
+ </section>
