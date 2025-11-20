@@ -1,0 +1,32 @@
+<div class="blogs-page pt-20">
+       <div class="title-section text-center px-2 py-5 lg:px-20 lg:py-10">
+    <p class="px-2 pt-5 mx-auto text-white capitalize sm:text-[2rem]">Latest articles from my blog.</p>
+    <div class="main-title-section  flex justify-center">
+      <h2 class="md:text-2xl font-semibold text-white">
+        <span class="text-white">Home / </span>Blogs
+      </h2>
+    </div>
+  </div>
+   <section class="container mx-auto px-6 py-5">
+  <!-- blogss (From Array) -->
+ <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-15 items-stretch">
+    @for(item of blogs; track $index){
+         <div 
+       class="blog-item h-full flex flex-col">
+     <span class="span-color  text-xl">{{ item.mainTitle}}</span>
+    <h3 class="flex items-center gap-2 md:text-2xl  my-4">
+      {{ item.title }}
+    </h3>
+
+    <p class="leading-relaxed mb-6 flex-grow">
+      {{ item.desc }}
+    </p>
+
+  </div>
+    }
+
+</div>
+</section>
+<app-home-data></app-home-data>
+<app-footer-portfolio></app-footer-portfolio>
+</div>

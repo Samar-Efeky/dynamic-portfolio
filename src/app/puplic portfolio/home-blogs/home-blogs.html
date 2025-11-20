@@ -1,0 +1,39 @@
+<div class="blogs-section py-20">
+    <div class="text-center px-2 py-5 lg:px-20  title-section">
+    <div class="flex items-center justify-center">
+      <div class="border-t-2 w-16 mx-3 title-line"></div>
+      <h2 class="md:text-2xl font-semibold">Recent blogs</h2>
+      <div class="border-t-2 w-16 mx-3 title-line"></div>
+    </div>
+    <p class="mx-auto px-4 md:px-20 lg:text-[2rem] sm:text-[1.4rem] text-[1rem]">
+      Latest articles from my blog.
+    </p>
+  </div>
+   <section class="container mx-auto px-6 py-5">
+  <!-- blogss (From Array) -->
+ <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-15 items-stretch">
+
+  <div *ngFor="let item of blogs" 
+       class="blog-item h-full flex flex-col">
+     <span class="span-color  text-xl">{{ item.mainTitle}}</span>
+    <h3 class="flex items-center gap-2 md:text-2xl  my-4">
+      {{ item.title }}
+    </h3>
+
+    <p class="leading-relaxed mb-6 flex-grow">
+      {{ item.desc }}
+    </p>
+
+  </div>
+
+</div>
+
+
+</section>
+<a routerLink="blogs">
+        <div class="circle-button m-auto my-3  flex flex-col justify-center items-center ">
+            <i class="fa-solid fa-arrow-right mx-2"></i>
+            <span class="capitalize">More Blogs</span>
+        </div>
+    </a>
+</div>

@@ -1,0 +1,20 @@
+ i {
+    transition: transform 0.3s ease;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  a {
+    transition: color 0.3s ease;
+    &:hover {
+      color:var(--primaryColor);
+    }
+  }
+.link-contact{
+    border-bottom: 0.1px solid var(--borderColor);
+    padding-bottom: 20px;
+    .rounded-full{
+        background-color: var(--primaryColor);
+    }
+}

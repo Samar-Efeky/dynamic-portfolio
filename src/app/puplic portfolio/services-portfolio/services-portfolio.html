@@ -1,1 +1,54 @@
-<p>services-portfolio works!</p>
+<div class="services-page py-10">
+     <div class="title-section text-center px-2 py-5 lg:px-20 lg:py-10">
+    <p class="px-2 pt-5 mx-auto text-white capitalize sm:text-[2rem]">High-Impact Services</p>
+    <div class="main-title-section  flex justify-center">
+      <h2 class="md:text-2xl font-semibold text-white">
+        <span class="text-white">Home / </span>Services
+      </h2>
+    </div>
+  </div>
+  <section class="container mx-auto px-6 py-20">
+
+  <!-- Title section -->
+  <div class="grid lg:grid-cols-2 gap-10 mb-16">
+    <h2 class="md:text-5xl text-3xl font-bold leading-tight lg:px-5">
+      High-impact <br />
+      services to help <br />
+      your business
+    </h2>
+
+    <p class=" leading-relaxed text-lg">
+     Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit quia atque ea voluptas voluptatibus corrupti alias itaque placeat natus illo? Dolorem provident repellat deleniti sint unde deserunt quas placeat atque!
+    </p>
+  </div>
+
+  <!-- Services (From Array) -->
+ <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-15 items-stretch">
+  @for(item of services; track $index){
+     <div  class="service-item h-full flex flex-col">
+
+    <h3 class="flex items-center gap-2 text-2xl font-semibold mb-4">
+      <span class="span-color font-bold text-xl">{{ item.number }}</span>
+      {{ item.title }}
+    </h3>
+
+    <p class="leading-relaxed mb-6 flex-grow">
+      {{ item.desc }}
+    </p>
+
+    <ul class="border-t pt-3 space-y-3 mt-auto">
+      <li *ngFor="let x of item.list" class="list-disc ml-5 marker:text-[#11e2d1]">
+        {{ x }}
+      </li>
+    </ul>
+
+  </div>
+  }
+
+</div>
+</section>
+<section>
+    <app-testimonial></app-testimonial>
+</section>
+<app-footer-portfolio></app-footer-portfolio>
+</div>

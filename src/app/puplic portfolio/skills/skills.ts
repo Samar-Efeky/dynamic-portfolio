@@ -4,19 +4,19 @@ import { InViewDirective } from '../../directives/in-view.directive';
 
 @Component({
   selector: 'app-skills',
-  imports: [CommonModule, InViewDirective],
+  imports: [CommonModule],
   templateUrl: './skills.html',
   styleUrl: './skills.scss',
 })
 export class Skills {
    skills = [
-    { title: 'Communication', percent: 85 },
-    { title: 'Design', percent: 90 },
-    { title: 'Project Management', percent: 87 },
-    { title: 'Branding', percent: 92 },
-    { title: 'Development', percent: 77 },
-    { title: 'Problem Solving', percent: 75 },
-    { title: 'Content Writing', percent: 80 },
-    { title: 'Marketing', percent: 85 },
+    { title: 'Communication' },
+    { title: 'Design' },
+    { title: 'Project Management'},
+    { title: 'Branding' },
+    { title: 'Development'},
+    { title: 'Problem Solving' },
+    { title: 'Content Writing' },
+    { title: 'Marketing' },
   ];
 }

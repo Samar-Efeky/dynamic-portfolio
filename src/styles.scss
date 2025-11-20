@@ -11,7 +11,10 @@
     --borderColor:rgba(17, 226, 209,0.3);
     --fontSize:16px;
     --transition:0.5s;
-}
+    --adminColor:#0F172A;
+    --adminSectionColor:#1E293B;
+    --adminCardColor:#324154;
+  }
 html{
   scroll-behavior: smooth;
 }
@@ -39,6 +42,7 @@ a{
   color: var(--primaryColor);
 }
 }
+// button style
 button{
   background-color: var(--primaryColor);
   color: var(--blackColor);
@@ -60,6 +64,32 @@ button{
   height: 100%;
 }
 }
+.circle-button {
+  width: 170px;
+  height: 170px;
+  background-color: var(--primaryColor);
+  color: var(--blackColor);
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--primaryColor);
+    border-radius: 50%;
+    top: 3%;
+    left: -3%;
+    z-index: 1;
+    transition: all 0.6s ease;
+  }
+
+  &:hover::before {
+    top: -10px;
+  }
+} 
 i{
   font-size: 1.2rem;
   cursor: pointer;
@@ -72,9 +102,21 @@ p{
         margin-bottom: 0;
     }
 }
-
+.leading-relaxed{
+  opacity: 0.7;
+}
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     text-transform: capitalize;
+}
+.title-section{
+  h2{
+  color: var(--primaryColor);
+    font-family:Georgia, 'Times New Roman', Times, serif;
+
+  }
+ .title-line{
+  border-color: var(--primaryColor);
+ }
 }
 .logo-item{
   display: flex;
@@ -91,12 +133,54 @@ p{
     font-size: 1.6rem;
   }
 }
+// projects section
+  .work-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    height: 100%;
+    .work-image {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border-radius: 0.375rem;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    span{
+      color: var(--primaryColor);
+    }
+    .work-icon {
+      padding: 0.75rem;
+      border-radius: 0.375rem;
+      background-color:var(--inputColor);
+      transition: all var(--transition) ease;
+      i{
+        transform: rotate(45deg);
+      }
+    }
+    &:hover .work-icon{
+      background-color: var(--primaryColor);
+      color: var(--blackColor);
+    }
+  }
+  @media screen and (max-width:950px){
+  .circle-button{
+    width: 150px;
+    height: 150px;
+  }
+} 
 @media screen and (max-width:800px){
   p{
     font-size: 1rem;
   }
 }
 @media screen and (max-width:400px){
+ 
   .logo-item{
     font-size: 1.5rem;
     i{

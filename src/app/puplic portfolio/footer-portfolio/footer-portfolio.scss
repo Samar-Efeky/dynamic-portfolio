@@ -1,0 +1,18 @@
+ footer{
+ background-color: var(--sectionColor);
+  a {
+
+    &:hover {
+      color: var(--primaryColor);
+    }
+  }
+
+  input {
+    border: none;
+    outline: none;
+    background-color: var(--inputColor);
+  }
+button:hover::after{
+    height: 0px;
+}
+}

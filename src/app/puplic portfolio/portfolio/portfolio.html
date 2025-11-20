@@ -19,18 +19,19 @@
                 <button routerLink="certification" routerLinkActive="active-link"
                  class="px-4 py-2 " >certification</button>
             </nav>
-            <!-- SECTION CONTENT -->
-      <div class="info-content flex flex-col xl:flex-row gap-6 p-5 lg:w-[90%] w-[96%] mx-auto rounded-lg">
-        <!-- IMAGE -->
-        <div class="about-image xl:order-1 order-2 p-2">
-          <img src="img/about-image.png" alt="about image" class="lg:w-[75%] w-[60] mx-auto">
-        </div>
-
+            <!-- SECTION information -->
+            <div class="info-content p-5 lg:w-[90%] w-[100%] mx-auto rounded-lg">
         <!-- CONTENT -->
-        <div class="flex-1 space-y-6 xl:order-2 order-1">
+        <div class=" ">
             <router-outlet></router-outlet>
         </div>
       </div>
         </div>
     </div>
  </section>
+<app-home-projects></app-home-projects> 
+<app-home-services></app-home-services>
+<app-testimonial></app-testimonial>
+<app-home-blogs></app-home-blogs>
+<app-home-data></app-home-data>
+<app-footer-portfolio></app-footer-portfolio>

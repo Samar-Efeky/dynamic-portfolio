@@ -2,10 +2,16 @@ import { Component } from '@angular/core';
 import { HeroSection } from "../hero-section/hero-section";
 import { SliderTitles } from "../slider-titles/slider-titles";
 import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
+import { HomeProjects } from "../home-projects/home-projects";
+import { HomeServices } from "../home-services/home-services";
+import { Testimonial } from "../testimonial/testimonial";
+import { HomeBlogs } from "../home-blogs/home-blogs";
+import { HomeData } from "../home-data/home-data";
+import { FooterPortfolio } from "../footer-portfolio/footer-portfolio";
 
 @Component({
   selector: 'app-portfolio',
-  imports: [HeroSection, SliderTitles, RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [HeroSection, SliderTitles, RouterOutlet, RouterLink, RouterLinkActive, HomeProjects, HomeServices, Testimonial, HomeBlogs, HomeData, FooterPortfolio],
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.scss',
 })

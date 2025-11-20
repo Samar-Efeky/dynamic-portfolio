@@ -1,0 +1,33 @@
+.testimonial-card {
+  background-color: var(--sectionColor);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  height: 100%; 
+  h4 {
+    color: var(--primaryColor);
+  }
+}
+::ng-deep .owl-dots .owl-dot:nth-child(n+4) {
+  display: none !important;
+}
+
+::ng-deep .owl-dots {
+  display: flex !important;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+::ng-deep .owl-dots .owl-dot span {
+  width: 12px !important;
+  height: 12px !important;
+  background: #ccc !important;
+  border-radius: 50%;
+  display: block;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+::ng-deep .owl-dots .owl-dot.active span {
+  background: var(--primaryColor) !important;
+}
