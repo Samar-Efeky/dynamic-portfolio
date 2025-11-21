@@ -11,9 +11,9 @@ export class AdminNavbar {
    toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
   }
- openPortfolio() {
-  window.open(`${window.location.origin}/portfolio`, '_blank');
-}
+  openPortfolioInNewTab() {
+    window.open(`${window.location.origin}/portfolio`, '_blank');
+  }
 
 
 }
