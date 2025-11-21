@@ -3,7 +3,7 @@
   <div class="mx-auto flex items-center justify-between px-4 py-3">
 
     <!-- Logo -->
-    <div class="logo-item" routerLink="/" (click)="scrollToTop()">
+    <div class="logo-item" routerLink="/portfolio" (click)="scrollToTop()">
       <i class="fa-brands fa-cloudscale"></i>
       <h1>Samar</h1>
     </div>
@@ -13,29 +13,31 @@
       class="xl:space-x-20 lg:space-x-10 uppercase text-white transition-all duration-300"
       [class.sidebar-open]="sidebarOpen"
     >
-     <li 
-  [routerLink]="['/']"
-  [class.active-link]="isLinkActive('/')"
+    <li 
+  [routerLink]="['/portfolio']"
+  [class.active-link]="isLinkActive('/portfolio')"
   (click)="toggleSidebar(); scrollToTop()"
 >
   Home
 </li>
-      <li routerLink="/about" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">About</li>
-      <li routerLink="/projects" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Projects</li>
-      <li routerLink="/services" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Services</li>
+
+      <li routerLink="/portfolio/about" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">About</li>
+      <li routerLink="/portfolio/projects" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Projects</li>
+      <li routerLink="/portfolio/services" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Services</li>
   <li>
   <a 
-    [routerLink]="['/']"
+    [routerLink]="['/portfolio']"
     fragment="testimonial"
-    [class.active-link]="isLinkActive('/', 'testimonial')"
+    [class.active-link]="isLinkActive('/portfolio', 'testimonial')"
     (click)="toggleSidebar()"
   >
     Testimonial
   </a>
 </li>
 
-      <li routerLink="/blogs" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Blogs</li>
-      <li routerLink="/contact" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Contact</li>
+
+      <li routerLink="/portfolio/blogs" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Blogs</li>
+      <li routerLink="/portfolio/contact" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Contact</li>
 
       <li class="sidebar-tel">( +20 ) 1207-752</li>
       <li class="sidebar-social">

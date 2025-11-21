@@ -1,7 +1,15 @@
 <div class="w-full px-5 pt-5">
-    <div class="header-image " style="background-image: url(img/cms-header.jpg);">
+    <div class="header-image relative w-full" style="background-image: url(img/cms-header.jpg);">
         <div class="overley w-full h-full flex justify-center items-center">
-            <h2 class="uppercase text-[3rem] lg:text-[5rem]">portfolio cms</h2>
+            <h2 class="uppercase text-[2rem] md:text-[3rem] lg:text-[4rem]">portfolio cms</h2>
+        </div>
+         <div class="image-profile w-[80px] h-[80px] md:w-[100px] md:h-[100px] xl:w-[130px] xl:h-[130px] absolute
+          bottom-0 left-10 lg:left-20">
+                <img src="img/img3.png" alt="" class="w-full h-full object-cover rounded-full"/>
         </div>
     </div>
+</div>
+<app-admin-navbar></app-admin-navbar>
+<div class="add-info pt-20">
+    <router-outlet></router-outlet>
 </div>

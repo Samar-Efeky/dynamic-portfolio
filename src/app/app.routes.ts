@@ -11,11 +11,43 @@ import { Certification } from './puplic portfolio/certification/certification';
 import { AdminPortfolio } from './admin-portfolio/admin-portfolio';
 import { ProjectsPortfolio } from './puplic portfolio/projects-portfolio/projects-portfolio';
 import { BlogsPortfolio } from './puplic portfolio/blogs-portfolio/blogs-portfolio';
+import { AdminInfo } from './admin-components/admin-info/admin-info';
+import { AdminAbout } from './admin-components/admin-about/admin-about';
+import { AdminExperience } from './admin-components/admin-experience/admin-experience';
+import { AdminProjects } from './admin-components/admin-projects/admin-projects';
+import { AdminServices } from './admin-components/admin-services/admin-services';
+import { AdminBlogs } from './admin-components/admin-blogs/admin-blogs';
+import { AdminTestimonials } from './admin-components/admin-testimonials/admin-testimonials';
 
 export const routes: Routes = [
-  
   {
-    path:'', component: PersonalPortfolio,
+    path:'admin-portfolio', component:AdminPortfolio,
+    children:[
+      {
+        path:'', component:AdminInfo
+      },
+      {
+        path:'about-me', component:AdminAbout
+      },
+      {
+        path:'experience', component:AdminExperience
+      },
+      {
+        path:'projects', component:AdminProjects
+      },
+      {
+        path:'services', component:AdminServices
+      },
+      {
+        path:'blogs', component:AdminBlogs
+      },
+      {
+        path:'testimonials', component:AdminTestimonials
+      }
+    ]
+  },
+  {
+    path:'portfolio', component: PersonalPortfolio,
     children:[
         { path:'', component: Portfolio,
           children:[
@@ -39,5 +71,8 @@ export const routes: Routes = [
         { path:'projects', component: ProjectsPortfolio },
         { path:'contact', component: ContactPortfolio }
     ]
+ },
+ {
+  path:'', redirectTo:'admin-portfolio', pathMatch:'full'
  }
 ];

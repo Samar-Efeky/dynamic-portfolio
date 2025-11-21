@@ -1,0 +1,47 @@
+<nav class="w-full mt-20 "  >
+  <div class="mx-auto flex items-center justify-between px-4 py-3 relative w-[100%]">
+     <div class="logo-item" >
+      <h1>cms</h1>
+    </div>
+    <!-- Navbar Links -->
+    <ul 
+      class=" uppercase text-white absolute"
+      [class.sidebar-open]="sidebarOpen"
+    >
+      <li routerLink="/admin-portfolio" routerLinkActive="active-link" 
+       [routerLinkActiveOptions]="{ exact: true }" (click)="toggleSidebar()">Profile Info</li>
+      <li routerLink="/admin-portfolio/about-me" routerLinkActive="active-link" (click)="toggleSidebar()">About Me</li>
+      <li routerLink="/admin-portfolio/experience" routerLinkActive="active-link" (click)="toggleSidebar()">Experience</li>
+
+      <li routerLink="/admin-portfolio/projects" routerLinkActive="active-link" (click)="toggleSidebar()">Projects</li>
+      <li routerLink="/admin-portfolio/services" routerLinkActive="active-link" (click)="toggleSidebar()">Services</li>
+      <li routerLink="/admin-portfolio/blogs" routerLinkActive="active-link" (click)="toggleSidebar()">blogs</li>
+      <li routerLink="/admin-portfolio/testimonials" routerLinkActive="active-link" (click)="toggleSidebar()">testimonials</li>
+      <li class="cv-link-sidebar" (click)="toggleSidebar()">
+        <button class="w-[70%] mx-auto py-2 px-4">Download CV</button>
+      </li>
+    </ul>
+
+    <!-- Icons -->
+    <div class="flex">
+        <button class="cv-download py-2 px-4">Download CV</button>
+      <button (click)="openPortfolio()" class="sm:px-4 px-2 sm:py-2 mx-3 " >Live Portfolio</button>
+      <div class="icon-sidebar sm:p-3 p-1 " (click)="toggleSidebar()">
+        <!-- Open Icon -->
+        <i 
+          class="fa-solid fa-bars cursor-pointer"
+          [class.hidden]="sidebarOpen"
+        ></i>
+
+        <!-- Close Icon -->
+        <i 
+          class="fa-solid fa-xmark cursor-pointer"
+          [class.hidden]="!sidebarOpen"
+        ></i>
+
+      </div>
+    </div>
+
+  </div>
+</nav>
+

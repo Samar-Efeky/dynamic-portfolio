@@ -1,9 +1,10 @@
 import { Component, HostListener } from '@angular/core';
 import { PublicNavbar } from "../puplic portfolio/public-navbar/public-navbar";
 import { RouterOutlet } from '@angular/router';
+import { FooterPortfolio } from "../puplic portfolio/footer-portfolio/footer-portfolio";
 @Component({
   selector: 'app-personal-portfolio',
-  imports: [PublicNavbar, RouterOutlet],
+  imports: [PublicNavbar, RouterOutlet, FooterPortfolio],
   templateUrl: './personal-portfolio.html',
   styleUrl: './personal-portfolio.scss',
 })
