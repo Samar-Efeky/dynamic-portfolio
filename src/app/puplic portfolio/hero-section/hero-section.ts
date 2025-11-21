@@ -1,9 +1,10 @@
 import { ViewportScroller } from '@angular/common';
 import { Component } from '@angular/core';
+import { InViewDirective } from "../../directives/in-view.directive";
 
 @Component({
   selector: 'app-hero-section',
-  imports: [],
+  imports: [InViewDirective],
   templateUrl: './hero-section.html',
   styleUrl: './hero-section.scss',
 })

@@ -1,12 +1,13 @@
-<section class="skills-area md:container mx-auto py-10">
+<section class="skills-area md:container mx-auto py-10 from-bottom" appInView>
   <div class="flex flex-wrap justify-center gap-10">
-    <div 
-      *ngFor="let skill of skills"
+    @for(skill of skills; track $index){
+       <div 
       class="skills-item w-[45%] lg:w-[30%] xl:w-[20%]"
     >
       <div class="skills-header">
         <h3 class="skills-title">{{ skill.title }}</h3>
       </div>
     </div>
+    }
   </div>
 </section>

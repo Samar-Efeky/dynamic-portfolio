@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Testimonial } from "../testimonial/testimonial";
-import { FooterPortfolio } from "../footer-portfolio/footer-portfolio";
+import { HomeData } from "../home-data/home-data";
+import { InViewDirective } from "../../directives/in-view.directive";
 
 @Component({
   selector: 'app-services-portfolio',
-  imports: [CommonModule, Testimonial, FooterPortfolio],
+  imports: [CommonModule, HomeData, InViewDirective],
   templateUrl: './services-portfolio.html',
   styleUrl: './services-portfolio.scss',
 })

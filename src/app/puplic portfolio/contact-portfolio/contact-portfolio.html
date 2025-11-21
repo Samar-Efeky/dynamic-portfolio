@@ -1,2 +1,85 @@
-<p>contact-portfolio works!</p>
-<app-footer-portfolio></app-footer-portfolio>
+<div class="contact-page pt-20 overflow-hidden" style="background-color: var(--sectionColor);">
+     <div class="text-center px-2 py-5 lg:px-20  title-section from-top" appInView>
+    <div class="flex items-center justify-center">
+      <div class="border-t-2 w-16 mx-3 title-line"></div>
+      <h2 class="md:text-2xl font-semibold">contact</h2>
+      <div class="border-t-2 w-16 mx-3 title-line"></div>
+    </div>
+    <p class="mx-auto px-4 md:px-20 font-bold lg:text-[3.5rem] sm:text-[1.4rem] text-[1rem]">
+      Get In Touch 
+    </p>
+  </div>
+  <section class="py-16 lg:py-24 ">
+  <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:px-20 md:px-10 px-5">
+
+    <!-- LEFT TEXT -->
+    <div>
+      <h2 class="sm:text-4xl md:text-5xl text-3xl font-bold mb-6 pb-5 " >
+        Let's Work Together
+      </h2>
+
+      <p class="text-lg leading-relaxed  mb-8">
+        Lorem ipsum dolor sit amet, amet consectetur adipisicing elit. Deserunt
+        quisquam voluptatibus debitis aperiam ratione. Officia, suscipit iure,
+        tenetur eum consequatur, consequuntur omnis accusamus odit architecto.
+        Soluta modi dignissimos libero blanditiis laboriosam, esse vel. Quod, vitae.
+      </p>
+
+      <!-- Email Button -->
+      <a
+        href="mailto:hello@monica.com?subject=Work Inquiry"
+        class="email-btn inline-flex items-center gap-3 px-8 py-4 rounded-lg  text-lg zoom-in" appInView
+      >
+        <i class="fa-solid fa-envelope text-xl"></i>
+        Send Me An Email
+      </a>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="flex flex-col gap-10 lg:pl-20 ">
+
+      <!-- Social -->
+      <div>
+        <h3 class="tracking-widest  mb-4 font-bold">
+          FOLLOW ON SOCIAL
+        </h3>
+
+        <div class="flex items-center gap-5 text-2xl text-center">
+          <i class="fa-brands fa-facebook"></i>
+          <i class="fa-brands fa-twitter"></i>
+          <i class="fa-brands fa-instagram"></i>
+          <i class="fa-brands fa-dribbble"></i>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <h3 class="tracking-widest  mb-2 font-bold">EMAIL</h3>
+        <a
+          href="mailto:hello@gmail.com?subject=Work Inquiry"
+          class="text-xl hover:underline"
+        >
+          hellogmail.com
+        </a>
+      </div>
+
+      <!-- Phone -->
+      <div>
+        <h3 class="tracking-widest  mb-2 font-bold">PHONE</h3>
+
+        <a href="tel:+1975432345" class="text-xl hover:underline block ">
+          +197 543 2345
+        </a>
+
+        <a href="tel:+1971239876" class="text-xl hover:underline block ">
+          +197 123 9876
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+<app-testimonial></app-testimonial>
+<app-home-services></app-home-services>
+<app-home-data></app-home-data>
+</div>

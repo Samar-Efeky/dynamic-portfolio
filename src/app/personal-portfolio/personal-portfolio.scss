@@ -1,0 +1,10 @@
+.scroll-top {
+    background-color: var(--primaryColor);
+    color: var(--blackColor);
+    opacity: 0.6;
+    z-index:99999999999;
+    transition: all var(--transition) ease;
+    &:hover::after{
+        height: 0px;
+    }
+}

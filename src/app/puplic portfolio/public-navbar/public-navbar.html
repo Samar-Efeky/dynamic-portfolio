@@ -3,7 +3,7 @@
   <div class="mx-auto flex items-center justify-between px-4 py-3">
 
     <!-- Logo -->
-    <div class="logo-item" routerLink="/">
+    <div class="logo-item" routerLink="/" (click)="scrollToTop()">
       <i class="fa-brands fa-cloudscale"></i>
       <h1>Samar</h1>
     </div>
@@ -14,13 +14,19 @@
       [class.sidebar-open]="sidebarOpen"
     >
       <li routerLink="/" routerLinkActive="active-link"
-      [routerLinkActiveOptions]="{exact: true}" (click)="toggleSidebar()">Home</li>
-      <li routerLink="/about" routerLinkActive="active-link" (click)="toggleSidebar()">About</li>
-      <li routerLink="/projects" routerLinkActive="active-link" (click)="toggleSidebar()">Projects</li>
-      <li routerLink="/services" routerLinkActive="active-link" (click)="toggleSidebar()">Services</li>
-      <li  (click)="toggleSidebar()">Testimonial</li>
-      <li routerLink="/blogs" routerLinkActive="active-link" (click)="toggleSidebar()">Blogs</li>
-      <li routerLink="/contact" routerLinkActive="active-link" (click)="toggleSidebar()">Contact</li>
+      [routerLinkActiveOptions]="{exact: true}" (click)="toggleSidebar();scrollToTop()">Home</li>
+      <li routerLink="/about" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">About</li>
+      <li routerLink="/projects" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Projects</li>
+      <li routerLink="/services" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Services</li>
+      <li>
+  <a [routerLink]="['/']" fragment="testimonial"
+     [class.active-link]="isLinkActive('/', 'testimonial')"
+     (click)="toggleSidebar(); scrollToTop()">
+    Testimonial
+  </a>
+</li>
+      <li routerLink="/blogs" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Blogs</li>
+      <li routerLink="/contact" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Contact</li>
 
       <li class="sidebar-tel">( +20 ) 1207-752</li>
       <li class="sidebar-social">

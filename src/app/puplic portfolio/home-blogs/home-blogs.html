@@ -1,5 +1,5 @@
-<div class="blogs-section py-20">
-    <div class="text-center px-2 py-5 lg:px-20  title-section">
+<div class="blogs-section py-20 overflow-hidden">
+    <div class="text-center px-2 py-5 lg:px-20  title-section from-top" appInView>
     <div class="flex items-center justify-center">
       <div class="border-t-2 w-16 mx-3 title-line"></div>
       <h2 class="md:text-2xl font-semibold">Recent blogs</h2>
@@ -12,9 +12,9 @@
    <section class="container mx-auto px-6 py-5">
   <!-- blogss (From Array) -->
  <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-15 items-stretch">
-
-  <div *ngFor="let item of blogs" 
-       class="blog-item h-full flex flex-col">
+  @for(item of blogs; track $index){
+     <div 
+       class="blog-item h-full flex flex-col zoom-in" appInView>
      <span class="span-color  text-xl">{{ item.mainTitle}}</span>
     <h3 class="flex items-center gap-2 md:text-2xl  my-4">
       {{ item.title }}
@@ -25,12 +25,13 @@
     </p>
 
   </div>
+  }
 
 </div>
 
 
 </section>
-<a routerLink="blogs">
+<a routerLink="/blogs" (click)="scrollToTop()">
         <div class="circle-button m-auto my-3  flex flex-col justify-center items-center ">
             <i class="fa-solid fa-arrow-right mx-2"></i>
             <span class="capitalize">More Blogs</span>

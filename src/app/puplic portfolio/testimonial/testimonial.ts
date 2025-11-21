@@ -1,10 +1,11 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { InViewDirective } from "../../directives/in-view.directive";
 
 @Component({
   selector: 'app-testimonial',
   standalone: true,
-  imports: [ CarouselModule],
+  imports: [CarouselModule, InViewDirective],
   templateUrl: './testimonial.html',
   styleUrls: ['./testimonial.scss'],
 })

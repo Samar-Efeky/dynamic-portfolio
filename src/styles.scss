@@ -42,6 +42,70 @@ a{
   color: var(--primaryColor);
 }
 }
+/* ========= Animation when element appears (center expand) ========= */
+[appInView] {
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.7s ease-out, opacity 1s ease-out;
+}
+[appInView].show {
+  opacity: 1;
+  transform: scaleX(1);
+}
+.from-bottom {
+  opacity: 0;
+  transform: translateY(80px);
+  transition: all 0.6s ease;
+
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.from-top {
+  opacity: 0;
+  transform: translateY(-100px);
+  transition: all 0.6s ease;
+
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.from-left {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition: all 0.6s ease;
+
+  &.show {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.from-right {
+  opacity: 0;
+  transform: translateX(100px);
+  transition: all 1s ease;
+
+  &.show {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.zoom-in {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.8s ease;
+
+  &.show {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 // button style
 button{
   background-color: var(--primaryColor);

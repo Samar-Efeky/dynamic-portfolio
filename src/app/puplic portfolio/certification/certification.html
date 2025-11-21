@@ -1,8 +1,10 @@
 <!-- certification.component.html -->
-<div class="certification-area  mt-5">
+<div class="certification-area  mt-5 from-bottom" appInView>
   <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-y-[25px] gap-x-[10px]">
-    <div class="single-certification-box" *ngFor="let img of certificationImages">
+    @for (img of certificationImages; track $index) {
+       <div class="single-certification-box" >
       <img [src]="img" alt="certification image" class="mx-auto" />
     </div>
+    }
   </div>
 </div>

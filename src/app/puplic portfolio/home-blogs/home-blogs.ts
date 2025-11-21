@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { InViewDirective } from "../../directives/in-view.directive";
 
 @Component({
   selector: 'app-home-blogs',
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule, RouterLink, InViewDirective],
   templateUrl: './home-blogs.html',
   styleUrl: './home-blogs.scss'
 })
@@ -30,4 +31,9 @@ export class HomeBlogs {
       asperiores sit mollitia. Rem neque et voluptatem eos quia sed eligendi et.`
     }
   ];
+    scrollToTop() {
+  window.scrollTo({
+    top: 0
+  });
+}
 }
