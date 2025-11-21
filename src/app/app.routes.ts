@@ -8,9 +8,9 @@ import { Skills } from './puplic portfolio/skills/skills';
 import { Experience } from './puplic portfolio/experience/experience';
 import { Education } from './puplic portfolio/education/education';
 import { Certification } from './puplic portfolio/certification/certification';
-import { AdminPortfolio } from './admin-portfolio/admin-portfolio';
 import { ProjectsPortfolio } from './puplic portfolio/projects-portfolio/projects-portfolio';
 import { BlogsPortfolio } from './puplic portfolio/blogs-portfolio/blogs-portfolio';
+import { AdminPortfolio } from './admin-portfolio/admin-portfolio';
 import { AdminInfo } from './admin-components/admin-info/admin-info';
 import { AdminAbout } from './admin-components/admin-about/admin-about';
 import { AdminExperience } from './admin-components/admin-experience/admin-experience';
@@ -21,58 +21,38 @@ import { AdminTestimonials } from './admin-components/admin-testimonials/admin-t
 
 export const routes: Routes = [
   {
-    path:'admin-portfolio', component:AdminPortfolio,
-    children:[
-      {
-        path:'', component:AdminInfo
-      },
-      {
-        path:'about-me', component:AdminAbout
-      },
-      {
-        path:'experience', component:AdminExperience
-      },
-      {
-        path:'projects', component:AdminProjects
-      },
-      {
-        path:'services', component:AdminServices
-      },
-      {
-        path:'blogs', component:AdminBlogs
-      },
-      {
-        path:'testimonials', component:AdminTestimonials
-      }
+    path: 'admin',
+    component: AdminPortfolio,
+    children: [
+      { path: '', component: AdminInfo },
+      { path: 'about', component: AdminAbout },
+      { path: 'experience', component: AdminExperience },
+      { path: 'projects', component: AdminProjects },
+      { path: 'services', component: AdminServices },
+      { path: 'blogs', component: AdminBlogs },
+      { path: 'testimonials', component: AdminTestimonials }
     ]
   },
   {
-    path:'portfolio', component: PersonalPortfolio,
-    children:[
-        { path:'', component: Portfolio,
-          children:[
-            {
-              path:'',component:Skills
-            },
-            {
-              path:'experience', component:Experience
-            },
-            {
-              path:'education', component:Education
-            },
-            {
-              path:'certification', component:Certification
-            }
-          ]
-         }, 
-        { path:'about', component: AboutPortfolio },
-        { path:'services', component: ServicesPortfolio },
-        { path:'blogs', component: BlogsPortfolio},
-        { path:'projects', component: ProjectsPortfolio },
-        { path:'contact', component: ContactPortfolio }
+    path: 'portfolio',
+    component: PersonalPortfolio,
+    children: [
+      { 
+        path: '', component: Portfolio,
+        children: [
+          { path: '', component: Skills },
+          { path: 'experience', component: Experience },
+          { path: 'education', component: Education },
+          { path: 'certification', component: Certification }
+        ]
+      },
+      { path: 'about', component: AboutPortfolio },
+      { path: 'services', component: ServicesPortfolio },
+      { path: 'projects', component: ProjectsPortfolio },
+      { path: 'blogs', component: BlogsPortfolio },
+      { path: 'contact', component: ContactPortfolio }
     ]
- },
- {
-  path:'', redirectTo:'admin-portfolio', pathMatch:'full'
- }
+  },
+  { path: '', redirectTo: 'admin', pathMatch: 'full' },
+  { path: '**', redirectTo: 'admin' } 
 ];

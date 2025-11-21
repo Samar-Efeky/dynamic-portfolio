@@ -31,8 +31,6 @@
       <button type="button" (click)="addRelatedJobTitle()"
         class="px-4 py-2  ">Add</button>
     </div>
-
-    <!-- Tags -->
     <div class="flex flex-wrap gap-2 mb-4">
       <span *ngFor="let title of relatedJobTitles; let i = index"
         class="px-3 py-1 bg-gray-700 rounded-full flex items-center gap-2 text-sm">
@@ -43,21 +41,15 @@
         </button>
       </span>
     </div>
-
-    <!-- Profile Image -->
     <label class="block mb-2 font-semibold">Profile Image</label>
     <input type="file" (change)="uploadImage($event)"
       class="w-full p-3 rounded    mb-4" />
-
-    <!-- Preview -->
-    <div *ngIf="profileImage" class="mb-4 flex justify-center">
-      <img [src]="profileImage" class="w-32 h-32 rounded-full object-cover -2 -main" alt="profile preview" />
-    </div>
-
-    <!-- Social Media Links -->
+      @if(profileImage){
+         <div class="mb-4 flex justify-center">
+            <img [src]="profileImage" class="w-32 h-32 rounded-full object-cover -2 -main" alt="profile preview" />
+        </div>
+      }
     <label class="block mb-2 font-semibold">Social Media Links</label>
-
-    <!-- platform select + input + add -->
     <div class="social-options flex flex-col md:flex-row items-center gap-3 mb-3">
       <select [(ngModel)]="socialPlatform"
         class="w-full md:w-1/3 p-3 rounded  social-options  focus:outline-none focus:ring-2 focus:ring-main">
@@ -79,21 +71,20 @@
 
     <!-- List of added links -->
     <ul class="space-y-2 mt-3">
-      <li *ngFor="let item of socialLinks; let i = index"
+      @for(item of socialLinks; track $index){
+        <li 
         class="flex justify-between items-center  p-3 rounded-lg  ">
         <div class="truncate">
           <strong class="text-main mr-2">{{ item.platform }}:</strong>
           <a [href]="item.url" target="_blank" class="hover:text-main underline truncate block">{{ item.url }}</a>
         </div>
-        <button type="button" (click)="removeSocialLink(i)" class="ml-4 text-gray-300 hover:text-red-400 focus:outline-none">
+        <button type="button" (click)="removeSocialLink($index)" class="ml-4 text-gray-300 hover:text-red-400 focus:outline-none">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </li>
+      }
     </ul>
-
-    <!-- bottom spacing (could add save button / form actions here) -->
     <div class="mt-6 flex justify-end">
-      <!-- Example Save button (wire up to backend or firebase) -->
       <button
         class="px-5 py-3  text-black font-semibold rounded-lg "
         (click)="$event.preventDefault()">

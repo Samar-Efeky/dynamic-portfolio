@@ -37,10 +37,6 @@ ul {
 .active-link{
   color: var(--primaryColor);
 }
-
-/* ---------------------- */
-/*       MOBILE STYLE      */
-/* ---------------------- */
 @media screen and (max-width: 1024px) {
   ul {
     width: 35%;

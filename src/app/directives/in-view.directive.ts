@@ -11,9 +11,9 @@ let sharedObserver: IntersectionObserver | null = null;
 export class InViewDirective implements OnInit {
 
   constructor(
-    private el: ElementRef,                 // Access to the DOM element this directive is applied to
-    private renderer: Renderer2,            // Safe way to manipulate the DOM
-    @Inject(PLATFORM_ID) private platformId: Object // Detects if the code is running in browser or server (for SSR)
+    private el: ElementRef,               
+    private renderer: Renderer2,           
+    @Inject(PLATFORM_ID) private platformId: Object 
   ) {}
 
   ngOnInit(): void {

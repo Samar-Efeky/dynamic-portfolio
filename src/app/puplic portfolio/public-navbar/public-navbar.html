@@ -1,14 +1,9 @@
-<!-- navbar.component.html -->
 <nav class="w-full fixed top-0 left-0 z-50" [class.nav-scrolled]="scrolled">
   <div class="mx-auto flex items-center justify-between px-4 py-3">
-
-    <!-- Logo -->
     <div class="logo-item" routerLink="/portfolio" (click)="scrollToTop()">
       <i class="fa-brands fa-cloudscale"></i>
       <h1>Samar</h1>
     </div>
-
-    <!-- Navbar Links -->
     <ul 
       class="xl:space-x-20 lg:space-x-10 uppercase text-white transition-all duration-300"
       [class.sidebar-open]="sidebarOpen"
@@ -47,18 +42,13 @@
         <i class="fa-brands fa-youtube px-5"></i>
       </li>
     </ul>
-
-    <!-- Icons -->
     <div class="flex">
       <button routerLink="contact" class="sm:px-4 px-2 sm:py-2  mx-3" >Let's Talk</button>
       <div class="icon-sidebar sm:p-3 p-1 lg:hidden" (click)="toggleSidebar()">
-        <!-- Open Icon -->
         <i 
           class="fa-solid fa-bars cursor-pointer"
           [class.hidden]="sidebarOpen"
         ></i>
-
-        <!-- Close Icon -->
         <i 
           class="fa-solid fa-xmark cursor-pointer"
           [class.hidden]="!sidebarOpen"

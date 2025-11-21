@@ -60,16 +60,10 @@ export class PublicNavbar implements OnInit, OnDestroy {
 
   isLinkActive(path: string, fragment?: string): boolean {
   const tree = this.router.parseUrl(this.router.url);
-
-  // المسار الحالي زي ما هو مكتوب فعليًا /portfolio أو /portfolio/about
   const currentPath = '/' + tree.root.children['primary']?.segments.map(s => s.path).join('/');
-
-  // لو اللينك فيه fragment زي Testimonial
   if (fragment) {
     return currentPath === path && tree.fragment === fragment;
   }
-
-  // لو اللينك بدون fragment زي Home
   return currentPath === path && !tree.fragment;
 }
 

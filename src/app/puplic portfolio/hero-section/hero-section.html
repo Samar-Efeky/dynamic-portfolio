@@ -3,26 +3,19 @@
     class="header-section min-h-screen flex flex-col lg:flex-row items-center justify-between bg-cover bg-center bg-no-repeat relative
      px-4 py-10 lg:py-0 pt-[150px] lg:pt-[80px]"
     style="background-image: url('img/background-header.jpg');">
-
-    <!-- Left Info -->
     <div class="left-info hidden lg:flex flex-col items-center justify-between h-[70%] px-3 text-lg gap-6">
       <img src="img/image1.png" class="cursor-pointer w-5" alt="">
       <span class="writing-vertical-rl">( +20 ) 1207-752-327</span>
       <span (click)="onClick('information')" class="writing-vertical-rl">SCROLL DOWN</span>
       <img (click)="onClick('information')" src="img/image2.png" class="cursor-pointer w-10" alt="">
     </div>
-
-    <!-- Center & Image -->
     <div class="flex flex-col lg:flex-row items-center lg:items-start gap-10 w-full">
 
-      <!-- Header Image (appears first on small screens) -->
       <div class="header-image text-center w-full order-1 lg:order-2">
         <img src="img/header-img.jpg" 
           class="w-full max-w-[260px] sm:max-w-[340px] md:max-w-[450px] lg:w-[80%] xl:w-[70%] mx-auto "
           alt="Header Image">
       </div>
-
-      <!-- Center Content -->
       <div class="center-content xl:ps-10 lg:text-left text-center flex-grow w-full lg:w-2/3 order-2 lg:order-1 ">
         <div class="availability mb-4">
           <p class="lg:text-[1.4rem] text-[1.2rem] pb-4 inline-block border-b border-gray-300">
@@ -46,8 +39,6 @@
       </div>
 
     </div>
-
-    <!-- Right Info -->
     <div class="right-info hidden lg:flex flex-col items-center justify-between h-[70%] px-3 text-lg gap-6">
       <span class="writing-vertical-rl">FOLLOW ME</span>
       <img src="img/image2.png" class="cursor-pointer w-10 " alt="">

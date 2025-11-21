@@ -9,7 +9,8 @@ import { HomeBlogs } from "../home-blogs/home-blogs";
 import { HomeData } from "../home-data/home-data";
 @Component({
   selector: 'app-portfolio',
-  imports: [HeroSection, SliderTitles, RouterOutlet, RouterLink, RouterLinkActive, HomeProjects, HomeServices, Testimonial, HomeBlogs, HomeData],
+  imports: [HeroSection, SliderTitles, RouterOutlet, RouterLink, RouterLinkActive, HomeProjects, HomeServices, 
+    Testimonial, HomeBlogs, HomeData],
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.scss',
 })

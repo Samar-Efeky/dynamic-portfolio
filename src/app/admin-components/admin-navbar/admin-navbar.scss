@@ -19,8 +19,6 @@ nav {
   border-radius: 5px;
   cursor: pointer;
 }
-
-/* Desktop */
 ul {
     position: absolute;
     top: 100%;
@@ -53,9 +51,6 @@ ul {
 .icon-sidebar{
     display: none;
 }
-/* ---------------------- */
-/*        MOBILE          */
-/* ---------------------- */
 @media screen and (max-width: 1300px) {
   ul{
     width: 25%;
@@ -77,7 +72,6 @@ ul {
     }
 
 }
-/* Tablet */
 @media screen and (max-width: 870px) {
   ul {
     width: 50%;
@@ -86,8 +80,6 @@ ul {
     }
   }
 }
-
-/* Mobile */
 @media screen and (max-width: 550px) {
   ul {
     width: 80%;

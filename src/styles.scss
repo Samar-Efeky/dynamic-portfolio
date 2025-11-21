@@ -44,7 +44,6 @@ a{
   color: var(--primaryColor);
 }
 }
-/* ========= Animation when element appears (center expand) ========= */
 [appInView] {
   opacity: 0;
   transform: scaleX(0);
@@ -108,7 +107,6 @@ a{
     transform: scale(1);
   }
 }
-// button style
 button{
   background-color: var(--primaryColor);
   color: var(--blackColor);
