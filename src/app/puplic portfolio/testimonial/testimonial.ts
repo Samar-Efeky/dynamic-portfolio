@@ -65,14 +65,12 @@ export class Testimonial implements OnDestroy{
       1024: { items: 3 }
     }
   };
-
-  // ثابت 3 dots
   getDots(): string[] {
     return Array(3).fill('');
   }
    ngOnDestroy() {
     if (this.owlCar && this.owlCar.autoplayInterval) {
-      clearInterval(this.owlCar.autoplayInterval); // تنظيف الـ timer
+      clearInterval(this.owlCar.autoplayInterval); 
     }
   }
 }

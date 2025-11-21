@@ -13,18 +13,27 @@
       class="xl:space-x-20 lg:space-x-10 uppercase text-white transition-all duration-300"
       [class.sidebar-open]="sidebarOpen"
     >
-      <li routerLink="/" routerLinkActive="active-link"
-      [routerLinkActiveOptions]="{exact: true}" (click)="toggleSidebar();scrollToTop()">Home</li>
+     <li 
+  [routerLink]="['/']"
+  [class.active-link]="isLinkActive('/')"
+  (click)="toggleSidebar(); scrollToTop()"
+>
+  Home
+</li>
       <li routerLink="/about" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">About</li>
       <li routerLink="/projects" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Projects</li>
       <li routerLink="/services" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Services</li>
-      <li>
-  <a [routerLink]="['/']" fragment="testimonial"
-     [class.active-link]="isLinkActive('/', 'testimonial')"
-     (click)="toggleSidebar(); scrollToTop()">
+  <li>
+  <a 
+    [routerLink]="['/']"
+    fragment="testimonial"
+    [class.active-link]="isLinkActive('/', 'testimonial')"
+    (click)="toggleSidebar()"
+  >
     Testimonial
   </a>
 </li>
+
       <li routerLink="/blogs" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Blogs</li>
       <li routerLink="/contact" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Contact</li>
 
