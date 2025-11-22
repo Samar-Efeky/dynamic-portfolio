@@ -2,18 +2,17 @@ import {
   AngularNodeAppEngine,
   createNodeRequestHandler,
   isMainModule,
-  writeResponseToNodeResponse,
+  writeResponseToNodeResponse
 } from '@angular/ssr/node';
 
 import express from 'express';
 import { join } from 'node:path';
-
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
-// Serve static files from browser folder
+// ⚡ Serve static files
 app.use(
   express.static(browserDistFolder, {
     maxAge: '1y',
@@ -22,7 +21,7 @@ app.use(
   })
 );
 
-// Handle all Angular SSR requests
+// ⚡ Angular SSR handling
 app.use((req, res, next) => {
   angularApp
     .handle(req)
@@ -32,16 +31,13 @@ app.use((req, res, next) => {
     .catch(next);
 });
 
-// Run the server if this is the main module (dev/production)
+// ⚡ Start server
 if (isMainModule(import.meta.url) || process.env['pm_id']) {
   const port = process.env['PORT'] || 4000;
-
   app.listen(port, (error) => {
     if (error) throw error;
-
     console.log(`Node Express server listening on http://localhost:${port}`);
   });
 }
 
-// Export request handler (for Angular CLI / Cloud Functions)
 export const reqHandler = createNodeRequestHandler(app);
