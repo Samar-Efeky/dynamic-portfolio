@@ -1,1 +1,108 @@
-<p>admin-projects works!</p>
+<div class="min-h-screen w-full bg-black text-white lg:px-6 md:px-4 px-2 py-6 flex justify-center items-start">
+  <div class="w-full py-10 lg:px-6 md:px-4 px-2 rounded-[7px] shadow-xl" style="background-color: var(--sectionColor);">
+
+    <h3 class="text-xl font-bold mb-4 span-color">Projects</h3>
+
+    <!-- TITLE -->
+    <label class="block mb-2 font-semibold">Project Title</label>
+    <input type="text" [(ngModel)]="projectTitle" class="w-full p-3 form-control mb-6" placeholder="My Portfolio Project" />
+
+    <!-- DESCRIPTION -->
+    <label class="block mb-2 font-semibold">Description</label>
+    <textarea [(ngModel)]="projectDescription" rows="4"
+      class="w-full p-3 form-control mb-6"
+      placeholder="Describe the project..."></textarea>
+
+    <!-- LIVE LINK -->
+    <label class="block mb-2 font-semibold">Live Link</label>
+    <input type="text" [(ngModel)]="liveLink" class="w-full p-3 form-control mb-6" placeholder="https://..." />
+
+    <!-- SKILLS -->
+    <h3 class="text-lg font-bold mb-2 span-color">Skills</h3>
+
+    <div class="flex items-center gap-3 mb-3">
+      <input type="text" [(ngModel)]="skillInput" 
+        (keydown.enter)="$event.preventDefault(); addSkill()" 
+        class="flex-1 p-3 form-control"
+        placeholder="Angular, TypeScript..." />
+      <button type="button" (click)="addSkill()" class="px-4 py-2 no-after-button">Add</button>
+    </div>
+
+    <div class="flex flex-wrap gap-2 mb-8">
+        @for(s of skills; track $index){
+        <span 
+        class="px-3 py-2 rounded flex items-center gap-2 text-sm"
+        style="background-color: var(--inputColor);">
+        {{ s }}
+        <button (click)="removeSkill($index)" class="no-after-button px-1">
+          <i class="fa-solid fa-xmark text-[12px]"></i>
+        </button>
+      </span>
+        }
+    </div>
+
+    <!-- GALLERY -->
+    <h3 class="text-lg font-bold mb-2 span-color">Gallery (Max 3)</h3>
+
+    <input type="file" (change)="uploadImage($event)" class="w-full p-3 form-control mb-6" />
+
+    <div class="flex gap-4 flex-wrap mb-8">
+       @for(img of gallery; track $index){
+        <div
+        class="relative w-32 h-32">
+        <img [src]="img" class="w-full h-full object-cover rounded" />
+        <button (click)="removeImage($index)"
+          class="absolute top-1 right-1 no-after-button px-1 rounded bg-black/60">
+          <i class="fa-solid fa-xmark text-[14px]"></i>
+        </button>
+      </div>
+       } 
+    </div>
+
+    <!-- ADD PROJECT -->
+    <button type="button" (click)="addProject()" class="px-4 py-2 no-after-button mb-8">
+      Add Project
+    </button>
+
+    <!-- ADDED PROJECT LIST -->
+    <div class="space-y-4">
+      <div *ngFor="let p of projects; let i = index"
+        class="p-4 rounded-lg"
+        style="background-color: var(--inputColor);">
+
+        <div class="flex justify-between items-start">
+          <div class="w-full">
+            <h3 class="font-bold text-main text-lg">{{ p.title }}</h3>
+            <p class="text-sm my-1">{{ p.description }}</p>
+
+            <p class="text-sm mb-2">
+              <strong>Live:</strong> <a class="text-blue-400" [href]="p.live" target="_blank">{{ p.live }}</a>
+            </p>
+
+            <!-- Project Skills -->
+            <div class="flex flex-wrap gap-2 my-2">
+              <span *ngFor="let s of p.skills"
+                class="px-3 py-1 rounded text-xs"
+                style="background-color: var(--sectionColor);">
+                {{ s }}
+              </span>
+            </div>
+
+            <!-- Gallery -->
+            <div class="flex gap-2 flex-wrap mt-2">
+              <img *ngFor="let img of p.gallery"
+                [src]="img" class="w-20 h-20 object-cover rounded" />
+            </div>
+          </div>
+
+          <button (click)="removeProject(i)" class="no-after-button px-1">
+            <i class="fa-solid fa-xmark text-[16px]"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+

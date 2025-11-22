@@ -127,6 +127,11 @@ button{
   height: 100%;
 }
 }
+.no-after-button{
+  &:hover::after{
+    height:0px;
+  }
+}
 .circle-button {
   width: 170px;
   height: 170px;
@@ -168,8 +173,41 @@ p{
 .leading-relaxed{
   opacity: 0.7;
 }
-.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+.span-color{
+  color: var(--primaryColor);
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 ,label{
     text-transform: capitalize;
+}
+.form-control {
+    transition: var(--transition);
+    box-shadow: unset !important;
+    background-color: var(--inputColor);
+    color: var(--whiteColor);
+    border: none !important;
+    padding-left: 15px;
+    font-size: 14.5px;
+    border-radius: 5px;
+    height: 50px;
+  outline: none;
+    &::placeholder {
+        color: #a7a6a6;
+        transition: var(--transition);
+    }
+    &:focus {
+        color: var(--whiteColor);
+        background-color: #0c252b;
+      outline: none;
+        &::placeholder {
+            color: transparent;
+        }
+    }
+}
+textarea {
+    &.form-control {
+        height: auto !important;
+        padding-top: 15px;
+    }
 }
 .title-section{
   h2{

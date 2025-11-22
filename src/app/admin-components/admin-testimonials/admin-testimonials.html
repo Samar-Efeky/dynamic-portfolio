@@ -1,1 +1,83 @@
-<p>admin-testimonials works!</p>
+<div class="min-h-screen w-full bg-black text-white lg:px-6 md:px-4 px-2 py-6 flex justify-center items-start">
+  <div class="w-full py-10 lg:px-6 md:px-4 px-2 rounded-[7px] shadow-xl"
+       style="background-color: var(--sectionColor);">
+
+    <h3 class="text-xl font-bold mb-4 span-color">Add Testimonial</h3>
+
+    <!-- CLIENT NAME -->
+    <label class="block mb-2 font-semibold">Client Name</label>
+    <input type="text" [(ngModel)]="clientName"
+           class="w-full p-3 form-control mb-6"
+           placeholder="Client Name" />
+
+    <!-- TITLE -->
+    <label class="block mb-2 font-semibold">Client Title</label>
+    <input type="text" [(ngModel)]="clientTitle"
+           class="w-full p-3 form-control mb-6"
+           placeholder="Job title or role" />
+
+    <!-- DESCRIPTION -->
+    <label class="block mb-2 font-semibold">Description</label>
+    <textarea [(ngModel)]="clientDescription" rows="4"
+      class="w-full p-3 form-control mb-6"
+      placeholder="What the client said..."></textarea>
+
+    <!-- IMAGE -->
+    <h3 class="text-lg font-bold mb-2 span-color">Client Image</h3>
+
+    <input type="file"
+           (change)="uploadImage($event)"
+           class="w-full p-3 form-control mb-6" />
+    @if(clientImage){
+    <div class="flex gap-4 flex-wrap mb-8" >
+      <div class="relative w-32 h-32">
+        <img [src]="clientImage" class="w-full h-full object-cover rounded" />
+        <button (click)="removeImage()"
+          class="absolute top-1 right-1 no-after-button px-1 rounded bg-black/60">
+          <i class="fa-solid fa-xmark text-[14px]"></i>
+        </button>
+      </div>
+    </div>
+    }
+
+    <!-- ADD BUTTON -->
+    <button type="button"
+            (click)="addTestimonial()"
+            class="px-4 py-2 no-after-button mb-8">
+      Add Testimonial
+    </button>
+
+    <!-- ADDED TESTIMONIAL LIST -->
+    <div class="space-y-4">
+        @for(t of testimonials; track $index){
+        <div 
+        class="p-4 rounded-lg"
+        style="background-color: var(--inputColor);">
+
+        <div class="flex justify-between items-start">
+
+          <div class="w-full">
+            <div class="flex items-center gap-3 mb-3">
+              <img [src]="t.image"
+                   class="w-14 h-14 rounded-full object-cover border border-gray-600" />
+              <div>
+                <h3 class="font-bold text-main text-lg">{{ t.name }}</h3>
+                <p class="text-sm text-gray-300">{{ t.title }}</p>
+              </div>
+            </div>
+
+            <p class="text-sm my-1">{{ t.description }}</p>
+          </div>
+
+          <button (click)="removeTestimonial($index)" class="no-after-button px-1">
+            <i class="fa-solid fa-xmark text-[16px]"></i>
+          </button>
+
+        </div>
+      </div>
+        }
+    </div>
+
+  </div>
+</div>
+

@@ -10,6 +10,9 @@ import { FormsModule } from '@angular/forms';
 export class AdminInfo {
   fullName = '';
   username = '';
+  email='';
+  phone='';
+  location='';
   mainJobTitle = '';
   relatedJobTitle = '';         
   relatedJobTitles: string[] = []; 
@@ -60,6 +63,9 @@ export class AdminInfo {
     return {
       fullName: this.fullName,
       username: this.username,
+      Email:this.email,
+      Phone:this.phone,
+      Location:this.location,
       mainJobTitle: this.mainJobTitle,
       relatedJobTitles: this.relatedJobTitles,
       profileImageDataUrl: this.profileImage,

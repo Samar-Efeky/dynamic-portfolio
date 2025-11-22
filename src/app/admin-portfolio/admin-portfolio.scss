@@ -1,20 +1,7 @@
-.header-image{
-    width: 100%;
-    height: 300px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    border-radius: 7px;
-    .overley{
-        h2{
-            font-weight: 700;
-        }
-    }
-    .image-profile{
-        transform: translateY(50%);
-        img{
-            border: 4px solid var(--whiteColor);
-        }
+.image-profile{
+    transform: translateY(50%);
+    img{
+        border: 4px solid var(--whiteColor);
     }
 }
 .add-info{

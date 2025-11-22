@@ -1,23 +1,37 @@
-<div class="min-h-screen w-full bg-black text-white p-6 flex justify-center items-start">
-  <div class="w-full   p-6 rounded-2xl shadow-xl" style="background-color: var(--sectionColor);">
-    <h2 class="text-2xl font-bold mb-6 text-center">Personal Information</h2>
+<div class="min-h-screen w-full bg-black text-white lg:px-6 md:px-4 px-2 py-6 flex justify-center items-start">
+  <div class="w-full py-10  lg:px-6 md:px-4 px-2 rounded-[7px] shadow-xl" style="background-color: var(--sectionColor);">
+    <h2 class="lg:text-[2rem] md:text-[1.6rem] text-[1.4rem] font-bold mb-10 span-color">Personal Information</h2>
 
     <!-- Full Name -->
     <label class="block mb-2 font-semibold">Full Name</label>
     <input type="text" [(ngModel)]="fullName"
-      class="w-full p-3 rounded    mb-4"
-      placeholder="name" />
+      class="w-full p-3  form-control  mb-10"
+      placeholder="Full Name" />
 
     <!-- Username -->
     <label class="block mb-2 font-semibold">Username</label>
     <input type="text" [(ngModel)]="username"
-      class="w-full p-3 rounded    mb-4"
-      placeholder="username" />
-
+      class="w-full p-3  form-control  mb-10"
+      placeholder="UserName"/>
+     <!-- Email -->
+    <label class="block mb-2 font-semibold">email</label>
+    <input type="text" [(ngModel)]="email"
+      class="w-full p-3  form-control  mb-10"
+      placeholder="Email"/>  
+     <!-- phone -->
+    <label class="block mb-2 font-semibold">phone</label>
+    <input type="text" [(ngModel)]="phone"
+      class="w-full p-3  form-control  mb-10"
+      placeholder="Phone"/> 
+     <!-- location -->
+    <label class="block mb-2 font-semibold">location</label>
+    <input type="text" [(ngModel)]="location"
+      class="w-full p-3  form-control  mb-10"
+      placeholder="Location"/>       
     <!-- Main Job Title -->
     <label class="block mb-2 font-semibold">Main Job Title</label>
     <input type="text" [(ngModel)]="mainJobTitle"
-      class="w-full p-3 rounded    mb-4"
+      class="w-full p-3  form-control  mb-10"
       placeholder="Web Developer" />
 
     <!-- Related Job Titles (tags) -->
@@ -26,31 +40,33 @@
     <div class="flex items-center gap-3 mb-3">
       <input type="text" [(ngModel)]="relatedJobTitle"
         (keydown.enter)="$event.preventDefault(); addRelatedJobTitle()"
-        class="flex-1 p-3 rounded    focus:outline-none focus:ring-2 focus:ring-main"
+        class="flex-1 p-3 form-control   focus:outline-none focus:ring-2 focus:ring-main"
         placeholder="e.g. Web Developer, UI Designer" />
       <button type="button" (click)="addRelatedJobTitle()"
-        class="px-4 py-2  ">Add</button>
+        class="px-4 py-2 no-after-button ">Add</button>
     </div>
     <div class="flex flex-wrap gap-2 mb-4">
-      <span *ngFor="let title of relatedJobTitles; let i = index"
-        class="px-3 py-1 bg-gray-700 rounded-full flex items-center gap-2 text-sm">
+      @for( title of relatedJobTitles; track $index){
+        <span 
+        class="px-3 py-2 rounded-[3px]  flex items-center gap-2 text-sm" style="background-color: var(--inputColor);">
         <span class="whitespace-nowrap">{{ title }}</span>
-        <button type="button" (click)="removeRelatedJobTitle(i)"
-          class="ml-1 text-gray-300 hover:text-red-400 focus:outline-none" aria-label="remove tag">
-          <i class="fa-solid fa-xmark"></i>
+        <button type="button" (click)="removeRelatedJobTitle($index)"
+          class="ml-1 no-after-button rounded-[3px] px-1" aria-label="remove tag">
+          <i class="fa-solid fa-xmark text-[12px]"></i>
         </button>
       </span>
+      }
     </div>
     <label class="block mb-2 font-semibold">Profile Image</label>
     <input type="file" (change)="uploadImage($event)"
-      class="w-full p-3 rounded    mb-4" />
+      class="w-full p-3 form-control mb-10" />
       @if(profileImage){
-         <div class="mb-4 flex justify-center">
-            <img [src]="profileImage" class="w-32 h-32 rounded-full object-cover -2 -main" alt="profile preview" />
+         <div class="mb-10 flex justify-center">
+            <img [src]="profileImage" class="w-32 h-32 " alt="profile preview" />
         </div>
       }
     <label class="block mb-2 font-semibold">Social Media Links</label>
-    <div class="social-options flex flex-col md:flex-row items-center gap-3 mb-3">
+    <div class="social-options form-control flex flex-col md:flex-row items-center gap-3 mb-3">
       <select [(ngModel)]="socialPlatform"
         class="w-full md:w-1/3 p-3 rounded  social-options  focus:outline-none focus:ring-2 focus:ring-main">
         <option value="LinkedIn">LinkedIn</option>
@@ -62,33 +78,33 @@
       </select>
 
       <input type="text" [(ngModel)]="socialLink"
-        class="flex-1 p-3 rounded    focus:outline-none focus:ring-2 focus:ring-main"
+        class="flex-1 p-3 form-control   focus:outline-none focus:ring-2 focus:ring-main"
         placeholder="https://linkedin.com/in/username" />
 
       <button type="button" (click)="addSocialLink()"
-        class="px-4 py-2 rounded  text-black font-semibold ">Add</button>
+        class="px-4 py-2 rounded no-after-button text-black ">Add</button>
     </div>
 
     <!-- List of added links -->
     <ul class="space-y-2 mt-3">
       @for(item of socialLinks; track $index){
         <li 
-        class="flex justify-between items-center  p-3 rounded-lg  ">
+        class="flex justify-between items-center  p-3 rounded-lg  " style="background-color: var(--inputColor);">
         <div class="truncate">
           <strong class="text-main mr-2">{{ item.platform }}:</strong>
-          <a [href]="item.url" target="_blank" class="hover:text-main underline truncate block">{{ item.url }}</a>
+          <a [href]="item.url" target="_blank" class=" underline  block">{{ item.url }}</a>
         </div>
-        <button type="button" (click)="removeSocialLink($index)" class="ml-4 text-gray-300 hover:text-red-400 focus:outline-none">
-          <i class="fa-solid fa-xmark text-lg"></i>
+        <button type="button" (click)="removeSocialLink($index)" class="ml-4 px-1 rounded-[3px] no-after-button">
+          <i class="fa-solid fa-xmark text-lg text-[12px]"></i>
         </button>
       </li>
       }
     </ul>
     <div class="mt-6 flex justify-end">
       <button
-        class="px-5 py-3  text-black font-semibold rounded-lg "
+        class="px-5 py-3  text-black font-semibold mt-5 " 
         (click)="$event.preventDefault()">
-        Save 
+        Save Data
       </button>
     </div>
   </div>

@@ -11,8 +11,6 @@ const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
-
-// ⚡ Serve static files
 app.use(
   express.static(browserDistFolder, {
     maxAge: '1y',
@@ -20,8 +18,6 @@ app.use(
     redirect: false,
   })
 );
-
-// ⚡ Angular SSR handling
 app.use((req, res, next) => {
   angularApp
     .handle(req)
@@ -30,8 +26,6 @@ app.use((req, res, next) => {
     )
     .catch(next);
 });
-
-// ⚡ Start server
 if (isMainModule(import.meta.url) || process.env['pm_id']) {
   const port = process.env['PORT'] || 4000;
   app.listen(port, (error) => {
