@@ -37,8 +37,7 @@ export const routes: Routes = [
     path: 'portfolio',
     component: PersonalPortfolio,
     children: [
-      { 
-        path: '', component: Portfolio,
+      { path: '', component: Portfolio,
         children: [
           { path: '', component: Skills },
           { path: 'experience', component: Experience },
@@ -54,5 +53,6 @@ export const routes: Routes = [
     ]
   },
   { path: '', redirectTo: 'admin', pathMatch: 'full' },
-  { path: '**', redirectTo: 'admin' } 
+  { path: '**', redirectTo: 'admin' }
 ];
+

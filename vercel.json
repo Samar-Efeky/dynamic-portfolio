@@ -1,9 +1,12 @@
 {
-  "version": 3,
-  "framework": "angular",
-  "buildCommand": "ng build && ng run PROJECT_NAME:server",
-  "outputDirectory": "dist/dynamic-portfolio/browser",
+  "version": 2,
+  "builds": [
+    {
+      "src": "serve.ts",
+      "use": "@vercel/node"
+    }
+  ],
   "routes": [
-    { "src": "/.*", "dest": "/" }
+    { "src": "/(.*)", "dest": "/serve.ts" }
   ]
 }

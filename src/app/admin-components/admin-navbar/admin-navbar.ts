@@ -12,6 +12,7 @@ export class AdminNavbar {
     this.sidebarOpen = !this.sidebarOpen;
   }
  openPortfolioInNewTab() {
-  window.open(`${window.location.origin}/portfolio`, '_blank');
+  window.open('/portfolio', '_blank');
+
 }
 }
