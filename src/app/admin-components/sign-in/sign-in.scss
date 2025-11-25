@@ -1,0 +1,47 @@
+.cms-header {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  .overley {
+    background-color: rgba(0,0,0,0.3);
+  }
+}
+.animated-text {
+  display: inline-block;
+
+  span {
+    display: inline-block;
+    opacity: 0;
+    animation: fadeInOut 5s infinite;
+  }
+
+  @for $i from 1 through 50 {
+    span:nth-child(#{$i}) {
+      animation-delay: $i * 0.2s;
+    }
+  }
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+input {
+  background-color: var(--black-color);
+  color: var(--white-color);
+}
+
+.fa-eye, .fa-eye-slash {
+  right: 15px;
+}
+
+@media screen and (max-width:1500px){
+  .sign{ width: 70%; }
+}
+
+@media screen and (max-width:992px){
+  .sign{ width: 100%; }
+}

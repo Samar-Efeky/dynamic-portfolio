@@ -1,0 +1,8 @@
+footer {
+  background-color: var(--cardColor);
+  color: var(--textColor, #fff);
+
+  a {
+    transition: color 0.3s;
+  }
+}

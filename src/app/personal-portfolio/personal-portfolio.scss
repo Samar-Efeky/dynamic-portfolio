@@ -1,7 +1,7 @@
 .scroll-top {
     background-color: var(--primaryColor);
     color: var(--blackColor);
-    opacity: 0.6;
+    opacity: 0.8;
     z-index:99999999999;
     transition: all var(--transition) ease;
     &:hover::after{

@@ -18,11 +18,14 @@ import { AdminProjects } from './admin-components/admin-projects/admin-projects'
 import { AdminServices } from './admin-components/admin-services/admin-services';
 import { AdminBlogs } from './admin-components/admin-blogs/admin-blogs';
 import { AdminTestimonials } from './admin-components/admin-testimonials/admin-testimonials';
-
+import { SignIn } from './admin-components/sign-in/sign-in';
+import { SignUp } from './admin-components/sign-up/sign-up';
+import { AuthGuard } from './guards/auth.guard';
 export const routes: Routes = [
   {
     path: 'admin',
     component: AdminPortfolio,
+     canActivate: [AuthGuard],
     children: [
       { path: '', component: AdminInfo },
       { path: 'about', component: AdminAbout },
@@ -32,6 +35,12 @@ export const routes: Routes = [
       { path: 'blogs', component: AdminBlogs },
       { path: 'testimonials', component: AdminTestimonials }
     ]
+  },
+  {
+    path:'sign-in',canActivate: [AuthGuard], component:SignIn 
+  },
+  {
+    path:'sign-up',  canActivate: [AuthGuard], component:SignUp
   },
   {
     path: 'portfolio',
@@ -52,7 +61,7 @@ export const routes: Routes = [
       { path: 'contact', component: ContactPortfolio }
     ]
   },
-  { path: '', redirectTo: 'admin', pathMatch: 'full' },
-  { path: '**', redirectTo: 'admin' }
+  { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
+  { path: '**', redirectTo: 'sign-in' }
 ];
 

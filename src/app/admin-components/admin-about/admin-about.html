@@ -2,67 +2,65 @@
   <div class="w-full py-10 lg:px-6 md:px-4 px-2 rounded-[7px] shadow-xl"
        style="background-color: var(--sectionColor);">
 
-    <h2 class="lg:text-[2rem] md:text-[1.6rem] text-[1.4rem] font-bold mb-10 span-color">
+    <h2 class="lg:text-[1.7rem] md:text-[1.5rem] text-[1.3rem] font-bold mb-10 span-color">
       About Information
     </h2>
 
-    <!-- Inspiring Words -->
-    <label class="block mb-2 font-semibold">Inspiring Words</label>
+    <form [formGroup]="form">
 
-    <div class="flex items-center gap-3 mb-3">
-      <input type="text"
-             [(ngModel)]="inspiringWord"
-             (keydown.enter)="$event.preventDefault(); addInspiringWord()"
-             class="flex-1 p-3 form-control focus:outline-none focus:ring-2 focus:ring-main"
-             placeholder="Creative, Problem Solver, etc..." />
-      <button class="px-4 py-2 no-after-button"
-              (click)="addInspiringWord()">Add</button>
-    </div>
+      <!-- Inspiring Words -->
+      <label class="block mb-2 font-semibold">Inspiring Words (Min two words)</label>
 
-    <div class="flex flex-wrap gap-2 mb-6">
-        @for(w of inspiringWords; track $index){
-        <span 
-        class="px-3 py-2 rounded-[3px] flex items-center gap-2 text-sm"
-        style="background-color: var(--inputColor);">
-        <span class="whitespace-nowrap">{{ w }}</span>
-        <button (click)="removeInspiringWord($index)"
-                class="ml-1 no-after-button rounded-[3px] px-1">
-          <i class="fa-solid fa-xmark text-[12px]"></i>
+      <div class="flex items-center gap-3 mb-3">
+        <input type="text"
+               [formControl]="inspiringWordControl"
+               (keydown.enter)="$event.preventDefault(); addInspiringWord()"
+               class="flex-1 p-3 form-control "
+               placeholder="Creative, Problem Solver, etc..." />
+        <button type="button"
+                class="px-4 py-2 no-after-button"
+                [disabled]="inspiringWords.length >= 4"
+                (click)="addInspiringWord()">Add</button>
+      </div>
+
+      <div class="flex flex-wrap gap-2 mb-6">
+        <span *ngFor="let w of inspiringWords; index as i"
+              class="px-3 py-2 rounded-[3px] flex items-center gap-2 text-sm"
+              style="background-color: var(--inputColor);">
+          <span class="whitespace-nowrap">{{ w }}</span>
+          <button type="button" (click)="removeInspiringWord(i)"
+                  class="ml-1 no-after-button rounded-[3px] px-1">
+            <i class="fa-solid fa-xmark text-[12px]"></i>
+          </button>
+        </span>
+      </div>
+
+      <!-- Textareas -->
+      <ng-container *ngFor="let field of ['mainDescription','howIGotHere','additional1','additional2']; let i = index">
+        <label class="block mb-2 font-semibold">
+          {{ field === 'mainDescription' ? 'Main Description' : field === 'howIGotHere' ? 'How I Got Here' : 'Additional Description - Paragraph ' + (i-2 + 1) }}
+        </label>
+        <textarea [formControlName]="field" 
+                  rows="2"
+                  (input)="autoResize($event)"
+                  class="w-full p-3 form-control mb-2"
+                  placeholder="Write here..."></textarea>
+        <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-3"
+         *ngIf="form.get(field)?.errors && form.get(field)?.touched">
+          Must be 30-50 words (current: {{ wordCount(field) }})
+        </div>
+      </ng-container>
+
+      <!-- Save Button -->
+      <div class="mt-6 flex justify-end">
+        <button type="button"
+                class="px-5 py-3 text-black font-semibold mt-5"
+                [disabled]="!canSave()"
+                (click)="save()">
+          Save About Info
         </button>
-      </span>
-        }
-    </div>
+      </div>
 
-    <!-- Main Description -->
-    <label class="block mb-2 font-semibold">Main Description</label>
-    <textarea [(ngModel)]="mainDescription"
-              class="w-full p-3 form-control mb-10 h-40"
-              placeholder="Write a short description about yourself..."></textarea>
-
-    <!-- How I Got Here -->
-    <label class="block mb-2 font-semibold">How I Got Here</label>
-    <textarea [(ngModel)]="howIGotHere"
-              class="w-full p-3 form-control mb-10 h-40"
-              placeholder="Explain briefly how you entered this field..."></textarea>
-
-    <!-- Additional Description -->
-    <label class="block mb-2 font-semibold">Additional Description - Paragraph 1</label>
-    <textarea [(ngModel)]="additional1"
-              class="w-full p-3 form-control mb-10 h-36"
-              placeholder="First paragraph..."></textarea>
-
-    <label class="block mb-2 font-semibold">Additional Description - Paragraph 2</label>
-    <textarea [(ngModel)]="additional2"
-              class="w-full p-3 form-control mb-10 h-36"
-              placeholder="Second paragraph..."></textarea>
-
-    <div class="mt-6 flex justify-end">
-      <button class="px-5 py-3 text-black font-semibold mt-5"
-              (click)="$event.preventDefault()">
-        Save About Info
-      </button>
-    </div>
-
+    </form>
   </div>
 </div>
-

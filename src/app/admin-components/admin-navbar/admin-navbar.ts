@@ -15,4 +15,7 @@ export class AdminNavbar {
   window.open('/portfolio', '_blank');
 
 }
+onScrollTop(){
+   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 }

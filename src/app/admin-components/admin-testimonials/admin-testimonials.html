@@ -2,82 +2,101 @@
   <div class="w-full py-10 lg:px-6 md:px-4 px-2 rounded-[7px] shadow-xl"
        style="background-color: var(--sectionColor);">
 
-    <h3 class="text-xl font-bold mb-4 span-color">Add Testimonial</h3>
+    <h3 class="text-xl font-bold mb-6 span-color">Add Testimonial</h3>
 
-    <!-- CLIENT NAME -->
-    <label class="block mb-2 font-semibold">Client Name</label>
-    <input type="text" [(ngModel)]="clientName"
-           class="w-full p-3 form-control mb-6"
-           placeholder="Client Name" />
+    <form [formGroup]="form">
 
-    <!-- TITLE -->
-    <label class="block mb-2 font-semibold">Client Title</label>
-    <input type="text" [(ngModel)]="clientTitle"
-           class="w-full p-3 form-control mb-6"
-           placeholder="Job title or role" />
+      <!-- Client Name -->
+      <label class="font-semibold mb-1 block">Client Name</label>
+      <input type="text" formControlName="clientName"
+       class="form-control p-3 w-full mb-4" placeholder="Client Name" />
 
-    <!-- DESCRIPTION -->
-    <label class="block mb-2 font-semibold">Description</label>
-    <textarea [(ngModel)]="clientDescription" rows="4"
-      class="w-full p-3 form-control mb-6"
-      placeholder="What the client said..."></textarea>
+      <div class="text-red-300 mb-3" 
+           *ngIf="form.get('clientName')?.invalid && form.get('clientName')?.touched">
+        Name is required
+      </div>
 
-    <!-- IMAGE -->
-    <h3 class="text-lg font-bold mb-2 span-color">Client Image</h3>
+      <!-- Client Title -->
+      <label class="font-semibold mb-1 block">Client Title</label>
+      <input type="text" formControlName="clientTitle"
+       class="form-control p-3 w-full mb-4" placeholder="Job title or role"/>
 
-    <input type="file"
-           (change)="uploadImage($event)"
-           class="w-full p-3 form-control mb-6" />
-    @if(clientImage){
-    <div class="flex gap-4 flex-wrap mb-8" >
-      <div class="relative w-32 h-32">
-        <img [src]="clientImage" class="w-full h-full object-cover rounded" />
-        <button (click)="removeImage()"
-          class="absolute top-1 right-1 no-after-button px-1 rounded bg-black/60">
-          <i class="fa-solid fa-xmark text-[14px]"></i>
+      <div class="text-red-300 mb-3"
+           *ngIf="form.get('clientTitle')?.invalid && form.get('clientTitle')?.touched">
+        Title is required
+      </div>
+
+      <!-- Description -->
+      <label class="font-semibold mb-1 block">Client Description</label>
+      <textarea formControlName="clientDescription"
+                rows="2"
+                (input)="autoResize($event)"
+                class="form-control p-3 w-full mb-2"
+                placeholder="Write client feedback..."></textarea>
+
+      <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-4"
+           *ngIf="form.get('clientDescription')?.errors && form.get('clientDescription')?.touched">
+        Must be 15–25 words (current: {{ wordCount() }})
+      </div>
+
+      <!-- Image Upload -->
+      <h3 class="text-lg font-bold mb-2 span-color">Client Image</h3>
+
+      <input type="file" (change)="uploadImage($event)" 
+             class="form-control p-3 mb-4 w-full" />
+
+      <div *ngIf="clientImage" class="mb-6">
+        <img [src]="clientImage" class="w-32 h-32 rounded object-cover mb-2" />
+        <button type="button" (click)="removeImage()" class="no-after-button px-3 py-1">
+          Remove
         </button>
       </div>
-    </div>
-    }
 
-    <!-- ADD BUTTON -->
-    <button type="button"
-            (click)="addTestimonial()"
-            class="px-4 py-2 no-after-button mb-8">
-      Add Testimonial
-    </button>
+      <!-- Add Button -->
+      <button type="button"
+              (click)="addTestimonial()"
+              [disabled]="form.invalid || !clientImage"
+              class="px-4 py-2 no-after-button mb-8 block">
+        Add Testimonial
+      </button>
 
-    <!-- ADDED TESTIMONIAL LIST -->
+    </form>
+
+    <!-- Display Added Testimonials -->
     <div class="space-y-4">
-        @for(t of testimonials; track $index){
-        <div 
-        class="p-4 rounded-lg"
-        style="background-color: var(--inputColor);">
+      @for(t of testimonials; track $index){
+      <div class="p-4 rounded-lg" style="background-color: var(--inputColor);">
 
         <div class="flex justify-between items-start">
-
-          <div class="w-full">
+          <div>
             <div class="flex items-center gap-3 mb-3">
-              <img [src]="t.image"
-                   class="w-14 h-14 rounded-full object-cover border border-gray-600" />
+              <img [src]="t.image" class="w-14 h-14 rounded-full border object-cover" />
               <div>
                 <h3 class="font-bold text-main text-lg">{{ t.name }}</h3>
                 <p class="text-sm text-gray-300">{{ t.title }}</p>
               </div>
             </div>
-
-            <p class="text-sm my-1">{{ t.description }}</p>
+            <p class="text-sm">{{ t.description }}</p>
           </div>
 
-          <button (click)="removeTestimonial($index)" class="no-after-button px-1">
-            <i class="fa-solid fa-xmark text-[16px]"></i>
+          <button class="no-after-button" (click)="removeTestimonial($index)">
+            <i class="fa-solid fa-xmark"></i>
           </button>
-
         </div>
+        
       </div>
-        }
+      }
+    </div>
+
+    <!-- Save Button -->
+    <div class="mt-6 flex justify-end">
+      <button type="button"
+              class="px-5 py-3 text-black font-semibold"
+              [disabled]="!canSave()"
+              (click)="save()">
+        Save Data
+      </button>
     </div>
 
   </div>
 </div>
-

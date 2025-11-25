@@ -1,46 +1,71 @@
 <div class="min-h-screen w-full bg-black text-white lg:px-6 md:px-4 px-2 py-6 flex justify-center items-start">
-  <div class="w-full py-10 lg:px-6 md:px-4 px-2 rounded-[7px] shadow-xl" style="background-color: var(--sectionColor);">
+  <div class="w-full py-10 lg:px-6 md:px-4 px-2 rounded-[7px] shadow-xl"
+       style="background-color: var(--sectionColor);">
 
-    <h3 class="text-xl font-bold mb-6 span-color">Services</h3>
+    <h3 class="text-xl font-bold mb-6 span-color">Add Services</h3>
 
-    <!-- TITLE -->
-    <label class="block mb-2 font-semibold">Service Title</label>
-    <input type="text" [(ngModel)]="serviceTitle"
-      class="w-full p-3 form-control mb-6"
-      placeholder="Front End Development" />
+    <form [formGroup]="form">
 
-    <!-- DESCRIPTION -->
-    <label class="block mb-2 font-semibold">Description</label>
-    <textarea [(ngModel)]="serviceDescription" rows="4"
-      class="w-full p-3 form-control mb-6"
-      placeholder="Describe the service..."></textarea>
+      <!-- TITLE -->
+      <label class="block mb-2 font-semibold">Service Title</label>
+      <input type="text"
+        formControlName="serviceTitle"
+        class="w-full p-3 form-control mb-3"
+        placeholder="Front End Development" />
 
-    <!-- FEATURES -->
-    <h3 class="text-lg font-semibold mb-2 span-color">Features (Max 2)</h3>
+      <div *ngIf="form.get('serviceTitle')?.invalid && form.get('serviceTitle')?.touched"
+           class="text-red-300 mb-3">
+        * Title is required
+      </div>
 
-    <div class="flex items-center gap-3 mb-3">
-      <input type="text" [(ngModel)]="featureInput"
-        (keydown.enter)="$event.preventDefault(); addFeature()"
-        class="flex-1 p-3 form-control"
-        placeholder="Responsive Design, SEO..." />
-      <button type="button" (click)="addFeature()" class="px-4 py-2 no-after-button">Add</button>
-    </div>
+      <!-- DESCRIPTION -->
+      <label class="block mb-2 font-semibold">Service Description (15–25 words)</label>
 
-    <div class="flex flex-wrap gap-2 mb-8">
-      <span *ngFor="let f of features; let i = index"
-        class="px-3 py-2 rounded flex items-center gap-2 text-sm"
-        style="background-color: var(--inputColor);">
-        {{ f }}
-        <button (click)="removeFeature(i)" class="no-after-button px-1">
-          <i class="fa-solid fa-xmark text-[12px]"></i>
-        </button>
-      </span>
-    </div>
+      <textarea formControlName="serviceDescription"
+        rows="2"
+        (input)="autoResize($event)"
+        class="w-full p-3 form-control mb-2"
+        placeholder="Describe the service clearly..."></textarea>
 
-    <!-- ADD SERVICE -->
-    <button type="button" (click)="addService()" class="px-4 py-2 no-after-button mb-10">
-      Add Service
-    </button>
+      <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-3"
+           *ngIf="form.get('serviceDescription')?.errors && form.get('serviceDescription')?.touched">
+        Must be 15–25 words (current: {{ wordCount() }})
+      </div>
+
+      <!-- FEATURES -->
+      <h3 class="text-lg font-semibold mb-2 span-color">Features (Exactly 2)</h3>
+
+      <div class="flex items-center gap-3 mb-3">
+        <input type="text"
+          [formControl]="featureControl"
+          (keydown.enter)="$event.preventDefault(); addFeature()"
+          class="flex-1 p-3 form-control"
+          placeholder="Responsive, SEO..." />
+
+        <button type="button"
+          class="px-4 py-2 no-after-button"
+          [disabled]="features.length >= 2"
+          (click)="addFeature()">Add</button>
+      </div>
+
+      <div class="flex flex-wrap gap-2 mb-6">
+        <span *ngFor="let f of features; index as i"
+              class="px-3 py-2 rounded flex items-center gap-2 text-sm"
+              style="background-color: var(--inputColor);">
+          {{ f }}
+          <button (click)="removeFeature(i)" class="no-after-button px-1">
+            <i class="fa-solid fa-xmark text-[12px]"></i>
+          </button>
+        </span>
+      </div>
+
+      <!-- ADD SERVICE -->
+      <button type="button"
+        class="px-4 py-2 no-after-button mb-10"
+        [disabled]="form.invalid || features.length !== 2"
+        (click)="addService()">Add Service</button>
+
+    </form>
 
     <!-- ADDED SERVICES LIST -->
     <div class="space-y-4">
@@ -66,6 +91,15 @@
       </div>
     </div>
 
+    <!-- SAVE BUTTON -->
+    <div class="mt-6 flex justify-end">
+      <button type="button"
+        class="px-5 py-3 text-black font-semibold mt-5"
+        [disabled]="!canSave()"
+        (click)="saveData()">
+        Save Data
+      </button>
+    </div>
+
   </div>
 </div>
-

@@ -1,84 +1,201 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormControl, AbstractControl, ValidationErrors } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { AdminProjectsService } from '../../services/admin-projects.service';
+import { AuthService } from '../../services/auth';
+import { UiService } from '../../services/ui.service';
+
 @Component({
   selector: 'app-admin-projects',
-  imports: [CommonModule, FormsModule],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './admin-projects.html',
   styleUrl: './admin-projects.scss'
 })
-export class AdminProjects {
-   projectTitle = '';
-  projectDescription = '';
-  liveLink = '';
+export class AdminProjects implements OnInit, AfterViewInit, OnDestroy {
 
-  skills: string[] = [];
-  skillInput = '';
+  form!: FormGroup;
+  skillsControl!: FormControl;
+  galleryControl!: FormControl;
 
-  gallery: string[] = [];
   projects: any[] = [];
+  userId: string | null = null;
 
-  // Add skill
-  addSkill() {
-    const v = this.skillInput.trim();
+  private destroy$ = new Subject<void>();
+
+  @ViewChildren('autoResizeTextArea') textareas!: QueryList<ElementRef<HTMLTextAreaElement>>;
+
+  constructor(
+    private fb: FormBuilder,
+    private projectsService: AdminProjectsService,
+    private auth: AuthService,
+    private uiService: UiService
+  ) {}
+
+  ngOnInit() {
+    this.skillsControl = new FormControl([], [Validators.required, this.minArrayLengthValidator(6)]);
+    this.galleryControl = new FormControl([], [this.maxArrayLengthValidator(3)]);
+
+    this.form = this.fb.group({
+      projectTitle: ['', Validators.required],
+      projectDescription: ['', [Validators.required, this.wordCountValidator(100, 500)]],
+      liveLink: [''],
+      skills: this.skillsControl,
+      gallery: this.galleryControl
+    });
+
+    // Load user data safely
+    this.auth.currentUser$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(async user => {
+        if (user) {
+          this.userId = user.uid;
+          await this.loadData();
+        }
+      });
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => this.autoResizeAll(), 0);
+  }
+
+  ngOnDestroy() {
+    // Clean up subscriptions
+    this.destroy$.next();
+    this.destroy$.complete();
+
+    // Reset form and arrays
+    this.form.reset();
+    this.skillsControl.setValue([]);
+    this.galleryControl.setValue([]);
+    this.projects = [];
+  }
+
+  // ================= Validators =================
+  wordCountValidator(min: number, max: number) {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value || !control.value.trim()) return { required: true };
+      const wc = control.value.trim().split(/\s+/).length;
+      if (wc < min) return { minWords: wc };
+      if (wc > max) return { maxWords: wc };
+      return null;
+    };
+  }
+
+  minArrayLengthValidator(min: number) {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const arr = control.value || [];
+      return arr.length < min ? { minArray: { length: arr.length } } : null;
+    };
+  }
+
+  maxArrayLengthValidator(max: number) {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const arr = control.value || [];
+      return arr.length > max ? { maxArray: { length: arr.length } } : null;
+    };
+  }
+
+  // ================= Load Data =================
+  async loadData() {
+    if (!this.userId) return;
+    const data = await this.projectsService.getProjects(this.userId);
+    if (data?.['projects']) this.projects = data['projects'];
+  }
+
+  // ================= Skills =================
+  addSkill(value: string) {
+    const v = value.trim();
     if (!v) return;
-    if (!this.skills.some(s => s.toLowerCase() === v.toLowerCase())) {
-      this.skills.push(v);
+    const skills = [...this.skillsControl.value];
+    if (!skills.some(s => s.toLowerCase() === v.toLowerCase())) {
+      skills.push(v);
+      this.skillsControl.setValue(skills);
     }
-    this.skillInput = '';
   }
 
   removeSkill(i: number) {
-    this.skills.splice(i, 1);
+    const skills = [...this.skillsControl.value];
+    skills.splice(i, 1);
+    this.skillsControl.setValue(skills);
   }
 
-  // Upload image (max 3)
+  // ================= Gallery =================
   uploadImage(event: Event) {
-    if (this.gallery.length >= 3) return;
-
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
     if (!file) return;
 
     const reader = new FileReader();
     reader.onload = () => {
-      if (this.gallery.length < 3) {
-        this.gallery.push(reader.result as string);
+      const gallery = [...this.galleryControl.value];
+      if (gallery.length < 3) {
+        gallery.push(reader.result as string);
+        this.galleryControl.setValue(gallery);
       }
     };
     reader.readAsDataURL(file);
   }
 
   removeImage(i: number) {
-    this.gallery.splice(i, 1);
+    const gallery = [...this.galleryControl.value];
+    gallery.splice(i, 1);
+    this.galleryControl.setValue(gallery);
   }
 
-  // Add project
+  // ================= Projects =================
   addProject() {
-    if (!this.projectTitle) return;
+    if (this.form.invalid) return;
+    this.projects.push(this.form.value);
 
-    this.projects.push({
-      title: this.projectTitle,
-      description: this.projectDescription,
-      live: this.liveLink,
-      skills: [...this.skills],
-      gallery: [...this.gallery]
-    });
-
-    this.projectTitle = '';
-    this.projectDescription = '';
-    this.liveLink = '';
-    this.skills = [];
-    this.gallery = [];
+    // Reset form
+    this.form.reset();
+    this.skillsControl.setValue([]);
+    this.galleryControl.setValue([]);
   }
 
   removeProject(i: number) {
     this.projects.splice(i, 1);
   }
 
-  getPayload() {
-    return {
-      projects: this.projects
-    };
+  async saveAllProjects() {
+    if (!this.userId) return;
+    this.uiService.showLoader();
+    try {
+      await this.projectsService.saveProjects(this.userId, { projects: this.projects });
+      this.uiService.hideLoader();
+      this.uiService.showSuccess();
+    } catch (err) {
+      this.uiService.hideLoader();
+      console.error(err);
+      alert('An error occurred while saving data.');
+    }
+  }
+
+  canAddProject() {
+    return this.form.valid;
+  }
+
+  wordCount(c: string) {
+    const v = this.form.get(c)?.value || '';
+    return v.trim() ? v.trim().split(/\s+/).length : 0;
+  }
+
+  // ================= Auto Resize =================
+  autoResize(event: Event) {
+    const el = event.target as HTMLTextAreaElement;
+    el.style.height = 'auto';
+    el.style.height = el.scrollHeight + 'px';
+  }
+
+  autoResizeAll() {
+    this.textareas?.forEach(a => {
+      const el = a.nativeElement;
+      el.style.overflow = 'hidden';
+      el.style.height = 'auto';
+      el.style.height = el.scrollHeight + 'px';
+    });
   }
 }

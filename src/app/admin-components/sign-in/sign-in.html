@@ -1,0 +1,71 @@
+<!-- sign-in.html -->
+<div class="h-[300px] w-full cms-header" style="background-image: url(img/cms-header.jpg);">
+  <div class="overley w-full h-full flex justify-center items-center">
+    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white animated-text">
+      @for(letter of letters; track $index) {
+        <span>{{ letter }}&nbsp;</span>
+      }
+    </h1>
+  </div>
+</div>
+
+<div class="min-h-screen w-full bg-black text-white flex justify-center items-start py-6 mt-20">
+  <div class="w-full md:w-2/3 lg:w-1/2 py-10 px-6 rounded shadow-xl" style="background-color: var(--sectionColor)">
+    <h2 class="text-2xl md:text-3xl font-bold mb-8">Sign In</h2>
+    @if(signInError){
+      <div class="text-red-900 bg-red-200 p-2 mb-4 rounded">
+        {{ signInError }}
+      </div>
+    }
+    <form [formGroup]="signInForm" (ngSubmit)="signIn()">
+      <label>Email</label>
+      <input type="email" formControlName="email" 
+        style="background-color: var(--inputColor);" class="w-full p-3 mb-4 form-control"
+         placeholder="Enter your email" autocomplete="email"/>
+       <!-- Show validation errors for email -->
+        @if(signInForm.get('email')?.invalid && signInForm.get('email')?.touched){
+          <div class="bg-red-200 text-red-900 my-2 rounded-sm">
+            @if(signInForm.get('email')?.errors?.['required']){
+              <p class="ms-4 text-[1rem]">Email is required</p>
+            }
+            @if(signInForm.get('email')?.errors?.['email']){
+              <p class="ms-4 text-[1rem]">Invalid email</p>
+            }
+          </div>
+        }
+      <label>Password</label>
+      <div class="relative mb-4">
+        <input [type]="showPassword ? 'text' : 'password'" formControlName="password" 
+          class="w-full p-3  form-control" placeholder="Enter password"
+           style="background-color: var(--inputColor);" autocomplete="new-password"/>
+          @if(!showPassword){
+            <i class="fas fa-eye absolute right-3 top-3 cursor-pointer" (click)="togglePasswordVisibility()"></i>
+          }
+          @if(showPassword){
+            <i class="fas fa-eye-slash absolute right-3 top-3 cursor-pointer" (click)="togglePasswordVisibility()"></i>
+          }
+      </div>
+        @if(signInForm.get('password')?.invalid && signInForm.get('password')?.touched){
+          <div class="bg-red-200 text-red-900 my-2 mb-5 rounded-sm">
+            @if(signInForm.get('password')?.errors?.['required']){
+              <p class="ms-4 text-[1rem]">Password is required</p>
+            }
+            @if(signInForm.get('password')?.errors?.['minlength']){
+              <p class="ms-4 text-[1rem]">Password must be minimum letters is 6</p>
+            }
+          </div>
+        }
+
+      <button type="submit" class="w-full py-3 mb-2">Sign In</button>
+    </form>
+
+    <p class="text-center mb-4">OR</p>
+    <button (click)="signInWithGoogle()" class="w-full py-3 bg-blue-600 mb-4 text-white">Sign In with Google</button>
+
+    <p class="text-center text-sm">
+      Don't have an account? <a (click)="goToSignUp()" class="text-blue-400 cursor-pointer">Sign Up</a>
+    </p>
+  </div>
+</div>
+
+<app-footer-admin></app-footer-admin>

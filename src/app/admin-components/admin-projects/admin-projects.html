@@ -1,97 +1,113 @@
 <div class="min-h-screen w-full bg-black text-white lg:px-6 md:px-4 px-2 py-6 flex justify-center items-start">
-  <div class="w-full py-10 lg:px-6 md:px-4 px-2 rounded-[7px] shadow-xl" style="background-color: var(--sectionColor);">
+  <div class="w-full py-10 lg:px-6 md:px-4 px-2 rounded-[7px] shadow-xl"
+       style="background-color: var(--sectionColor);">
 
-    <h3 class="text-xl font-bold mb-4 span-color">Projects</h3>
+    <h2 class="lg:text-[1.7rem] md:text-[1.5rem] text-[1.3rem] font-bold mb-10 span-color">
+      Projects
+    </h2>
 
-    <!-- TITLE -->
-    <label class="block mb-2 font-semibold">Project Title</label>
-    <input type="text" [(ngModel)]="projectTitle" class="w-full p-3 form-control mb-6" placeholder="My Portfolio Project" />
+    <!-- Form to add a single project -->
+    <form [formGroup]="form">
 
-    <!-- DESCRIPTION -->
-    <label class="block mb-2 font-semibold">Description</label>
-    <textarea [(ngModel)]="projectDescription" rows="4"
-      class="w-full p-3 form-control mb-6"
-      placeholder="Describe the project..."></textarea>
-
-    <!-- LIVE LINK -->
-    <label class="block mb-2 font-semibold">Live Link</label>
-    <input type="text" [(ngModel)]="liveLink" class="w-full p-3 form-control mb-6" placeholder="https://..." />
-
-    <!-- SKILLS -->
-    <h3 class="text-lg font-bold mb-2 span-color">Skills</h3>
-
-    <div class="flex items-center gap-3 mb-3">
-      <input type="text" [(ngModel)]="skillInput" 
-        (keydown.enter)="$event.preventDefault(); addSkill()" 
-        class="flex-1 p-3 form-control"
-        placeholder="Angular, TypeScript..." />
-      <button type="button" (click)="addSkill()" class="px-4 py-2 no-after-button">Add</button>
-    </div>
-
-    <div class="flex flex-wrap gap-2 mb-8">
-        @for(s of skills; track $index){
-        <span 
-        class="px-3 py-2 rounded flex items-center gap-2 text-sm"
-        style="background-color: var(--inputColor);">
-        {{ s }}
-        <button (click)="removeSkill($index)" class="no-after-button px-1">
-          <i class="fa-solid fa-xmark text-[12px]"></i>
-        </button>
-      </span>
-        }
-    </div>
-
-    <!-- GALLERY -->
-    <h3 class="text-lg font-bold mb-2 span-color">Gallery (Max 3)</h3>
-
-    <input type="file" (change)="uploadImage($event)" class="w-full p-3 form-control mb-6" />
-
-    <div class="flex gap-4 flex-wrap mb-8">
-       @for(img of gallery; track $index){
-        <div
-        class="relative w-32 h-32">
-        <img [src]="img" class="w-full h-full object-cover rounded" />
-        <button (click)="removeImage($index)"
-          class="absolute top-1 right-1 no-after-button px-1 rounded bg-black/60">
-          <i class="fa-solid fa-xmark text-[14px]"></i>
-        </button>
+      <label class="block mb-2 font-semibold">Project Title</label>
+      <input type="text" formControlName="projectTitle"
+             class="w-full p-3 form-control mb-4"
+             placeholder="My Portfolio Project" />
+      <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-4"
+           *ngIf="form.get('projectTitle')?.touched && form.get('projectTitle')?.invalid">
+        Project title is required.
       </div>
-       } 
-    </div>
 
-    <!-- ADD PROJECT -->
-    <button type="button" (click)="addProject()" class="px-4 py-2 no-after-button mb-8">
-      Add Project
-    </button>
+      <label class="block mb-2 font-semibold">Project Description (40-80 words)</label>
+      <textarea formControlName="projectDescription"
+                rows="3"
+                (input)="autoResize($event)"
+                class="w-full p-3 form-control mb-2"
+                placeholder="Describe the project..."></textarea>
+      <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-4"
+           *ngIf="form.get('projectDescription')?.touched && form.get('projectDescription')?.invalid">
+        Description must be 100-500 words (current: {{ wordCount('projectDescription') }})
+      </div>
 
-    <!-- ADDED PROJECT LIST -->
-    <div class="space-y-4">
-      <div *ngFor="let p of projects; let i = index"
-        class="p-4 rounded-lg"
-        style="background-color: var(--inputColor);">
+      <label class="block mb-2 font-semibold">Live Link (optional)</label>
+      <input type="text" formControlName="liveLink"
+             class="w-full p-3 form-control mb-6"
+             placeholder="https://..." />
 
+      <!-- Skills -->
+      <label class="block mb-2 font-semibold">Skills (Min 6)</label>
+      <div class="flex items-center gap-3 mb-3">
+        <input type="text" #skillInputRef
+               (keydown.enter)="$event.preventDefault(); addSkill(skillInputRef.value); skillInputRef.value=''"
+               class="flex-1 p-3 form-control"
+               placeholder="Angular, TypeScript..." />
+        <button type="button" (click)="addSkill(skillInputRef.value); skillInputRef.value=''"
+                class="px-4 py-2 no-after-button">Add</button>
+      </div>
+
+      <div class="flex flex-wrap gap-2 mb-4">
+        <span *ngFor="let s of skillsControl.value; index as i"
+              class="px-3 py-2 rounded-[3px] flex items-center gap-2 text-sm"
+              style="background-color: var(--inputColor);">
+          {{ s }}
+          <button type="button" (click)="removeSkill(i)" class="ml-1 no-after-button px-1 rounded-[3px]">
+            <i class="fa-solid fa-xmark text-[12px]"></i>
+          </button>
+        </span>
+      </div>
+
+      <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-4"
+           *ngIf="skillsControl.touched && skillsControl.invalid">
+        Minimum 6 skills required (current: {{ skillsControl.value.length }})
+      </div>
+
+      <!-- Gallery -->
+      <label class="block mb-2 font-semibold">Gallery (Max 3 Images)</label>
+      <input type="file" (change)="uploadImage($event)" class="w-full p-3 form-control mb-4" />
+
+      <div class="flex gap-4 flex-wrap mb-4">
+        <div *ngFor="let img of galleryControl.value; index as i" class="relative w-32 h-32">
+          <img [src]="img" class="w-full h-full object-cover rounded" />
+          <button type="button" (click)="removeImage(i)"
+                  class="absolute top-1 right-1 no-after-button px-1 rounded bg-black/60">
+            <i class="fa-solid fa-xmark text-[14px]"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-4"
+           *ngIf="galleryControl.touched && galleryControl.invalid">
+        Maximum 3 images allowed (current: {{ galleryControl.value.length }})
+      </div>
+
+      <button type="button"
+              class="px-5 py-3 text-black font-semibold mt-5 mb-6"
+              [disabled]="!canAddProject()"
+              (click)="addProject()">
+        Add Project
+      </button>
+    </form>
+
+    <!-- Display added projects -->
+    <div *ngIf="projects.length > 0" class="space-y-4">
+      <h3 class="text-lg font-bold mb-3">Added Projects</h3>
+      <div *ngFor="let p of projects; index as i" class="p-4 rounded-lg" style="background-color: var(--inputColor);">
         <div class="flex justify-between items-start">
           <div class="w-full">
-            <h3 class="font-bold text-main text-lg">{{ p.title }}</h3>
-            <p class="text-sm my-1">{{ p.description }}</p>
-
-            <p class="text-sm mb-2">
-              <strong>Live:</strong> <a class="text-blue-400" [href]="p.live" target="_blank">{{ p.live }}</a>
+            <h3 class="font-bold text-main text-lg">{{ p.projectTitle }}</h3>
+            <p class="text-sm my-1">{{ p.projectDescription }}</p>
+            <p class="text-sm mb-2" *ngIf="p.liveLink">
+              <strong>Live:</strong> <a class="text-blue-400" [href]="p.liveLink" target="_blank">{{ p.liveLink }}</a>
             </p>
 
-            <!-- Project Skills -->
             <div class="flex flex-wrap gap-2 my-2">
-              <span *ngFor="let s of p.skills"
-                class="px-3 py-1 rounded text-xs"
-                style="background-color: var(--sectionColor);">
+              <span *ngFor="let s of p.skills" class="px-3 py-1 rounded text-xs" style="background-color: var(--sectionColor);">
                 {{ s }}
               </span>
             </div>
 
-            <!-- Gallery -->
             <div class="flex gap-2 flex-wrap mt-2">
-              <img *ngFor="let img of p.gallery"
-                [src]="img" class="w-20 h-20 object-cover rounded" />
+              <img *ngFor="let img of p.gallery" [src]="img" class="w-20 h-20 object-cover rounded" />
             </div>
           </div>
 
@@ -99,10 +115,17 @@
             <i class="fa-solid fa-xmark text-[16px]"></i>
           </button>
         </div>
-
       </div>
+    </div>
+
+    <!-- Save All Projects Button -->
+    <div class="mt-6 flex justify-end">
+      <button type="button" class="px-5 py-3 text-black font-semibold mt-5"
+              [disabled]="projects.length === 0"
+              (click)="saveAllProjects()">
+        Save All Projects
+      </button>
     </div>
 
   </div>
 </div>
-

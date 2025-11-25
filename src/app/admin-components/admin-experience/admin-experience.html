@@ -1,164 +1,215 @@
 <div class="min-h-screen w-full bg-black text-white lg:px-6 md:px-4 px-2 py-6 flex justify-center items-start">
-  <div class="w-full py-10 lg:px-6 md:px-4 px-2 rounded-[7px] shadow-xl" style="background-color: var(--sectionColor);">
-    
-   <h3 class="text-xl font-bold mb-4 span-color">experiences</h3>
+  <div class="w-full py-10 lg:px-6 md:px-4 px-2 rounded-[7px] shadow-xl"
+       style="background-color: var(--sectionColor);">
 
-    <!-- EXPERIENCE SECTION -->
-    <label class="block mb-2 font-semibold">Company Name</label>
-    <input type="text" [(ngModel)]="companyName"
-      class="w-full p-3 form-control mb-10"
-      placeholder="Company Name" />
+    <h2 class="lg:text-[1.7rem] md:text-[1.5rem] text-[1.3rem] font-bold mb-10 span-color">
+      Experience Information
+    </h2>
 
-    <label class="block mb-2 font-semibold">Role</label>
-    <input type="text" [(ngModel)]="role"
-      class="w-full p-3 form-control mb-10"
-      placeholder="Front End Developer" />
+    <form [formGroup]="form">
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-        <label class="block mb-2 font-semibold">Start Date</label>
-        <input type="date" [(ngModel)]="startDate"
-          class="w-full p-3 form-control mb-6" />
-      </div>
+      <!-- EXPERIENCE SECTION -->
+      <h3 class="text-xl font-bold mb-4 span-color">Experiences</h3>
 
-      <div>
-        <label class="block mb-2 font-semibold">End Date</label>
-        <input type="date" [(ngModel)]="endDate"
-          class="w-full p-3 form-control mb-6" />
-      </div>
-    </div>
+      <div formGroupName="experienceInput">
 
-    <label class="block mb-2 font-semibold">Description</label>
-    <textarea [(ngModel)]="experienceDescription" rows="4"
-      class="w-full p-3 form-control mb-6"
-      placeholder="Describe your role..."></textarea>
+        <label class="block mb-2 font-semibold">Company Name</label>
+        <input type="text" formControlName="companyName"
+               class="w-full p-3 form-control mb-6"
+               placeholder="Company Name" />
 
-    <button type="button" (click)="addExperience()" class="px-4 py-2 no-after-button mb-8">
-      Add Experience
-    </button>
+        <label class="block mb-2 font-semibold">Role</label>
+        <input type="text" formControlName="role"
+               class="w-full p-3 form-control mb-6"
+               placeholder="Front End Developer" />
 
-    <!-- ADDED EXPERIENCES -->
-    <div class="space-y-4 mb-10">
-      @for(exp of experiences; track $index){
-        <div 
-        class="p-4 rounded-lg"
-        style="background-color: var(--inputColor);">
-
-        <div class="flex justify-between items-center">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <h3 class="font-bold text-main text-lg">{{ exp.company }}</h3>
-            <p>{{ exp.role }} ({{ exp.start }} - {{ exp.end }})</p>
-            <p class="text-sm mt-1">{{ exp.description }}</p>
+            <label class="block mb-2 font-semibold">Start Date</label>
+            <input type="date" formControlName="startDate"
+                   class="w-full p-3 form-control mb-6" />
           </div>
 
-          <button (click)="removeExperience($index)"
-            class="no-after-button px-2">
-            <i class="fa-solid fa-xmark text-[14px]"></i>
-          </button>
-        </div>
-      </div>
-      }  
-    </div>
-
-
-    <!-- SKILLS SECTION -->
-    <h3 class="text-xl font-bold mb-4 span-color">Skills</h3>
-
-    <div class="flex items-center gap-3 mb-3">
-      <input type="text" [(ngModel)]="skillInput"
-        (keydown.enter)="$event.preventDefault(); addSkill()"
-        class="flex-1 p-3 form-control"
-        placeholder="Angular, TypeScript..." />
-      <button type="button" (click)="addSkill()"
-        class="px-4 py-2 no-after-button">Add</button>
-    </div>
-
-    <div class="flex flex-wrap gap-2 mb-8">
-       @for(s of skills; track $index){
-        <span 
-        class="px-3 py-2 rounded flex items-center gap-2 text-sm"
-        style="background-color: var(--inputColor);">
-        {{ s }}
-        <button (click)="removeSkill($index)" class="no-after-button px-1">
-          <i class="fa-solid fa-xmark text-[12px]"></i>
-        </button>
-      </span>
-       } 
-    </div>
-
-
-    <!-- EDUCATION SECTION -->
-    <h3 class="text-xl font-bold mb-4 span-color">Education</h3>
-
-    <label class="block mb-2 font-semibold">Institution</label>
-    <input type="text" [(ngModel)]="institution"
-      class="w-full p-3 form-control mb-6"
-      placeholder="University Name" />
-
-    <label class="block mb-2 font-semibold">Degree</label>
-    <input type="text" [(ngModel)]="degree"
-      class="w-full p-3 form-control mb-6"
-      placeholder="Bachelor of Engineering..." />
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-        <label class="block mb-2 font-semibold">Start Year</label>
-        <input type="number" [(ngModel)]="eduStart"
-          class="w-full p-3 form-control mb-6" />
-      </div>
-
-      <div>
-        <label class="block mb-2 font-semibold">End Year</label>
-        <input type="number" [(ngModel)]="eduEnd"
-          class="w-full p-3 form-control mb-6" />
-      </div>
-    </div>
-
-    <button type="button" (click)="addEducation()" class="px-4 py-2 no-after-button mb-8">
-      Add Education
-    </button>
-
-    <div class="space-y-4 mb-10">
-      <div *ngFor="let e of education; let i = index"
-        class="p-4 rounded-lg"
-        style="background-color: var(--inputColor);">
-
-        <div class="flex justify-between items-center">
           <div>
-            <h3 class="font-bold text-main">{{ e.institution }}</h3>
-            <p>{{ e.degree }} ({{ e.start }} - {{ e.end }})</p>
+            <label class="block mb-2 font-semibold">End Date</label>
+            <input type="date" formControlName="endDate"
+                   class="w-full p-3 form-control mb-6" />
+          </div>
+        </div>
+
+        <label class="block mb-2 font-semibold">Description</label>
+
+        <textarea rows="4"
+                  formControlName="description"
+                  (input)="autoResize()"
+                  class="w-full p-3 form-control mb-2"
+                  placeholder="Describe your role..."></textarea>
+
+        <!-- ERROR: MUST BE BETWEEN 10 AND 25 WORDS -->
+        <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-6 text-sm"
+             *ngIf="descriptionControl.touched 
+                    && descriptionControl.errors?.['wordCount']">
+          Description must be between 10 and 25 words.
+        </div>
+
+       <button type="button"
+        (click)="addExperience()"
+        [disabled]="form.get('experienceInput')?.invalid"
+        class="px-4 py-2 no-after-button mb-8">
+  Add Experience
+</button>
+
+      </div>
+
+      <!-- EXPERIENCE LIST -->
+      <div class="space-y-4 mb-10">
+        <div *ngFor="let exp of experiences.controls; let i = index"
+             class="p-4 rounded-lg"
+             style="background-color: var(--inputColor);">
+
+          <div class="flex justify-between items-center">
+            <div>
+              <h3 class="font-bold text-main text-lg">{{ exp.value.companyName }}</h3>
+              <p>{{ exp.value.role }} ({{ exp.value.startDate }} - {{ exp.value.endDate }})</p>
+              <p class="text-sm mt-1">{{ exp.value.description }}</p>
+            </div>
+
+            <button (click)="removeExperience(i)" class="no-after-button px-1">
+              <i class="fa-solid fa-xmark text-[14px]"></i>
+            </button>
           </div>
 
-          <button (click)="removeEducation(i)" class="no-after-button px-1">
-            <i class="fa-solid fa-xmark text-[14px]"></i>
-          </button>
         </div>
       </div>
-    </div>
 
 
-    <!-- CERTIFICATIONS -->
-    <h3 class="text-xl font-bold mb-4 span-color">Certifications (Max 3)</h3>
 
-    <input type="file" (change)="uploadCert($event)" class="w-full p-3 form-control mb-6" />
+      <!-- SKILLS -->
+      <h3 class="text-xl font-bold mb-4 span-color">Skills (Min 6)</h3>
 
-    <div class="flex gap-4 flex-wrap">
-      <div *ngFor="let cert of certifications; let i = index"
-        class="relative w-32 h-32">
-        <img [src]="cert" class="w-full h-full object-cover rounded" />
-        <button (click)="removeCert(i)"
-          class="absolute top-1 right-1 no-after-button px-1 rounded bg-black/60">
-          <i class="fa-solid fa-xmark text-[14px]"></i>
+      <div class="flex items-center gap-3 mb-3">
+        <input type="text"
+               formControlName="skillInput"
+               (keydown.enter)="$event.preventDefault(); addSkill()"
+               class="flex-1 p-3 form-control"
+               placeholder="Angular, TypeScript..." />
+
+        <button type="button"
+                (click)="addSkill()"
+                class="px-4 py-2 no-after-button">
+          Add
         </button>
       </div>
-    </div>
 
+      <div class="flex flex-wrap gap-2 mb-8">
+        <span *ngFor="let s of skills.controls; let i = index"
+              class="px-3 py-2 rounded flex items-center gap-2 text-sm"
+              style="background-color: var(--inputColor);">
+
+          {{ s.value }}
+
+          <button (click)="removeSkill(i)" class="no-after-button px-1">
+            <i class="fa-solid fa-xmark text-[12px]"></i>
+          </button>
+
+        </span>
+      </div>
+
+
+
+      <!-- EDUCATION -->
+      <h3 class="text-xl font-bold mb-4 span-color">Education</h3>
+
+      <div formGroupName="educationInput">
+
+        <label class="block mb-2 font-semibold">Institution</label>
+        <input type="text" formControlName="institution"
+               class="w-full p-3 form-control mb-6"
+               placeholder="University Name" />
+
+        <label class="block mb-2 font-semibold">Degree</label>
+        <input type="text" formControlName="degree"
+               class="w-full p-3 form-control mb-6"
+               placeholder="Bachelor of Engineering..." />
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block mb-2 font-semibold">Start</label>
+            <input type="number" formControlName="start"
+                   class="w-full p-3 form-control mb-6" />
+          </div>
+
+          <div>
+            <label class="block mb-2 font-semibold">End</label>
+            <input type="number" formControlName="end"
+                   class="w-full p-3 form-control mb-6" />
+          </div>
+        </div>
+
+       <button type="button"
+        (click)="addEducation()"
+        [disabled]="form.get('educationInput')?.invalid"
+        class="px-4 py-2 no-after-button mb-8">
+  Add Education
+</button>
+      </div>
+
+      <!-- EDUCATION LIST -->
+      <div class="space-y-4 mb-10">
+        <div *ngFor="let e of education.controls; let i = index"
+             class="p-4 rounded-lg"
+             style="background-color: var(--inputColor);">
+
+          <div class="flex justify-between items-center">
+            <div>
+              <h3 class="font-bold text-main">{{ e.value.institution }}</h3>
+              <p>{{ e.value.degree }} ({{ e.value.start }} - {{ e.value.end }})</p>
+            </div>
+
+            <button (click)="removeEducation(i)" class="no-after-button px-1">
+              <i class="fa-solid fa-xmark text-[14px]"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+
+
+      <!-- CERTIFICATIONS -->
+      <h3 class="text-xl font-bold mb-4 span-color">Certifications (Max 3)</h3>
+
+      <input type="file"
+             (change)="uploadCert($event)"
+             class="w-full p-3 form-control mb-6" />
+
+      <div class="flex gap-4 flex-wrap">
+        <div *ngFor="let cert of certifications.controls; let i = index"
+             class="relative w-32 h-32">
+
+          <img [src]="cert.value"
+               class="w-full h-full object-cover rounded" />
+
+          <button (click)="removeCert(i)"
+                  class="absolute top-1 right-1 no-after-button px-1 rounded bg-black/60">
+            <i class="fa-solid fa-xmark text-[14px] text-white"></i>
+          </button>
+
+        </div>
+      </div>
+
+
+      <!-- SAVE -->
     <div class="mt-6 flex justify-end">
-      <button class="px-5 py-3 text-black font-semibold mt-5" (click)="$event.preventDefault()">
-        Save Data
-      </button>
-    </div>
+  <button 
+     [disabled]="!canSave" 
+    (click)="save()" 
+    class="px-5 py-3 text-black font-semibold mt-5 disabled:opacity-50 disabled:cursor-not-allowed">
+    Save Data
+  </button>
+</div>
+
+    </form>
 
   </div>
 </div>
-

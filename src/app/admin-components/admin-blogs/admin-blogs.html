@@ -1,54 +1,86 @@
 <div class="min-h-screen w-full bg-black text-white lg:px-6 md:px-4 px-2 py-6 flex justify-center items-start">
-  <div class="w-full py-10 lg:px-6 md:px-4 px-2 rounded-[7px] shadow-xl" style="background-color: var(--sectionColor);">
+  <div class="w-full py-10 lg:px-6 md:px-4 px-2 rounded-[7px] shadow-xl"
+       style="background-color: var(--sectionColor);">
 
     <h3 class="text-xl font-bold mb-6 span-color">Blogs</h3>
 
-    <!-- Blog Title -->
-    <label class="block mb-2 font-semibold">Blog Title</label>
-    <input type="text" [(ngModel)]="blogTitle"
-      class="w-full p-3 form-control mb-6"
-      placeholder="How to Learn Angular Fast..." />
+    <form [formGroup]="form">
 
-    <!-- Subtitle -->
-    <label class="block mb-2 font-semibold">Blog Subtitle</label>
-    <input type="text" [(ngModel)]="blogSubtitle"
-      class="w-full p-3 form-control mb-6"
-      placeholder="A complete guide for beginners..." />
+      <!-- Blog Title -->
+      <label class="block mb-2 font-semibold">Blog Title</label>
+      <input type="text" formControlName="blogTitle"
+             class="w-full p-3 form-control mb-2"
+             placeholder="How to Learn Angular Fast..." />
+      <div class="text-red-400 mb-4" *ngIf="form.get('blogTitle')?.invalid && form.get('blogTitle')?.touched">
+        Title is required
+      </div>
 
-    <!-- Description -->
-    <label class="block mb-2 font-semibold">Description</label>
-    <textarea [(ngModel)]="blogDescription" rows="4"
-      class="w-full p-3 form-control mb-6"
-      placeholder="Write the main content here..."></textarea>
+      <!-- Blog Subtitle -->
+      <label class="block mb-2 font-semibold">Blog Subtitle</label>
+      <input type="text" formControlName="blogSubtitle"
+             class="w-full p-3 form-control mb-2"
+             placeholder="A complete guide for beginners..." />
+      <div class="text-red-400 mb-4" *ngIf="form.get('blogSubtitle')?.invalid && form.get('blogSubtitle')?.touched">
+        Subtitle is required
+      </div>
 
-    <!-- Add Blog Button -->
-    <button type="button" (click)="addBlog()" class="px-4 py-2 no-after-button mb-10">
-      Add Blog
-    </button>
+      <!-- Blog Description -->
+      <label class="block mb-2 font-semibold">Description</label>
+      <textarea formControlName="blogDescription"
+                (input)="autoResize($event)"
+                rows="2"
+                class="w-full p-3 form-control mb-2"
+                placeholder="Write 15–25 words..."></textarea>
+
+      <div class="text-red-400 mb-4" 
+           *ngIf="form.get('blogDescription')?.touched && form.get('blogDescription')?.errors">
+        Description must be 15 - 25 words
+      </div>
+
+      <!-- Add Blog Button -->
+      <button type="button"
+              (click)="addBlog()"
+              class="px-4 py-2 no-after-button mb-10"
+              [disabled]="form.invalid">
+        Add Blog
+      </button>
+
+    </form>
+
 
     <!-- BLOG LIST -->
-    <div class="space-y-4">
-       @for(b of blogs; track $index){
-        <div 
-        class="p-4 rounded-lg"
-        style="background-color: var(--inputColor);">
+    <div class="space-y-4" *ngIf="blogs.length > 0">
+
+      <div *ngFor="let b of blogs.controls; index as i"
+           class="p-4 rounded-lg"
+           style="background-color: var(--inputColor);">
 
         <div class="flex justify-between items-start">
+
           <div>
-            <h3 class="font-bold text-main text-lg">{{ b.title }}</h3>
-            <p class="text-sm font-semibold text-gray-300">{{ b.subtitle }}</p>
-            <p class="text-sm mt-2">{{ b.description }}</p>
+            <h3 class="font-bold text-main text-lg">{{ b.value.title }}</h3>
+            <p class="text-sm font-semibold text-gray-300">{{ b.value.subtitle }}</p>
+            <p class="text-sm mt-2">{{ b.value.description }}</p>
           </div>
 
-          <button (click)="removeBlog($index)" class="no-after-button px-1">
+          <button (click)="removeBlog(i)" class="no-after-button px-1">
             <i class="fa-solid fa-xmark text-[16px]"></i>
           </button>
-        </div>
 
+        </div>
       </div>
-       } 
+
+    </div>
+
+    <!-- SAVE BUTTON -->
+    <div class="mt-6 flex justify-end">
+      <button type="button"
+              class="px-5 py-3 text-black font-semibold mt-5"
+              [disabled]="!canSave()"
+              (click)="saveData()">
+        Save Data
+      </button>
     </div>
 
   </div>
 </div>
-
