@@ -1,0 +1,12 @@
+.tracking-widest {
+  color: var(--primaryColor);
+}
+
+.email-btn {
+  background-color: var(--primaryColor);
+  color: var(--blackColor);
+}
+
+a {
+  transition: color var(--transition) ease;
+}/*# sourceMappingURL=contact-portfolio.css.map */

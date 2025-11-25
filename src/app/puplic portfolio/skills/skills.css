@@ -1,0 +1,20 @@
+.skills-area {
+  margin-bottom: -25px;
+}
+.skills-area .skills-item {
+  position: relative;
+  margin-bottom: 25px;
+}
+.skills-area .skills-item .skills-header {
+  position: relative;
+  margin-bottom: 15px;
+  padding: 20px 0px;
+  border-bottom: 0.1px solid var(--borderColor);
+}
+.skills-area .skills-item .skills-header .skills-title {
+  color: var(--whiteColor);
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: var(--fontFamily1);
+}/*# sourceMappingURL=skills.css.map */

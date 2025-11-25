@@ -1,0 +1,17 @@
+footer {
+  background-color: var(--sectionColor);
+}
+footer .span-color {
+  color: var(--primaryColor);
+}
+footer a:hover {
+  color: var(--primaryColor);
+}
+footer input {
+  border: none;
+  outline: none;
+  background-color: var(--inputColor);
+}
+footer button:hover::after {
+  height: 0px;
+}/*# sourceMappingURL=footer-portfolio.css.map */

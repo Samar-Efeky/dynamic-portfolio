@@ -1,0 +1,63 @@
+.services-page {
+  background-color: var(--sectionColor);
+}
+.services-page .leading-relaxed {
+  opacity: 0.8;
+}
+
+.service-item {
+  z-index: 1;
+  position: relative;
+  background-color: transparent;
+  transition: var(--transition);
+  padding: 20px;
+}
+.service-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--blackColor);
+  transition: 0.7s;
+  z-index: -1;
+  transform: scaleX(0);
+}
+.service-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--blackColor);
+  transition: 0.7s;
+  z-index: -1;
+  transform: scaleY(0);
+}
+.service-item:hover::after {
+  transform: scaleX(1);
+}
+.service-item:hover::before {
+  transform: scaleY(1);
+}
+.service-item.style-two {
+  margin-bottom: 30px;
+  padding: 30px;
+}
+.service-item.style-two::after {
+  transform: scaleX(1);
+}
+.service-item.style-two::before {
+  transform: scaleY(1);
+}
+.service-item h3 {
+  font-family: "Georgia", serif;
+}
+.service-item ul {
+  border-color: var(--borderColor);
+}
+.service-item .span-color {
+  color: var(--primaryColor);
+}/*# sourceMappingURL=services-portfolio.css.map */

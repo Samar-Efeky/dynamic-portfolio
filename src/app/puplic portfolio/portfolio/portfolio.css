@@ -1,0 +1,17 @@
+.info-nav button {
+  background-color: var(--inputColor);
+  color: var(--whiteColor);
+  text-transform: uppercase;
+  font-size: 15px;
+}
+.info-nav button:hover::after {
+  height: 0px;
+}
+.info-nav .active-link {
+  background-color: var(--primaryColor);
+  color: var(--blackColor);
+}
+
+.info-content {
+  background-color: var(--sectionColor);
+}/*# sourceMappingURL=portfolio.css.map */

@@ -1,0 +1,35 @@
+.slider-container {
+  background-color: var(--primaryColor);
+  color: var(--blackColor);
+}
+.slider-container h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: "Times New Roman", Times, serif;
+}
+.slider-container h2 i {
+  font-size: 2rem;
+}
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-66.66%);
+  }
+}
+.slider-container .animate-scroll-left {
+  animation: scroll-left 14s linear infinite;
+}
+@media screen and (max-width: 900px) {
+  .slider-container h2 {
+    font-size: 1.8rem;
+  }
+  .slider-container h2 i {
+    font-size: 1.8rem;
+  }
+}/*# sourceMappingURL=slider-titles.css.map */

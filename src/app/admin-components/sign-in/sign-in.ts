@@ -42,7 +42,6 @@ export class SignIn implements OnInit {
   }
 
  signIn() {
-  // لو الفورم فاضي أو فيه أخطاء
   if (this.signInForm.invalid) {
     this.signInError = 'Please fill in the details first.';
     return;

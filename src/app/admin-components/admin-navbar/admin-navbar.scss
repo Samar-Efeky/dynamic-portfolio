@@ -1,9 +1,6 @@
 nav {
   background-color: var(--sectionColor);
   border-bottom: 0.1px solid var(--borderColor);
-  position: sticky;
-  top: 0;
-  z-index: 9999;
   .logo-item {
     border-right: 0.1px solid var(--borderColor);
     padding-right: 14px;
@@ -23,7 +20,7 @@ ul {
     position: absolute;
     top: 100%;
     right: 0px;
-    transition: right 0.4s ease;
+    transition: transform 0.4s ease;
     padding: 50px 0px;
     width: 20%;
     background-color: var(--sectionColor);
@@ -51,6 +48,13 @@ ul {
 .icon-sidebar{
     display: none;
 }
+.nav-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
 @media screen and (max-width: 1300px) {
   ul{
     width: 25%;
@@ -60,17 +64,22 @@ ul {
   }
 }
 @media screen and (max-width: 1100px) {
-    ul{
-        width: 35%;
-        right: -100%;
-          &.sidebar-open {
-      right: 0 !important;
-    }
-    }
-    .icon-sidebar{
-        display: block;
-    }
+    ul {
+    position: absolute;
+    top: 100%; // important
+    right: 0;
+    height: 100vh;
+    width: 35%;
+    transform: translateX(100%);
 
+    &.sidebar-open {
+      transform: translateX(0);
+    }
+  }
+
+  .icon-sidebar {
+    display: block;
+  }
 }
 @media screen and (max-width: 870px) {
   ul {

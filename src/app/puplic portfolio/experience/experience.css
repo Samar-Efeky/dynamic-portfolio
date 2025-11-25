@@ -1,0 +1,19 @@
+.experience-area .single-experience-box {
+  margin-bottom: 25px;
+  background-color: var(--cardColor);
+  padding: 2% 1%;
+  border-radius: 5px;
+}
+.experience-area .single-experience-box span {
+  color: var(--primaryColor);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.experience-area .single-experience-box h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+.experience-area .single-experience-box p {
+  font-size: 15px;
+  opacity: 0.9;
+}/*# sourceMappingURL=experience.css.map */
