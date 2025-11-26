@@ -1,19 +1,19 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { Auth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User, onAuthStateChanged, sendPasswordResetEmail } from '@angular/fire/auth';
+import { Injectable, inject, PLATFORM_ID } from '@angular/core';
+import { Auth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User, onAuthStateChanged } from '@angular/fire/auth';
 import { Firestore, doc, setDoc, getDoc } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private auth = inject(Auth);
+  private firestore = inject(Firestore);
+  private platformId = inject(PLATFORM_ID);
+
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(
-    private auth: Auth,
-    private firestore: Firestore,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {
+  constructor() {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
         this.currentUserSubject.next(user);
@@ -59,6 +59,7 @@ export class AuthService {
   }
 
   async getUserProfile(uid: string) {
+    if (!isPlatformBrowser(this.platformId)) return null;
     const userRef = doc(this.firestore, `users/${uid}`);
     const snap = await getDoc(userRef);
     return snap.exists() ? snap.data() : null;

@@ -69,13 +69,13 @@
 
           <div class="flex justify-between items-center">
             <div>
-              <h3 class="font-bold text-main text-lg">{{ exp.value.companyName }}</h3>
-              <p>{{ exp.value.role }} ({{ exp.value.startDate }} - {{ exp.value.endDate }})</p>
+              <h3 class="font-bold text-main text-lg span-color">{{ exp.value.companyName }}</h3>
+              <p class="text-[17px] text-blue-300">{{ exp.value.role }} ({{ exp.value.startDate }} - {{ exp.value.endDate }})</p>
               <p class="text-sm mt-1">{{ exp.value.description }}</p>
             </div>
 
             <button (click)="removeExperience(i)" class="no-after-button px-1">
-              <i class="fa-solid fa-xmark text-[14px]"></i>
+              <i class="fa-solid fa-xmark text-[12px]"></i>
             </button>
           </div>
 
@@ -162,12 +162,12 @@
 
           <div class="flex justify-between items-center">
             <div>
-              <h3 class="font-bold text-main">{{ e.value.institution }}</h3>
-              <p>{{ e.value.degree }} ({{ e.value.start }} - {{ e.value.end }})</p>
+              <h3 class="font-bold text-main span-color">{{ e.value.institution }}</h3>
+              <p class="text-[17px]">{{ e.value.degree }} ({{ e.value.start }} - {{ e.value.end }})</p>
             </div>
 
             <button (click)="removeEducation(i)" class="no-after-button px-1">
-              <i class="fa-solid fa-xmark text-[14px]"></i>
+              <i class="fa-solid fa-xmark text-[12px]"></i>
             </button>
           </div>
 

@@ -1,7 +1,7 @@
 <!-- sign-in.html -->
 <div class="h-[300px] w-full cms-header" style="background-image: url(img/cms-header.jpg);">
   <div class="overley w-full h-full flex justify-center items-center">
-    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white animated-text">
+    <h1 class="text-3xl md:text-6xl lg:text-7xl font-bold text-white animated-text">
       @for(letter of letters; track $index) {
         <span>{{ letter }}&nbsp;</span>
       }
@@ -11,7 +11,7 @@
 
 <div class="min-h-screen w-full bg-black text-white flex justify-center items-start py-6 mt-20">
   <div class="w-full md:w-2/3 lg:w-1/2 py-10 px-6 rounded shadow-xl" style="background-color: var(--sectionColor)">
-    <h2 class="text-2xl md:text-3xl font-bold mb-8">Sign In</h2>
+    <h2 class="text-2xl md:text-3xl font-bold mb-8 span-color">Sign In</h2>
     @if(signInError){
       <div class="text-red-900 bg-red-200 p-2 mb-4 rounded">
         {{ signInError }}
@@ -56,15 +56,19 @@
           </div>
         }
 
-      <button type="submit" class="w-full py-3 mb-2">Sign In</button>
+     <div class="text-center mt-10">
+       <button type="submit" class="sm:w-[80%] w-full  py-3 mb-2">Sign In</button>
+     </div>
     </form>
 
-    <p class="text-center mb-4">OR</p>
-    <button (click)="signInWithGoogle()" class="w-full py-3 bg-blue-600 mb-4 text-white">Sign In with Google</button>
+  <div class="text-center">
+      <p class="text-center mb-4">OR</p>
+    <button (click)="signInWithGoogle()" class="sm:w-[80%] w-full  py-3 bg-blue-600 mb-4 text-white">Sign In with Google</button>
 
-    <p class="text-center text-sm">
+    <p class="text-center text-[17px]">
       Don't have an account? <a (click)="goToSignUp()" class="text-blue-400 cursor-pointer">Sign Up</a>
     </p>
+  </div>
   </div>
 </div>
 

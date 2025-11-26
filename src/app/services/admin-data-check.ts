@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { AdminAboutService } from './admin-about.service';
 import { AdminBlogsService } from './admin-blogs.service';
@@ -10,41 +10,56 @@ import { AdminTestimonialsService } from './admin-testimonials.service';
 
 @Injectable({ providedIn: 'root' })
 export class AdminDataCheckService {
+
+  private about = inject(AdminAboutService);
+  private blogs = inject(AdminBlogsService);
+  private experience = inject(AdminExperienceService);
+  private info = inject(AdminInfoService);
+  private projects = inject(AdminProjectsService);
+  private services = inject(AdminServicesService);
+  private testimonials = inject(AdminTestimonialsService);
+
   private _dataSaved = new BehaviorSubject<boolean>(false);
   dataSaved$ = this._dataSaved.asObservable();
 
-  constructor(
-    private about: AdminAboutService,
-    private blogs: AdminBlogsService,
-    private experience: AdminExperienceService,
-    private info: AdminInfoService,
-    private projects: AdminProjectsService,
-    private services: AdminServicesService,
-    private testimonials: AdminTestimonialsService
-  ) {}
+  constructor() {}
 
-  // تحقق شامل من كل البيانات
   async checkAllData(uid: string) {
-    const results = await Promise.all([
-      this.about.getAbout(uid),
-      this.blogs.getBlogs(uid),
-      this.experience.getExperience(uid),
-      this.info.getAdminInfo(uid),
-      this.projects.getProjects(uid),
-      this.services.getServices(uid),
-      this.testimonials.getTestimonials(uid),
-    ]);
+      if (typeof window === 'undefined') return;
+    try {
 
-    const allSaved = results.every(data => {
-      if (!data) return false; // null أو undefined
-      for (let key of Object.keys(data)) {
-        const value = data[key];
-        if (Array.isArray(value) && value.length === 0) return false;
-        if (value === null || value === undefined) return false;
-      }
-      return true;
-    });
+      const aboutData = await this.about.getAbout(uid);
+      const blogsData = await this.blogs.getBlogs(uid);
+      const expData = await this.experience.getExperience(uid);
+      const infoData = await this.info.getAdminInfo(uid);
+      const projectsData = await this.projects.getProjects(uid);
+      const servicesData = await this.services.getServices(uid);
+      const testimonialData = await this.testimonials.getTestimonials(uid);
 
-    this._dataSaved.next(allSaved);
+      const allResults = [
+        aboutData,
+        blogsData,
+        expData,
+        infoData,
+        projectsData,
+        servicesData,
+        testimonialData
+      ];
+
+      const allSaved = allResults.every(data => {
+        if (!data) return false;
+        for (let key of Object.keys(data)) {
+          const value = data[key];
+          if (Array.isArray(value) && value.length === 0) return false;
+          if (value === null || value === undefined) return false;
+        }
+        return true;
+      });
+
+      this._dataSaved.next(allSaved);
+
+    } catch {
+      this._dataSaved.next(false);
+    }
   }
 }

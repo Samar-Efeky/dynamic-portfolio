@@ -43,7 +43,7 @@ export const routes: Routes = [
     path:'sign-up',  canActivate: [AuthGuard], component:SignUp
   },
   {
-    path: 'portfolio',
+    path: 'portfolio/:username',
     component: PersonalPortfolio,
     children: [
       { path: '', component: Portfolio,

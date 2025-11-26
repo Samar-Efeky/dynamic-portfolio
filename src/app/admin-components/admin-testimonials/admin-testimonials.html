@@ -72,15 +72,15 @@
             <div class="flex items-center gap-3 mb-3">
               <img [src]="t.image" class="w-14 h-14 rounded-full border object-cover" />
               <div>
-                <h3 class="font-bold text-main text-lg">{{ t.name }}</h3>
+                <h3 class="font-bold text-main text-lg span-color">{{ t.name }}</h3>
                 <p class="text-sm text-gray-300">{{ t.title }}</p>
               </div>
             </div>
             <p class="text-sm">{{ t.description }}</p>
           </div>
 
-          <button class="no-after-button" (click)="removeTestimonial($index)">
-            <i class="fa-solid fa-xmark"></i>
+          <button class="no-after-button px-1" (click)="removeTestimonial($index)">
+            <i class="fa-solid fa-xmark text-[12px]"></i>
           </button>
         </div>
         

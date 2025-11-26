@@ -94,7 +94,7 @@
       <div *ngFor="let p of projects; index as i" class="p-4 rounded-lg" style="background-color: var(--inputColor);">
         <div class="flex justify-between items-start">
           <div class="w-full">
-            <h3 class="font-bold text-main text-lg">{{ p.projectTitle }}</h3>
+            <h3 class="font-bold text-main text-lg span-color">{{ p.projectTitle }}</h3>
             <p class="text-sm my-1">{{ p.projectDescription }}</p>
             <p class="text-sm mb-2" *ngIf="p.liveLink">
               <strong>Live:</strong> <a class="text-blue-400" [href]="p.liveLink" target="_blank">{{ p.liveLink }}</a>
@@ -112,7 +112,7 @@
           </div>
 
           <button (click)="removeProject(i)" class="no-after-button px-1">
-            <i class="fa-solid fa-xmark text-[16px]"></i>
+            <i class="fa-solid fa-xmark text-[12px]"></i>
           </button>
         </div>
       </div>

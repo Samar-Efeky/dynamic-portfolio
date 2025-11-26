@@ -24,6 +24,14 @@
         <input type="text" formControlName="username"
                class="w-full p-3 form-control mb-4"
                placeholder="Username" />
+          <div *ngIf="
+      form.get('username')?.touched &&
+      form.get('username')?.errors?.['usernameTaken'] &&
+      form.get('username')?.value !== currentUsername
+    "
+    class="text-red-900 bg-200 p-2 rounded-sm text-sm mt-1">
+    Username already taken!
+  </div>       
       </div>
 
       <!-- Email -->
@@ -116,16 +124,18 @@
   </select>
 
   <!-- URL Input -->
-  <input #urlInput type="text"
-         class="w-full md:flex-1 p-3 form-control"
+ <div class="flex w-full">
+   <input #urlInput type="text"
+         class="w-full md:flex-1 px-3  form-control"
          placeholder="https://linkedin.com/in/username" />
 
   <!-- Add Button -->
   <button type="button"
           (click)="addSocial(platformSel.value, urlInput.value); urlInput.value='';"
-          class="w-[80%] mx-auto md:w-auto px-4 py-2  no-after-button ">
+          class=" px-3  no-after-button ">
     Add
   </button>
+ </div>
 
 </div>
 
@@ -137,8 +147,8 @@
     <li class="flex justify-between items-center p-3 rounded-lg w-full"
         style="background-color: var(--inputColor);">
       <div class="truncate">
-        <strong class="text-main mr-2">{{ s.value.platform }}:</strong>
-        <a [href]="s.value.url" target="_blank" class="underline block truncate">
+        <strong class="text-main mr-2 span-color ">{{ s.value.platform }}:</strong>
+        <a [href]="s.value.url" target="_blank" class="underline block truncate pt-2">
           {{ s.value.url }}
         </a>
       </div>
