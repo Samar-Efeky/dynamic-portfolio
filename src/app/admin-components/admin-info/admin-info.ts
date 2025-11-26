@@ -19,6 +19,7 @@ import { AdminInfoService } from '../../services/admin-info.service';
 import { AuthService } from '../../services/auth';
 import { UiService } from '../../services/ui.service';
 import { Subscription } from 'rxjs';
+import { AdminDataCheckService } from '../../services/admin-data-check';
 
 // ================================
 //        Custom Validators
@@ -58,7 +59,8 @@ export class AdminInfo implements OnInit, OnDestroy {
     private adminService: AdminInfoService,
     private authService: AuthService,
     public uiService: UiService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private dataCheck: AdminDataCheckService
   ) {}
 
   ngOnInit() {
@@ -166,6 +168,7 @@ export class AdminInfo implements OnInit, OnDestroy {
     this.uiService.showLoader();
     try {
       await this.adminService.saveAdminInfo(this.uid, this.form.value);
+       await this.dataCheck.checkAllData(this.uid);
       this.uiService.hideLoader();
       this.uiService.showSuccess();
     } catch (err) {

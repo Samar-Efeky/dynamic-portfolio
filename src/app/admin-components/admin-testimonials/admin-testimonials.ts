@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { AdminTestimonialsService } from '../../services/admin-testimonials.service';
 import { AuthService } from '../../services/auth';
 import { UiService } from '../../services/ui.service';
+import { AdminDataCheckService } from '../../services/admin-data-check';
 
 @Component({
   selector: 'app-admin-testimonials',
@@ -30,7 +31,8 @@ export class AdminTestimonials implements OnInit, AfterViewInit, OnDestroy {
     private service: AdminTestimonialsService,
     private auth: AuthService,
     private ui: UiService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private dataCheck: AdminDataCheckService
   ) {}
 
   ngOnInit() {
@@ -123,6 +125,7 @@ export class AdminTestimonials implements OnInit, AfterViewInit, OnDestroy {
     this.ui.showLoader();
     try {
       await this.service.saveTestimonials(this.userId, this.getPayload());
+      await this.dataCheck.checkAllData(this.userId);
       this.ui.hideLoader();
       this.ui.showSuccess();
     } catch (err) {

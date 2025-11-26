@@ -20,6 +20,7 @@ import { AdminAboutService } from '../../services/admin-about.service';
 import { AuthService } from '../../services/auth';
 import { UiService } from '../../services/ui.service';
 import { Subscription } from 'rxjs';
+import { AdminDataCheckService } from '../../services/admin-data-check';
 
 @Component({
   selector: 'app-admin-about',
@@ -46,7 +47,8 @@ export class AdminAbout implements OnInit, AfterViewInit, OnDestroy {
     private fb: FormBuilder,
     private aboutService: AdminAboutService,
     private auth: AuthService,
-    private uiService: UiService
+    private uiService: UiService,
+    private dataCheck: AdminDataCheckService
   ) {}
 
   ngOnInit() {
@@ -151,6 +153,7 @@ export class AdminAbout implements OnInit, AfterViewInit, OnDestroy {
     this.uiService.showLoader();
     try {
       await this.aboutService.saveAbout(this.userId, this.getPayload());
+      await this.dataCheck.checkAllData(this.userId); 
       this.uiService.hideLoader();
       this.uiService.showSuccess();
     } catch (err) {

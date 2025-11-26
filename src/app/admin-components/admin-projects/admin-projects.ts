@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { AdminProjectsService } from '../../services/admin-projects.service';
 import { AuthService } from '../../services/auth';
 import { UiService } from '../../services/ui.service';
+import { AdminDataCheckService } from '../../services/admin-data-check';
 
 @Component({
   selector: 'app-admin-projects',
@@ -31,7 +32,8 @@ export class AdminProjects implements OnInit, AfterViewInit, OnDestroy {
     private fb: FormBuilder,
     private projectsService: AdminProjectsService,
     private auth: AuthService,
-    private uiService: UiService
+    private uiService: UiService,
+    private dataCheck: AdminDataCheckService
   ) {}
 
   ngOnInit() {
@@ -165,6 +167,7 @@ export class AdminProjects implements OnInit, AfterViewInit, OnDestroy {
     this.uiService.showLoader();
     try {
       await this.projectsService.saveProjects(this.userId, { projects: this.projects });
+       await this.dataCheck.checkAllData(this.userId);
       this.uiService.hideLoader();
       this.uiService.showSuccess();
     } catch (err) {

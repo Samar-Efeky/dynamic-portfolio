@@ -6,7 +6,7 @@ export class AdminExperienceService {
 
   constructor(
     private firestore: Firestore,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
   ) {}
 
   async saveExperience(uid: string, data: any) {

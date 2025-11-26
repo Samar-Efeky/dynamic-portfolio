@@ -1,6 +1,5 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Firestore, doc, setDoc, getDoc } from '@angular/fire/firestore';
-
 @Injectable({ providedIn: 'root' })
 export class AdminProjectsService {
   constructor(

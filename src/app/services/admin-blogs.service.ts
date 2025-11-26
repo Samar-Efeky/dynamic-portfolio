@@ -6,7 +6,7 @@ export class AdminBlogsService {
 
   constructor(
     private firestore: Firestore,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
   ) {}
 
   async saveBlogs(uid: string, data: any) {

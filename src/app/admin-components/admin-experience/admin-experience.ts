@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth';
 import { AdminExperienceService } from '../../services/admin-experience.service';
 import { UiService } from '../../services/ui.service';
 import { Subscription } from 'rxjs';
+import { AdminDataCheckService } from '../../services/admin-data-check';
 
 @Component({
   selector: 'app-admin-experience',
@@ -33,7 +34,8 @@ export class AdminExperience implements OnInit, OnDestroy {
     private expService: AdminExperienceService,
     private auth: AuthService,
     private el: ElementRef,
-    private uiService: UiService
+    private uiService: UiService,
+    private dataCheck: AdminDataCheckService
   ) {}
 
   ngOnInit() {
@@ -268,6 +270,7 @@ export class AdminExperience implements OnInit, OnDestroy {
     };
     try {
       await this.expService.saveExperience(this.userId!, data);
+      await this.dataCheck.checkAllData(this.userId);
       this.uiService.hideLoader();
       this.uiService.showSuccess();
     } catch (err) {
