@@ -21,7 +21,7 @@
       </h2>
     </div>
     <div class="lg:w-[50%] w-[100%] overflow-hidden">
-        <p class="leading-relaxed px-5 from-bottom" appInView>
+        <p class="leading-relaxed px-5 lg:pt-0 pt-4 from-bottom" appInView>
           {{about?.mainDescription}}
         </p>
     </div>
@@ -29,14 +29,14 @@
     <div class="xl:w-[30%] lg:w-[40%] sm:w-[60%] w-[80%] mx-auto py-10">
         <img [src]="info?.profileImage" class="w-full" alt="image">
     </div>
-  <div class="px-10 py-20">
+  <div class="w-full py-20">
     <app-slider-titles></app-slider-titles>
-    <div class="px-10 pt-10 overflow-hidden">
+    <div class="md:px-10 sm:px-5 px-3 pt-10 overflow-hidden">
         <h2 class="md:text-[2rem] text-[1.8rem] font-medium"
          style="color: var(--primaryColor);">How I Got Here</h2>
         <p class="leading-relaxed py-5">{{about?.howIGotHere}}</p>
     </div>
-     <div class="px-10 py-10 overflow-hidden">
+     <div class="md:px-10 sm:px-5 px-3 py-10 overflow-hidden">
         <h2 class="md:text-[2rem] text-[1.8rem] font-medium "
         style="color: var(--primaryColor);" >A Few More Words About Myself</h2>
         <p class="leading-relaxed py-5">{{about?.additionalDescription?.paragraph1}}</p>

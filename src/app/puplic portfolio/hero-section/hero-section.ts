@@ -2,13 +2,12 @@ import { Component, OnDestroy, effect } from '@angular/core';
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { AdminInfoService } from '../../services/admin-info.service';
 import { UserStateService } from '../../services/user-state.service';
-import { InViewDirective } from '../../directives/in-view.directive';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-hero-section',
   standalone: true,
-  imports: [CommonModule, InViewDirective],
+  imports: [CommonModule],
   templateUrl: './hero-section.html',
   styleUrls: ['./hero-section.scss'],
 })

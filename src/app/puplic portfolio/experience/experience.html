@@ -3,7 +3,7 @@
     @if(experience){
       @for(item of experience;track item){
       <div class="single-experience-box w-full sm:w-[45%] md:w-[40%] xl:w-[30%] flex flex-col items-start">
-      <h3>{{item?.companyName}}</h3>
+      <h4 >{{item?.companyName}}</h4>
       <span class="text-[14px]">{{item?.startDate}} - {{item?.endDate}}</span>
       <span>{{item?.role}}</span>
       <p class="text-start pt-2">{{item?.description}}</p>

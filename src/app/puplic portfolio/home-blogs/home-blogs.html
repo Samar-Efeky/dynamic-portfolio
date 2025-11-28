@@ -10,7 +10,7 @@
     </p>
   </div>
 
-  <section class="container mx-auto px-6 py-5">
+  <section class="container mx-auto lg:px-6 px-3 py-5">
     <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-15 items-stretch">
       @for(item of data?.blogs?.slice(0,3); track $index){
          <div class="blog-item h-full flex flex-col zoom-in" appInView>
@@ -26,7 +26,7 @@
     </div>
   </section>
 
-  @if(data?.blogs?.length>=3){
+  @if(data?.blogs?.length>=2){
     <a [routerLink]="['/portfolio', username, 'blogs']"  (click)="scrollToTop()">
       <div class="circle-button m-auto my-3 flex flex-col justify-center items-center">
         <i class="fa-solid fa-arrow-right mx-2"></i>

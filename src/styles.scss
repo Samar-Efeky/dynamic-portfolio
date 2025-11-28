@@ -179,7 +179,7 @@ p{
     }
 }
 .leading-relaxed{
-  opacity: 0.7;
+  opacity: 0.8;
 }
 .span-color{
   color: var(--primaryColor);
@@ -286,6 +286,9 @@ textarea {
 @media screen and (max-width:800px){
   p,li{
     font-size: 1rem;
+  }
+  .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
+    font-size: 1.1rem;
   }
 }
 @media screen and (max-width:400px){

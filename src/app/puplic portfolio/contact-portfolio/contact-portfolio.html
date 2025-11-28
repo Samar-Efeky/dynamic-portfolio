@@ -21,9 +21,9 @@
       </p>
       <a
         href="mailto:{{info?.email}}"
-        class="email-btn inline-flex items-center gap-3 px-8 py-4 rounded-lg  text-lg zoom-in" appInView
+        class="email-btn inline-flex items-center gap-3 px-8 py-4 rounded-lg  lg:text-lg text-md zoom-in" appInView
       >
-        <i class="fa-solid fa-envelope text-xl"></i>
+        <i class="fa-solid fa-envelope lg:text-xl text-lg"></i>
         Send Me An Email
       </a>
     </div>
@@ -37,7 +37,7 @@
           @for(social of info?.socialLinks;track social.platform){
                <ng-container>
           <a [href]="social.url" target="_blank" class="px-2">
-            <i class="fa-brands"
+            <i class="fa-brands lg:text-[25px] md:text-[20] text-[18px]"
                [ngClass]="{
                  'fa-linkedin': social.platform.toLowerCase() === 'linkedin',
                  'fa-github': social.platform.toLowerCase() === 'github',
@@ -53,7 +53,7 @@
         <h3 class="tracking-widest  mb-2 font-bold">EMAIL</h3>
         <a
           href="mailto:{{info?.email}}?subject=Work Inquiry"
-          class="text-xl hover:underline"
+          class="lg:text-xl md:text-lg text-[1rem] hover:underline"
         >
           {{info?.email}}
         </a>
@@ -61,14 +61,14 @@
       <div>
         <h3 class="tracking-widest  mb-2 font-bold">PHONE</h3>
 
-        <a href="tel:{{info?.phone}}" class="text-xl hover:underline block ">
+        <a href="tel:{{info?.phone}}" class="lg:text-xl md:text-lg text-[1rem] hover:underline block ">
           +{{info?.phone}}
         </a>
       </div>
       <div>
         <h3 class="tracking-widest  mb-2 font-bold">LOCATION</h3>
 
-        <a href="{{info?.location}}" class="text-xl hover:underline block ">
+        <a href="{{info?.location}}" class="lg:text-xl md:text-lg text-[1rem] hover:underline block ">
           {{info?.location}}
         </a>
       </div>

@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    @if(projectsList?.projects?.length > 2) {
+    @if(projectsList?.projects?.length >= 2) {
         <a [routerLink]="['/portfolio', username, 'projects']"  (click)="scrollToTop()">
             <div class="circle-button m-auto my-3 flex flex-col justify-center items-center">
                 <i class="fa-solid fa-arrow-right mx-2"></i>
