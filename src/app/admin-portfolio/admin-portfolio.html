@@ -11,11 +11,19 @@
      class="w-full save-data fixed flex justify-center items-center z-50">
   <div class="px-6 py-4 text-center gap-3 cursor-pointer animate-fade-in"
        (click)="uiService.hideSuccess()">
-    <i class="fa-solid fa-check lg:text-[10rem] md:text-[8rem] text-[6rem] pb-3 text-main"></i>
+    <i class="fa-solid fa-check lg:text-[10rem] md:text-[8rem] text-[5rem] pb-3 text-main"></i>
     <span class="font-semibold text-lg block">The data has been saved successfully!</span>
   </div>
 </div>
  }
+ <div *ngIf="uiService.cvSuccess$ | async" 
+     class="w-full save-data fixed flex justify-center items-center z-50">
+  <div class="px-6 py-4 text-center gap-3 cursor-pointer animate-fade-in"
+       (click)="uiService.hideCVSuccess()">
+    <i class="fa-solid fa-check lg:text-[10rem] md:text-[8rem] text-[5rem] pb-3 text-main"></i>
+    <span class="font-semibold text-lg block">CV downloaded successfully!</span>
+  </div>
+</div>
 <div class="w-full px-3 pt-5 pb-10 mb-20">
     <div class="h-[200px] relative w-full rounded-lg" style="background-color: var(--cardColor);">
         <div class="overley w-full h-full flex justify-center items-center">

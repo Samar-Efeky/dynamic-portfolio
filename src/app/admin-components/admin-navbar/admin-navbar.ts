@@ -11,6 +11,7 @@ import { takeUntil } from 'rxjs/operators';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { saveAs } from 'file-saver';
+import { UiService } from '../../services/ui.service';
 @Component({
   selector: 'app-admin-navbar',
   imports: [RouterLink, RouterLinkActive],
@@ -38,12 +39,14 @@ export class AdminNavbar implements AfterViewInit, OnDestroy {
     private adminAboutService: AdminAboutService,
     private adminExperienceService: AdminExperienceService,
     private adminProjectsService: AdminProjectsService,
-    private zone: NgZone
+    private zone: NgZone,
+    private uiService:UiService
   ) {}
 
   // ===== DOWNLOAD CV =====
  async downloadCV() {
     try {
+      this.uiService.showLoader();
       if (!this.uid) {
         alert('User not logged in.');
         return;
@@ -55,6 +58,7 @@ export class AdminNavbar implements AfterViewInit, OnDestroy {
       const projects = await this.adminProjectsService.getProjects(this.uid);
 
       if (!info || !about || !experience || !projects) {
+        this.uiService.hideLoader();
         alert('Some data is missing. Please complete your profile before downloading CV.');
         return;
       }
@@ -189,7 +193,9 @@ export class AdminNavbar implements AfterViewInit, OnDestroy {
 
       // ===== SAVE PDF (MOBILE + DESKTOP) =====
       const pdfBlob = doc.output('blob');
+      this.uiService.hideLoader();
       saveAs(pdfBlob, `${info?.['fullName'] || 'CV'}.pdf`);
+      this.uiService.showCVSuccess();
 
     } catch (error) {
       console.error('Error downloading CV:', error);
