@@ -187,7 +187,7 @@ export class AdminNavbar implements AfterViewInit, OnDestroy {
         });
       }
 
-      // ===== SAVE PDF USING FILE-SAVER (MOBILE & DESKTOP) =====
+      // ===== SAVE PDF (MOBILE + DESKTOP) =====
       const pdfBlob = doc.output('blob');
       saveAs(pdfBlob, `${info?.['fullName'] || 'CV'}.pdf`);
 
@@ -196,8 +196,6 @@ export class AdminNavbar implements AfterViewInit, OnDestroy {
       alert('Something went wrong while downloading CV. Please try again.');
     }
   }
-
-
   // ===== LIFECYCLE HOOKS =====
   ngAfterViewInit() {
     this.navbarOffsetTop = this.navbar.nativeElement.offsetTop;
