@@ -63,14 +63,18 @@ export class SignIn implements OnInit {
     });
 }
 
-  signInWithGoogle() {
-    this.authService.signInWithGoogle()
-      .then(() => {
-        this.router.navigate(['/admin']);
-        if (isPlatformBrowser(this.platformId)) window.scrollTo({ top: 0, behavior: 'smooth' });
-      })
-      .catch(err => console.error(err));
-  }
+ signInWithGoogle() {
+  this.authService.signInWithGoogle()
+    .then(() => {
+      this.router.navigate(['/admin']);
+      if (isPlatformBrowser(this.platformId)) window.scrollTo({ top: 0, behavior: 'smooth' });
+    })
+    .catch(err => {
+      console.error(err);
+      this.signInError = 'Google Sign-In failed. Please try again.';
+    });
+}
+
 
   goToSignUp() {
     this.router.navigate(['/sign-up']);

@@ -40,12 +40,13 @@ export class AuthService {
   }
 
   async signInWithGoogle() {
-    const provider = new GoogleAuthProvider();
-    const res = await signInWithPopup(this.auth, provider);
-    this.currentUserSubject.next(res.user);
-    if (isPlatformBrowser(this.platformId)) localStorage.setItem('uid', res.user.uid);
-    return res;
-  }
+  if (!isPlatformBrowser(this.platformId)) return; 
+  const provider = new GoogleAuthProvider();
+  const res = await signInWithPopup(this.auth, provider);
+  this.currentUserSubject.next(res.user);
+  localStorage.setItem('uid', res.user.uid);
+  return res;
+}
 
   logout() {
     this.currentUserSubject.next(null);
