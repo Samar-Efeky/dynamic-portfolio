@@ -24,6 +24,7 @@
       </div>
 
       <div class="flex flex-wrap gap-2 mb-6">
+    
         <span *ngFor="let w of inspiringWords; index as i"
               class="px-3 py-2 rounded-[3px] flex items-center gap-2 text-sm"
               style="background-color: var(--inputColor);">
@@ -47,7 +48,7 @@
                   placeholder="Write here..."></textarea>
         <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-3"
          *ngIf="form.get(field)?.errors && form.get(field)?.touched">
-          Must be 30-50 words (current: {{ wordCount(field) }})
+          Must be 30-100 words (current: {{ wordCount(field) }})
         </div>
       </ng-container>
 

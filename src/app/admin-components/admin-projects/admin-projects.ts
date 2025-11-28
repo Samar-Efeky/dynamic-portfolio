@@ -20,9 +20,10 @@ export class AdminProjects implements OnInit, AfterViewInit, OnDestroy {
   form!: FormGroup;
   skillsControl!: FormControl;
   galleryControl!: FormControl;
-
+  featuresControl!:FormControl;
   projects: any[] = [];
   userId: string | null = null;
+  editingIndex: number | null = null;
 
   private destroy$ = new Subject<void>();
 
@@ -39,13 +40,14 @@ export class AdminProjects implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.skillsControl = new FormControl([], [Validators.required, this.minArrayLengthValidator(6)]);
     this.galleryControl = new FormControl([], [this.maxArrayLengthValidator(3)]);
-
+    this.featuresControl = new FormControl([], [Validators.required, this.minArrayLengthValidator(3)]);
     this.form = this.fb.group({
       projectTitle: ['', Validators.required],
-      projectDescription: ['', [Validators.required, this.wordCountValidator(100, 500)]],
+      projectDescription: ['', [Validators.required, this.wordCountValidator(40, 200)]],
       liveLink: [''],
       skills: this.skillsControl,
-      gallery: this.galleryControl
+      gallery: this.galleryControl,
+      features: this.featuresControl 
     });
 
     // Load user data safely
@@ -146,16 +148,35 @@ export class AdminProjects implements OnInit, AfterViewInit, OnDestroy {
     gallery.splice(i, 1);
     this.galleryControl.setValue(gallery);
   }
+addFeature(value: string) {
+  const v = value.trim();
+  if (!v) return;
 
+  const features = [...this.featuresControl.value];
+  features.push(v);
+  this.featuresControl.setValue(features);
+}
+removeFeature(i: number) {
+  const features = [...this.featuresControl.value];
+  features.splice(i, 1);
+  this.featuresControl.setValue(features);
+}
   // ================= Projects =================
   addProject() {
-    if (this.form.invalid) return;
-    this.projects.push(this.form.value);
+   if (this.form.invalid) return;
 
-    // Reset form
-    this.form.reset();
-    this.skillsControl.setValue([]);
-    this.galleryControl.setValue([]);
+  const newProject = {
+    id: crypto.randomUUID(), 
+    ...this.form.value
+  };
+
+  this.projects.push(newProject);
+
+  // Reset form
+  this.form.reset();
+  this.skillsControl.setValue([]);
+  this.galleryControl.setValue([]);
+  this.featuresControl.setValue([]);
   }
 
   removeProject(i: number) {
@@ -185,6 +206,37 @@ export class AdminProjects implements OnInit, AfterViewInit, OnDestroy {
     const v = this.form.get(c)?.value || '';
     return v.trim() ? v.trim().split(/\s+/).length : 0;
   }
+editProject(i: number) {
+  const p = this.projects[i];
+  this.editingIndex = i;
+
+  this.form.patchValue({
+    projectTitle: p.projectTitle,
+    projectDescription: p.projectDescription,
+    liveLink: p.liveLink,
+  });
+
+  this.skillsControl.setValue([...p.skills]);
+  this.galleryControl.setValue([...p.gallery]);
+  this.featuresControl.setValue([...p.features]);
+  window.scrollTo({ top: 300, behavior: 'smooth' });
+}
+updateProject() {
+  if (this.form.invalid || this.editingIndex === null) return;
+
+  this.projects[this.editingIndex] = {
+    id: this.projects[this.editingIndex].id, 
+    ...this.form.value
+  };
+  this.editingIndex = null;
+  this.form.reset();
+  this.skillsControl.setValue([]);
+  this.galleryControl.setValue([]);
+  this.featuresControl.setValue([]);
+}
+canUpdateProject() {
+  return this.form.valid && this.editingIndex !== null;
+}
 
   // ================= Auto Resize =================
   autoResize(event: Event) {

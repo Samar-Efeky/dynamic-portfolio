@@ -18,15 +18,15 @@
         Project title is required.
       </div>
 
-      <label class="block mb-2 font-semibold">Project Description (40-80 words)</label>
+      <label class="block mb-2 font-semibold">Project Description (40-200 words)</label>
       <textarea formControlName="projectDescription"
-                rows="3"
+                
                 (input)="autoResize($event)"
                 class="w-full p-3 form-control mb-2"
                 placeholder="Describe the project..."></textarea>
       <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-4"
            *ngIf="form.get('projectDescription')?.touched && form.get('projectDescription')?.invalid">
-        Description must be 100-500 words (current: {{ wordCount('projectDescription') }})
+        Description must be 40-200 words (current: {{ wordCount('projectDescription') }})
       </div>
 
       <label class="block mb-2 font-semibold">Live Link (optional)</label>
@@ -70,7 +70,7 @@
           <img [src]="img" class="w-full h-full object-cover rounded" />
           <button type="button" (click)="removeImage(i)"
                   class="absolute top-1 right-1 no-after-button px-1 rounded bg-black/60">
-            <i class="fa-solid fa-xmark text-[14px]"></i>
+            <i class="fa-solid fa-xmark text-[14px] text-white"></i>
           </button>
         </div>
       </div>
@@ -79,13 +79,53 @@
            *ngIf="galleryControl.touched && galleryControl.invalid">
         Maximum 3 images allowed (current: {{ galleryControl.value.length }})
       </div>
+<!-- Features -->
+<label class="block mb-2 font-semibold">Project Features (Min 3)</label>
 
-      <button type="button"
-              class="px-5 py-3 text-black font-semibold mt-5 mb-6"
-              [disabled]="!canAddProject()"
-              (click)="addProject()">
-        Add Project
-      </button>
+<div class="flex items-center gap-3 mb-3">
+  <input type="text" #featureInputRef
+         (keydown.enter)="$event.preventDefault(); addFeature(featureInputRef.value); featureInputRef.value=''"
+         class="flex-1 p-3 form-control"
+         placeholder="Responsive design, Authentication system..." />
+
+  <button type="button"
+          (click)="addFeature(featureInputRef.value); featureInputRef.value=''"
+          class="px-4 py-2 no-after-button">
+    Add
+  </button>
+</div>
+
+<div class="flex flex-wrap gap-2 mb-4">
+  <span *ngFor="let f of featuresControl.value; index as i"
+        class="px-3 py-2 rounded-[3px] flex items-center gap-2 text-sm"
+        style="background-color: var(--inputColor);">
+    {{ f }}
+    <button type="button" (click)="removeFeature(i)" class="ml-1 no-after-button px-1 rounded-[3px]">
+      <i class="fa-solid fa-xmark text-[12px]"></i>
+    </button>
+  </span>
+</div>
+
+<div class="text-red-900 bg-red-200 p-2 rounded-sm mb-4"
+     *ngIf="featuresControl.touched && featuresControl.invalid">
+  Minimum 3 features required (current: {{ featuresControl.value.length }})
+</div>
+     <button *ngIf="editingIndex === null"
+        type="button"
+        class="px-5 py-3 text-black font-semibold mt-5 mb-6"
+        [disabled]="!canAddProject()"
+        (click)="addProject()">
+  Add Project
+</button>
+
+<!-- UPDATE button -->
+<button *ngIf="editingIndex !== null"
+        type="button"
+        class="px-5 py-3  font-semibold mt-5 mb-6 "
+        [disabled]="!canUpdateProject()"
+        (click)="updateProject()">
+  Update Project
+</button>
     </form>
 
     <!-- Display added projects -->
@@ -95,22 +135,32 @@
         <div class="flex justify-between items-start">
           <div class="w-full">
             <h3 class="font-bold text-main text-lg span-color">{{ p.projectTitle }}</h3>
+            <p class="text-[16px]">ID: {{ p.id }}</p>
             <p class="text-sm my-1">{{ p.projectDescription }}</p>
             <p class="text-sm mb-2" *ngIf="p.liveLink">
               <strong>Live:</strong> <a class="text-blue-400" [href]="p.liveLink" target="_blank">{{ p.liveLink }}</a>
             </p>
 
-            <div class="flex flex-wrap gap-2 my-2">
+            <div class="flex flex-wrap gap-2 my-4">
               <span *ngFor="let s of p.skills" class="px-3 py-1 rounded text-xs" style="background-color: var(--sectionColor);">
                 {{ s }}
               </span>
             </div>
+            <ul class=" my-2 ">
+  <li *ngFor="let f of p.features" 
+        class="px-3 py-1 rounded text-xs" 
+        >
+    • {{ f }}
+            </li>
+</ul>
 
             <div class="flex gap-2 flex-wrap mt-2">
               <img *ngFor="let img of p.gallery" [src]="img" class="w-20 h-20 object-cover rounded" />
             </div>
           </div>
-
+          <button (click)="editProject(i)" class="no-after-button px-2 mr-2">
+  <i class="fa-solid fa-pen-to-square text-[12px]"></i>
+</button>
           <button (click)="removeProject(i)" class="no-after-button px-1">
             <i class="fa-solid fa-xmark text-[12px]"></i>
           </button>

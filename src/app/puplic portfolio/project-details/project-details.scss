@@ -1,0 +1,10 @@
+span,h3 {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+p{
+  opacity: 0.7;
+}
+.skills span{
+    border: 0.1px solid var(--borderColor);
+    background-color: var(--sectionColor);
+}

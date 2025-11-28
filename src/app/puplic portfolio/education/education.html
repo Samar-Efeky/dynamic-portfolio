@@ -1,37 +1,14 @@
 <div class="education-area mt-5 from-bottom" appInView>
-  <div class="flex flex-wrap justify-center lg:gap-4 gap-2 items-stretch">
-
-    <div class="single-education-box w-full sm:w-[45%] lg:w-[30%] flex flex-col">
-      <span>2010 - 2012 (Computer Science)</span>
-      <h3>Stanford University</h3>
-      <p>
-        Lorem ipsum dolor sit amet, elit, sed do eiusmod tempor incididunt ut labore et dolore.
-      </p>
-    </div>
-
-    <div class="single-education-box w-full sm:w-[45%] lg:w-[30%] flex flex-col">
-      <span>2010 - 2012 (Bachelor's Degree)</span>
-      <h3>Harvard University</h3>
-      <p>
-        Lorem ipsum dolor sit amet, elit.
-      </p>
-    </div>
-
-    <div class="single-education-box w-full sm:w-[45%] lg:w-[30%] flex flex-col">
-      <span>2010 - 2012 (Computer Engineering)</span>
-      <h3>Columbia University</h3>
-      <p>
-        Lorem ipsum dolor sit amet, elit, sed do eiusmod tempor incididunt ut labore et dolore.
-      </p>
-    </div>
-
-    <div class="single-education-box w-full sm:w-[45%] lg:w-[30%] flex flex-col">
-      <span>2010 - 2012 (Programming)</span>
-      <h3>Stanford University</h3>
-      <p>
-        Lorem ipsum dolor sit amet, elit, sed do eiusmod tempor incididunt ut labore et dolore.
-      </p>
-    </div>
-
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-3 pt-5">
+    @if(education){
+      @for(item of education; track item){
+        <div class="single-education-box flex flex-col px-3  bg-white rounded-md shadow-md items-start
+                    w-full h-[70%] aspect-[4/3]">
+          <h3 class="lg:text-lg text-md font-semibold pt-3">{{item?.degree}}</h3>
+          <span class="text-sm text-gray-500">{{item?.institution}} ({{item?.start}} - {{item?.end}})</span>
+          <p class="text-md mt-2 text-start">{{item?.description}}</p>
+        </div>
+      }
+    }
   </div>
 </div>

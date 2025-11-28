@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { HomeData } from "../home-data/home-data";
 import { InViewDirective } from "../../directives/in-view.directive";
+import { UserStateService } from '../../services/user-state.service';
+import { AdminAboutService } from '../../services/admin-about.service';
+import { AdminServicesService } from '../../services/admin-services.service';
 
 @Component({
   selector: 'app-services-portfolio',
@@ -10,51 +13,42 @@ import { InViewDirective } from "../../directives/in-view.directive";
   styleUrl: './services-portfolio.scss',
 })
 export class ServicesPortfolio {
-   services = [
-    {
-      number: '01.',
-      title: 'Digital Marketing',
-      desc: `Rerum quam quos. Aut asperiores sit mollitia. Rem neque et voluptatem eos quia sed
-      eligendi et. Eaque velit eligendi ut magnam. Cumque ducimus laborum doloribus facere maxime
-      vel earum quidem enim suscipit.`,
-      list: ['Cumque Ducimus', 'Maxime Vel']
-    },
-    {
-      number: '02.',
-      title: 'Social Media Marketing',
-      desc: `Quibusdam quis autem voluptatibus earum vel ex error ea magni. Rerum quam quos. Aut
-      asperiores sit mollitia. Rem neque et voluptatem eos quia sed eligendi et.`,
-      list: ['Lorem Ipsum', 'voluptatibus Earum']
-    },
-    {
-      number: '03.',
-      title: 'Content Marketing',
-      desc: `Rerum quam quos. Quibusdam quis autem voluptatibus earum vel ex error ea magni. Aut
-      asperiores sit mollitia. Rem neque et voluptatem eos quia sed eligendi et.`,
-      list: ['Eaque velit', 'Asperiores']
-    },
-    {
-      number: '04.',
-      title: 'Digital Marketing',
-      desc: `Rerum quam quos. Aut asperiores sit mollitia. Rem neque et voluptatem eos quia sed
-      eligendi et. Eaque velit eligendi ut magnam. Cumque ducimus laborum doloribus facere maxime
-      vel earum quidem enim suscipit.`,
-      list: ['Cumque Ducimus', 'Maxime Vel']
-    },
-    {
-      number: '05.',
-      title: 'Social Media Marketing',
-      desc: `Quibusdam quis autem voluptatibus earum vel ex error ea magni. Rerum quam quos. Aut
-      asperiores sit mollitia. Rem neque et voluptatem eos quia sed eligendi et.`,
-      list: ['Lorem Ipsum', 'voluptatibus Earum']
-    },
-    {
-      number: '06.',
-      title: 'Content Marketing',
-      desc: `Rerum quam quos. Quibusdam quis autem voluptatibus earum vel ex error ea magni. Aut
-      asperiores sit mollitia. Rem neque et voluptatem eos quia sed eligendi et.`,
-      list: ['Eaque velit', 'Asperiores']
-    }
-  ];
+  about: any = null;
+  data: any = null;
+  private destroyed = false;
+  private dataLoaded = false;
+  private currentUid: string | null = null;
+
+  constructor(
+    private userState: UserStateService,
+    private adminAboutService: AdminAboutService,
+    private adminServices: AdminServicesService
+  ) {
+
+    effect(() => {
+      if (this.destroyed) return;
+
+      const uid = this.userState.uid();
+      if (!uid) return;
+      if (this.dataLoaded && this.currentUid === uid) return;
+
+      this.currentUid = uid;
+      this.dataLoaded = true;
+      this.loadData(uid);
+    });
+  }
+
+  async loadData(uid: string) {
+    this.about = await this.adminAboutService.getAbout(uid);
+    this.data = await this.adminServices.getServices(uid);
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0 });
+  }
+
+  ngOnDestroy() {
+    this.destroyed = true;
+  }
 
 }

@@ -1,59 +1,95 @@
 <nav class="w-full fixed top-0 left-0 z-50" [class.nav-scrolled]="scrolled">
+
   <div class="mx-auto flex items-center justify-between px-4 py-3">
-    <div class="logo-item" routerLink="/portfolio" (click)="scrollToTop()">
+
+    <!-- Logo -->
+    <div class="logo-item" [routerLink]="['.']" (click)="scrollToTop()">
       <i class="fa-brands fa-cloudscale"></i>
-      <h1>Samar</h1>
+      <h1>{{ info()?.username || 'Loading...' }}</h1>
     </div>
-    <ul 
-      class="xl:space-x-20 lg:space-x-10 uppercase text-white transition-all duration-300"
-      [class.sidebar-open]="sidebarOpen"
-    >
-    <li 
-  [routerLink]="['/portfolio']"
-  [class.active-link]="isLinkActive('/portfolio')"
-  (click)="toggleSidebar(); scrollToTop()"
->
-  Home
-</li>
 
-      <li routerLink="/portfolio/about" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">About</li>
-      <li routerLink="/portfolio/projects" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Projects</li>
-      <li routerLink="/portfolio/services" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Services</li>
-  <li>
-  <a 
-    [routerLink]="['/portfolio']"
-    fragment="testimonial"
-    [class.active-link]="isLinkActive('/portfolio', 'testimonial')"
-    (click)="toggleSidebar()"
-  >
-    Testimonial
-  </a>
-</li>
+    <!-- Menu -->
+    <ul class="xl:space-x-20 lg:space-x-10 uppercase text-white"
+        [class.sidebar-open]="sidebarOpen">
 
-
-      <li routerLink="/portfolio/blogs" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Blogs</li>
-      <li routerLink="/portfolio/contact" routerLinkActive="active-link" (click)="toggleSidebar();scrollToTop()">Contact</li>
-
-      <li class="sidebar-tel">( +20 ) 1207-752</li>
-      <li class="sidebar-social">
-        <i class="fa-brands fa-facebook px-5"></i>
-        <i class="fa-brands fa-twitter px-5"></i>
-        <i class="fa-brands fa-linkedin px-5"></i>
-        <i class="fa-brands fa-youtube px-5"></i>
+      <!-- Home -->
+      <li [routerLink]="['.']"
+          [class.active-link]="isLinkActive('.')"
+          (click)="toggleSidebar(); scrollToTop()">
+        Home
       </li>
-    </ul>
-    <div class="flex">
-      <button routerLink="contact" class="sm:px-4 px-2 sm:py-2  mx-3" >Let's Talk</button>
-      <div class="icon-sidebar sm:p-3 p-1 lg:hidden" (click)="toggleSidebar()">
-        <i 
-          class="fa-solid fa-bars cursor-pointer"
-          [class.hidden]="sidebarOpen"
-        ></i>
-        <i 
-          class="fa-solid fa-xmark cursor-pointer"
-          [class.hidden]="!sidebarOpen"
-        ></i>
 
+      <li [routerLink]="['about']"
+          [class.active-link]="isLinkActive('about')"
+          (click)="toggleSidebar(); scrollToTop()">
+        About
+      </li>
+
+      <li [routerLink]="['projects']"
+          [class.active-link]="isLinkActive('projects')"
+          (click)="toggleSidebar(); scrollToTop()">
+        Projects
+      </li>
+
+      <li [routerLink]="['services']"
+          [class.active-link]="isLinkActive('services')"
+          (click)="toggleSidebar(); scrollToTop()">
+        Services
+      </li>
+
+      <!-- Testimonial -->
+      <li>
+        <a [routerLink]="['.']"
+           fragment="testimonial"
+           [class.active-link]="isLinkActive('.', 'testimonial')"
+           (click)="toggleSidebar()">
+          Testimonial
+        </a>
+      </li>
+
+      <li [routerLink]="['blogs']"
+          [class.active-link]="isLinkActive('blogs')"
+          (click)="toggleSidebar(); scrollToTop()">
+        Blogs
+      </li>
+
+      <li [routerLink]="['contact']"
+          [class.active-link]="isLinkActive('contact')"
+          (click)="toggleSidebar(); scrollToTop()">
+        Contact
+      </li>
+
+      <!-- Phone -->
+      <li class="sidebar-tel">
+        <a *ngIf="info()?.phone" [href]="'tel:' + info()?.phone">+{{ info()?.phone }}</a>
+      </li>
+
+      <!-- Social Links -->
+      <li class="sidebar-social" *ngIf="info()?.socialLinks?.length">
+        <ng-container *ngFor="let social of info()?.socialLinks">
+          <a [href]="social.url" target="_blank" class="px-2">
+            <i class="fa-brands"
+               [ngClass]="{
+                 'fa-linkedin': social.platform.toLowerCase() === 'linkedin',
+                 'fa-github': social.platform.toLowerCase() === 'github',
+                 'fa-facebook': social.platform.toLowerCase() === 'facebook',
+                 'fa-twitter': social.platform.toLowerCase() === 'twitter'
+               }"></i>
+          </a>
+        </ng-container>
+      </li>
+
+    </ul>
+
+    <!-- Sidebar Icon -->
+    <div class="flex">
+      <button [routerLink]="['contact']" (click)="scrollToTop()" class="sm:px-4 px-2 sm:py-2 mx-3">
+        Let's Talk
+      </button>
+
+      <div class="icon-sidebar sm:p-3 p-1 lg:hidden" (click)="toggleSidebar()">
+        <i class="fa-solid fa-bars" [class.hidden]="sidebarOpen"></i>
+        <i class="fa-solid fa-xmark" [class.hidden]="!sidebarOpen"></i>
       </div>
     </div>
 

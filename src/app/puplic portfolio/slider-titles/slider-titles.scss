@@ -7,8 +7,6 @@
     align-items: center;
     gap: 12px;
     white-space: nowrap;
-
-    font-size: 2rem;
     font-weight: 700;
     font-family: 'Times New Roman', Times, serif;
 
@@ -23,13 +21,5 @@
 
 .animate-scroll-left {
   animation: scroll-left 14s linear infinite;
-}
-@media screen and (max-width: 900px) {
-    h2{
-        font-size: 1.8rem;
-        i{
-            font-size: 1.8rem;
-        }
-    }
 }
 }

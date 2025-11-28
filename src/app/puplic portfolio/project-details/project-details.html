@@ -1,0 +1,65 @@
+<div class="project-details p-10 overflow-hidden">
+    <h3 class="mt-20 text-center span-color text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] from-top" appInView>
+        {{project?.['projectTitle']}}
+    </h3>
+  <div class="project-gallery mt-10 lg:w-[50%] sm:w-[70%] w-[90%] mx-auto">
+    @if(mainImage){
+        <div class="main-image w-full mb-4 cursor-pointer" (click)="openLightbox()">
+      <img [src]="mainImage" class="w-full h-auto object-cover rounded-md shadow-lg" alt="Project Image">
+    </div>
+    }
+    <div class="thumbnails flex gap-2 overflow-x-auto">
+      <div *ngFor="let img of project?.gallery; let i = index"
+           (click)="selectImage(i)"
+           class="thumbnail w-20 h-20 cursor-pointer rounded-md border-2"
+           [class.border-blue-500]="mainImage === img">
+        <img [src]="img" class="w-full h-full object-cover rounded-md" alt="Thumbnail">
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div *ngIf="lightboxOpen"
+       class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+       (click)="closeLightbox()">
+
+    <button (click)="closeLightbox()" 
+            class="absolute top-4 right-4 px-3 pb-1 text-3xl z-50 no-after-button">
+      <i class="fa-solid fa-xmark "></i>
+    </button>
+
+    <div class=" w-[90vw] h-[90vw] max-w-[800px] max-h-[600px]" (click)="$event.stopPropagation()">
+      <button (click)="prevImage()" 
+              class="absolute left-2 top-1/2 transform -translate-y-1/2 px-3 pb-2 text-4xl z-50 no-after-button">
+        <i class="fa-solid fa-chevron-left "></i>
+      </button>
+
+      <button (click)="nextImage()" 
+              class="absolute right-2 top-1/2 transform -translate-y-1/2 px-3 pb-2 text-4xl z-50 no-after-button">
+        <i class="fa-solid fa-chevron-right "></i>
+      </button>
+
+      <img [src]="project?.gallery?.[currentIndex]" 
+           class="w-full h-full object-cover rounded-md shadow-lg" alt="Lightbox Image" />
+    </div>
+  </div>
+  <div class="mt-20 overflow-hidden">
+    <span class="span-color text-[20px]">Description</span>
+    <p class="py-3 from-left" appInView>{{project?.['projectDescription']}}</p>
+    <span class="span-color pt-10 text-[20px]">live preview : </span>
+    <a [href]="project?.['liveLink']" class="inline" target="_blank">{{project?.['liveLink']}}</a>
+    <span class="span-color pt-10 text-[20px] block">skills</span>
+    <div class="skills flex flex-wrap gap-4 pt-5">
+        @for(skill of project?.['skills'];track skill){
+            <span class="p-2 zoom-in" appInView>{{skill}}</span>
+        }
+    </div>
+    <span class="span-color pt-10 text-[20px] block">features</span>
+    <ul class="pt-4">
+        @for(item of project?.['features'];track item){
+            <li class="py-3 text-[17px]">_ {{item}}</li>
+        }
+    </ul>
+
+  </div>
+</div>

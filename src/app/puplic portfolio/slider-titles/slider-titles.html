@@ -1,23 +1,15 @@
 <div class="slider-container bg-main-color overflow-hidden py-6">
   <div class="slider-track flex animate-scroll-left">
-    <div class="slider-content flex items-center gap-20 px-10">
-      <h2><i class="fa-solid fa-square-check"></i> SoftWare Developer</h2>
-      <h2><i class="fa-solid fa-square-check"></i> Website Developer</h2>
-      <h2><i class="fa-solid fa-square-check"></i> Web Designer</h2>
-      <h2><i class="fa-solid fa-square-check"></i> Development</h2>
-    </div>
-    <div class="slider-content flex items-center gap-20 px-10">
-      <h2><i class="fa-solid fa-square-check"></i> SoftWare Developer</h2>
-      <h2><i class="fa-solid fa-square-check"></i> Website Developer</h2>
-      <h2><i class="fa-solid fa-square-check"></i> Web Designer</h2>
-      <h2><i class="fa-solid fa-square-check"></i> Development</h2>
-    </div>
-    <div class="slider-content flex items-center gap-20 px-10">
-      <h2><i class="fa-solid fa-square-check"></i> SoftWare Developer</h2>
-      <h2><i class="fa-solid fa-square-check"></i> Website Developer</h2>
-      <h2><i class="fa-solid fa-square-check"></i> Web Designer</h2>
-      <h2><i class="fa-solid fa-square-check"></i> Development</h2>
-    </div>
+
+    @for(section of [1,2,3]; track section) {
+      <div class="slider-content flex items-center gap-20 px-10">
+        @for(jobTitle of info?.relatedJobTitles; track jobTitle) {
+          <h2 class="lg:text-[2rem] md:text-[1.7rem] sm:text-[1.5rem] text-[1.3rem]">
+            <i class="fa-solid fa-square-check"></i> {{ jobTitle}}
+          </h2>
+        }
+      </div>
+    }
 
   </div>
 </div>

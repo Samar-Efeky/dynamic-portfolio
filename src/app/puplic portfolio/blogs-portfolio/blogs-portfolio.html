@@ -9,20 +9,17 @@
   </div>
    <section class="container mx-auto px-6 py-5">
  <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-15 items-stretch">
-    @for(item of blogs; track $index){
-         <div appInView
-       class="blog-item h-full flex flex-col zoom-in">
-     <span class="span-color  text-xl">{{ item.mainTitle}}</span>
-    <h3 class="flex items-center gap-2 md:text-2xl  my-4">
-      {{ item.title }}
-    </h3>
-
-    <p class="leading-relaxed mb-6 flex-grow">
-      {{ item.desc }}
-    </p>
-
-  </div>
-    }
+    @for(item of data?.blogs; track $index){
+         <div class="blog-item h-full flex flex-col zoom-in" appInView>
+           <span class="span-color text-xl">{{ item?.subtitle}}</span>
+           <h3 class="flex items-center gap-2 md:text-2xl my-4">
+             {{ item?.title }}
+           </h3>
+           <p class="leading-relaxed mb-6 flex-grow">
+             {{ item?.description}}
+           </p>
+         </div>
+      }
 
 </div>
 </section>

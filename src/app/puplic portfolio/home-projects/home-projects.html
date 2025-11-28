@@ -1,42 +1,56 @@
 <div class="home-projects overflow-hidden">
-    <div class="text-center px-2 py-5 lg:px-20 lg:py-10 title-section from-top" appInView>
-  <div class="flex items-center justify-center ">
-    <div class="border-t-2  w-16 mx-3 title-line"></div>
-    <h2 class="md:text-2xl font-semibold ">projects</h2>
-    <div class="border-t-2  w-16 mx-3 title-line"></div>
-  </div>
-  <p class="mx-auto px-4 md:px-20 lg:text-[2rem] sm:text-[1.4rem] text-[1rem]">
-    Look at my portfolio 
-  </p>
-</div>
- <div class="work-section w-full my-10">
-    <div class="container mx-auto px-4 lg:px-20">
-      <div class="flex flex-wrap -mx-3 justify-center">
-        @for(image of images; track $index){
-          <div class="w-full md:w-1/2 lg:w-1/3 px-3 mb-6 overflow-hidden">
-            <div class="work-content work-image-click flex flex-col justify-between h-full from-left" appInView>
-              <div class="w-full aspect-[4/3] overflow-hidden rounded-md">
-                <img [src]="image" class="w-full h-full object-cover" alt="">
-              </div>
-              <div class="flex justify-between items-center pt-4">
-                <div>
-                  <span>Product Design</span>
-                  <p class="my-2">Brand Identity & Motion Design</p>
-                </div>
-                <div class="work-icon p-3 rounded-md bg-gray-100">
-                  <i class="fa-solid fa-arrow-up"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        }
-      </div>
-    </div>
-  </div>
-    <a routerLink="/portfolio/projects" (click)="scrollToTop()">
-        <div class="circle-button m-auto my-3  flex flex-col justify-center items-center ">
-            <i class="fa-solid fa-arrow-right mx-2"></i>
-            <span class="capitalize">More Projects</span>
+    <div class="text-center px-2 py-5 lg:px-20 lg:py-10 title-section">
+        <div class="flex items-center justify-center">
+            <div class="border-t-2 w-16 mx-3 title-line"></div>
+            <h2 class="md:text-2xl font-semibold">projects</h2>
+            <div class="border-t-2 w-16 mx-3 title-line"></div>
         </div>
-    </a>
+        <p class="mx-auto px-4 md:px-20 lg:text-[2rem] sm:text-[1.4rem] text-[1rem]">
+            Look at my portfolio
+        </p>
+    </div>
+
+    <div class="work-section w-full my-10">
+        <div class="container mx-auto px-4 lg:px-20">
+
+            @if(projectsList?.projects?.length) {
+                <div class="flex flex-wrap -mx-3">
+                    @for(project of projectsList?.projects?.slice(0,3); track $index) {
+                        <div class="w-full md:w-1/2 lg:w-1/3 px-3 mb-6 overflow-hidden">
+                            <div 
+                                [routerLink]="['/portfolio', username, 'project-details', project?.id, uid]"
+                                (click)="scrollToTop()"
+                                class="work-content work-image-click flex flex-col justify-between h-full from-left"
+                                appInView
+                            >
+                                <div class="w-full aspect-[4/3] overflow-hidden rounded-md">
+                                    <img [src]="project?.gallery[0]" class="w-full h-full object-cover" [alt]="project?.projectTitle">
+                                </div>
+
+                                <div class="flex justify-between items-center pt-4">
+                                    <div>
+                                        <span>Project</span>
+                                        <p class="my-2">{{ project?.projectTitle }}</p>
+                                    </div>
+                                    <div class="work-icon p-3 rounded-md bg-gray-100">
+                                        <i class="fa-solid fa-arrow-up"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
+    @if(projectsList?.projects?.length > 2) {
+        <a [routerLink]="['/portfolio', username, 'projects']"  (click)="scrollToTop()">
+            <div class="circle-button m-auto my-3 flex flex-col justify-center items-center">
+                <i class="fa-solid fa-arrow-right mx-2"></i>
+                <span class="capitalize">More Projects</span>
+            </div>
+        </a>
+    }
 </div>

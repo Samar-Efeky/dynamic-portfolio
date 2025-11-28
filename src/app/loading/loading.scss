@@ -1,0 +1,25 @@
+/* Loader Container */
+.loader {
+  background:
+    radial-gradient(circle 8px at 8px center, var(--primaryColor) 100%, transparent 0),
+    radial-gradient(circle 8px at 8px center, var(--primaryColor) 100%, transparent 0);
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  animation: ballX 4s linear infinite;
+  position: relative;
+}
+
+.loader .dot {
+  animation: moveX 4s cubic-bezier(0.5, 3, 0.5, -3) infinite;
+}
+
+@keyframes ballX {
+  0%, 25%, 50%, 75%, 100%  { background-position: 25% 0, 75% 0; }
+  40% { background-position: 25% 0, 85% 0; }
+  90% { background-position: 15% 0, 75% 0; }
+}
+
+@keyframes moveX {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(40px); } 
+}

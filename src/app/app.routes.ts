@@ -21,6 +21,7 @@ import { AdminTestimonials } from './admin-components/admin-testimonials/admin-t
 import { SignIn } from './admin-components/sign-in/sign-in';
 import { SignUp } from './admin-components/sign-up/sign-up';
 import { AuthGuard } from './guards/auth.guard';
+import { ProjectDetails } from './puplic portfolio/project-details/project-details';
 export const routes: Routes = [
   {
     path: 'admin',
@@ -58,7 +59,8 @@ export const routes: Routes = [
       { path: 'services', component: ServicesPortfolio },
       { path: 'projects', component: ProjectsPortfolio },
       { path: 'blogs', component: BlogsPortfolio },
-      { path: 'contact', component: ContactPortfolio }
+      { path: 'contact', component: ContactPortfolio },
+      {path:'project-details/:id/:uid', component:ProjectDetails}
     ]
   },
   { path: '', redirectTo: 'sign-in', pathMatch: 'full' },

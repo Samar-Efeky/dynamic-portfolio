@@ -1,16 +1,58 @@
-import { ViewportScroller } from '@angular/common';
-import { Component } from '@angular/core';
-import { InViewDirective } from "../../directives/in-view.directive";
+import { Component, OnDestroy, effect } from '@angular/core';
+import { CommonModule, ViewportScroller } from '@angular/common';
+import { AdminInfoService } from '../../services/admin-info.service';
+import { UserStateService } from '../../services/user-state.service';
+import { InViewDirective } from '../../directives/in-view.directive';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-hero-section',
-  imports: [InViewDirective],
+  standalone: true,
+  imports: [CommonModule, InViewDirective],
   templateUrl: './hero-section.html',
-  styleUrl: './hero-section.scss',
+  styleUrls: ['./hero-section.scss'],
 })
-export class HeroSection {
-  constructor(private viewportScroller:ViewportScroller){}
-   public onClick(elementId: string): void {
-    this.viewportScroller.scrollToAnchor(elementId);
+export class HeroSection implements OnDestroy {
+  info: any = null;
+  about: any = null;
+
+  private destroy$ = new Subject<void>();
+
+  constructor(
+    private viewportScroller: ViewportScroller,
+    private userState: UserStateService,
+    private adminInfoService: AdminInfoService,
+  ) {
+    effect(() => {
+      const uid = this.userState.uid();
+      if (!uid) return;
+
+      this.loadData(uid);
+    });
+  }
+
+  async loadData(uid: string) {
+    this.info = await this.adminInfoService.getAdminInfo(uid);
+  }
+
+  get firstWords() {
+    if (!this.info?.mainJobTitle) return '';
+    const words = this.info.mainJobTitle.split(' ');
+    return words.slice(0, -1).join(' ');
+  }
+
+  get lastWord() {
+    if (!this.info?.mainJobTitle) return '';
+    const words = this.info.mainJobTitle.split(' ');
+    return words[words.length - 1];
+  }
+
+  onClick(id: string) {
+    this.viewportScroller.scrollToAnchor(id);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

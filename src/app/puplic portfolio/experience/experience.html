@@ -1,29 +1,15 @@
 <div class="experience-area mt-5 from-bottom" appInView>
-  <div class="flex flex-wrap justify-center gap-4">
-
-    <div class="single-experience-box w-full sm:w-[45%] lg:w-[30%] flex flex-col h-full">
-      <span>2010 - 2012 (Web Developer)</span>
-      <h3>Primary Group, Inc.</h3>
-      <p>Lorem ipsum dolor sit amet, elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+ <div class="flex flex-wrap justify-center items-stretch gap-4 md:px-0 px-2">
+    @if(experience){
+      @for(item of experience;track item){
+      <div class="single-experience-box w-full sm:w-[45%] md:w-[40%] xl:w-[30%] flex flex-col items-start">
+      <h3>{{item?.companyName}}</h3>
+      <span class="text-[14px]">{{item?.startDate}} - {{item?.endDate}}</span>
+      <span>{{item?.role}}</span>
+      <p class="text-start pt-2">{{item?.description}}</p>
     </div>
-
-    <div class="single-experience-box w-full sm:w-[45%] lg:w-[30%] flex flex-col h-full">
-      <span>2012 - 2015 (Web Developer)</span>
-      <h3>EnvyTheme Co.</h3>
-      <p>Lorem ipsum dolor sit amet, elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-    </div>
-
-    <div class="single-experience-box w-full sm:w-[45%] lg:w-[30%] flex flex-col h-full">
-      <span>2015 - 2018 (Web Developer)</span>
-      <h3>Envato Co.</h3>
-      <p>Lorem ipsum dolor sit amet, elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-    </div>
-
-    <div class="single-experience-box w-full sm:w-[45%] lg:w-[30%] flex flex-col h-full">
-      <span>2018 - 2025 (Web Developer)</span>
-      <h3>Themeforest Co.</h3>
-      <p>Lorem ipsum dolor sit amet, elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-    </div>
-
-  </div>
+      }
+    }
 </div>
+</div>
+ 

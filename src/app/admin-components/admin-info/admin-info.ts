@@ -101,7 +101,7 @@ export class AdminInfo implements OnInit, OnDestroy {
       location: ['', Validators.required],
       mainJobTitle: ['', [Validators.required, Validators.pattern(/^\S+\s+\S+\s+\S+$/)]],
       relatedJobTitles: this.fb.array([], [minLengthArray(4), maxLengthArray(5)]),
-      socialLinks: this.fb.array([], [minLengthArray(3)]),
+      socialLinks: this.fb.array([], [minLengthArray(4)]),
       profileImage: ['', Validators.required]
     });
 
@@ -133,20 +133,26 @@ export class AdminInfo implements OnInit, OnDestroy {
   // ================================
   //          Social Links
   // ================================
-  addSocial(platform: string, url: string) {
-    if (!url.trim()) return;
+ addSocial(platform: string, url: string) {
+  if (!url.trim()) return;
 
-    const exists = this.socialLinksArray.controls.some(
-      (s: any) => s.value.platform === platform
-    );
+  const exists = this.socialLinksArray.controls.some(
+    (s: any) => s.value.platform === platform
+  );
 
-    if (exists) {
-      alert(`${platform} is already added!`);
-      return;
-    }
-
-    this.socialLinksArray.push(this.fb.group({ platform, url }));
+  if (exists) {
+    alert(`${platform} is already added!`);
+    return;
   }
+
+  this.socialLinksArray.push(
+    this.fb.group({
+      platform: [platform, Validators.required],
+      url: [url, [Validators.required]]
+    })
+  );
+}
+
 
   removeSocial(i: number) {
     this.socialLinksArray.removeAt(i);

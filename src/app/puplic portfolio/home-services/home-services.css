@@ -1,9 +1,0 @@
-section {
-  background-color: var(--sectionColor);
-}
-section h2, section h3 {
-  font-family: Georgia, "Times New Roman", Times, serif;
-}
-section .span-color {
-  color: var(--primaryColor);
-}/*# sourceMappingURL=home-services.css.map */

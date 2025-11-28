@@ -17,13 +17,10 @@
       </h2>
 
       <p class="text-lg leading-relaxed  mb-8">
-        Lorem ipsum dolor sit amet, amet consectetur adipisicing elit. Deserunt
-        quisquam voluptatibus debitis aperiam ratione. Officia, suscipit iure,
-        tenetur eum consequatur, consequuntur omnis accusamus odit architecto.
-        Soluta modi dignissimos libero blanditiis laboriosam, esse vel. Quod, vitae.
+       {{about?.additionalDescription?.paragraph1}}
       </p>
       <a
-        href="mailto:hello@monica.com?subject=Work Inquiry"
+        href="mailto:{{info?.email}}"
         class="email-btn inline-flex items-center gap-3 px-8 py-4 rounded-lg  text-lg zoom-in" appInView
       >
         <i class="fa-solid fa-envelope text-xl"></i>
@@ -37,30 +34,42 @@
         </h3>
 
         <div class="flex items-center gap-5 text-2xl text-center">
-          <i class="fa-brands fa-facebook"></i>
-          <i class="fa-brands fa-twitter"></i>
-          <i class="fa-brands fa-instagram"></i>
-          <i class="fa-brands fa-dribbble"></i>
+          @for(social of info?.socialLinks;track social.platform){
+               <ng-container>
+          <a [href]="social.url" target="_blank" class="px-2">
+            <i class="fa-brands"
+               [ngClass]="{
+                 'fa-linkedin': social.platform.toLowerCase() === 'linkedin',
+                 'fa-github': social.platform.toLowerCase() === 'github',
+                 'fa-facebook': social.platform.toLowerCase() === 'facebook',
+                 'fa-twitter': social.platform.toLowerCase() === 'twitter'
+               }"></i>
+          </a>
+        </ng-container>
+          }
         </div>
       </div>
       <div>
         <h3 class="tracking-widest  mb-2 font-bold">EMAIL</h3>
         <a
-          href="mailto:hello@gmail.com?subject=Work Inquiry"
+          href="mailto:{{info?.email}}?subject=Work Inquiry"
           class="text-xl hover:underline"
         >
-          hellogmail.com
+          {{info?.email}}
         </a>
       </div>
       <div>
         <h3 class="tracking-widest  mb-2 font-bold">PHONE</h3>
 
-        <a href="tel:+1975432345" class="text-xl hover:underline block ">
-          +197 543 2345
+        <a href="tel:{{info?.phone}}" class="text-xl hover:underline block ">
+          +{{info?.phone}}
         </a>
+      </div>
+      <div>
+        <h3 class="tracking-widest  mb-2 font-bold">LOCATION</h3>
 
-        <a href="tel:+1971239876" class="text-xl hover:underline block ">
-          +197 123 9876
+        <a href="{{info?.location}}" class="text-xl hover:underline block ">
+          {{info?.location}}
         </a>
       </div>
 

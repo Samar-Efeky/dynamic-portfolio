@@ -1,19 +1,19 @@
 <footer class="bg-black text-white px-6 py-10  xl:px-20">
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-8 gap-4">
     <div>
-      <h2 class="span-color text-lg font-semibold mb-4">About Samar</h2>
+      <h2 class="span-color text-lg font-semibold mb-4">About {{info?.username}}</h2>
       <p class="text-sm  leading-relaxed">
-        Lorem ipsum dolor sit amet consectetur adipiscing elit. Voluptas illum quasi facere libero...
+        {{about?.mainDescription}}
       </p>
     </div>
     <div class="md:text-center">
       <h2 class="span-color text-lg font-semibold mb-4 ">Site Links</h2>
       <ul class="space-y-2 text-sm ">
-        <li><a routerLink="/portfolio" (click)="scrollToTop()" class=" transition">Home</a></li>
-        <li><a routerLink="/portfolio/services" (click)="scrollToTop()" class=" transition">Services</a></li>
-        <li><a routerLink="/portfolio/projects" (click)="scrollToTop()" class=" transition">Projects</a></li>
-        <li><a routerLink="/portfolio/about" (click)="scrollToTop()" class=" transition">About</a></li>
-        <li><a routerLink="/portfolio/contact" (click)="scrollToTop()" class=" transition">Contact</a></li>
+        <li><a [routerLink]="['.']" (click)="scrollToTop()" class=" transition">Home</a></li>
+        <li><a [routerLink]="['services']" (click)="scrollToTop()" class=" transition">Services</a></li>
+        <li><a [routerLink]="['projects']" (click)="scrollToTop()" class=" transition">Projects</a></li>
+        <li><a [routerLink]="['about']" (click)="scrollToTop()" class=" transition">About</a></li>
+        <li><a [routerLink]="['contact']" (click)="scrollToTop()" class=" transition">Contact</a></li>
       </ul>
     </div>
     <div>
@@ -32,6 +32,6 @@
     </div>
   </div>
   <div class="mt-10 border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-center items-center text-sm text-gray-400">
-    <p>&copy; Copyright Samar 2022 &nbsp; | &nbsp; Design by Me Distribution by Me</p>
+    <p>&copy; Copyright {{info?.username}} 2025 &nbsp; | &nbsp; Design by Me Distribution by Me</p>
   </div>
 </footer>

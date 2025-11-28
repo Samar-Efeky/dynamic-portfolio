@@ -1,51 +1,58 @@
 <div class="data-section py-20 bg-black">
-    <div class="flex lg:flex-row flex-col justify-between">
-         <div class="text-center px-2 py-5 lg:px-10  title-section lg:w-[50%] w-[100%] " >
-    <div class="flex items-center justify-center">
-      <div class="border-t-2 w-16 mx-3 title-line"></div>
-      <h2 class="md:text-2xl font-semibold">Need a Project?</h2>
-      <div class="border-t-2 w-16 mx-3 title-line"></div>
+  <div class="flex lg:flex-row flex-col justify-between">
+    <div class="text-center px-2 py-5 lg:px-10 title-section lg:w-[50%] w-[100%]">
+      <div class="flex items-center justify-center">
+        <div class="border-t-2 w-16 mx-3 title-line"></div>
+        <h2 class="md:text-2xl font-semibold">Need a Project?</h2>
+        <div class="border-t-2 w-16 mx-3 title-line"></div>
+      </div>
+      <p class="mx-auto px-4 md:px-20 xl:text-[3rem] sm:text-[2rem] text-[1.4rem]">
+        Let's work together. fixed a meeting
+      </p>
     </div>
-    <p class="mx-auto px-4 md:px-20 xl:text-[3rem] sm:text-[2rem] text-[1.4rem]">
-      Let's work together. fixed a meeting
-    </p>
+
+    <div class="max-w-xl mx-auto space-y-6 py-5 lg:w-[50%] w-[100%]">
+      <div class="link-contact flex items-center gap-4">
+        <a href="mailto:{{info?.email}}" target="_blank">
+          <div class="p-3 rounded-full">
+            <i class="fa-solid fa-envelope text-black text-xl"></i>
+          </div>
+        </a>
+        <div>
+          <h3 class="text-lg font-semibold">Email</h3>
+          <a href="mailto:{{info?.email}}" target="_blank" class="text-sm text-gray-300 hover:underline">
+            {{info?.email}}
+          </a>
         </div>
-  <div class="max-w-xl mx-auto space-y-6 py-5 lg:w-[50%] w-[100%]">
-    <div class="link-contact flex items-center gap-4">
-      <div class=" p-3 rounded-full">
-        <i class="fa-solid fa-envelope text-black text-xl"></i>
       </div>
-      <div>
-        <h3 class="text-lg font-semibold">Email</h3>
-        <a href="mailto:samarelfeky@gmail.com" class="text-sm text-gray-300 hover:underline">
-          samarelfeky@gmail.com
+
+      <div class="link-contact flex items-center gap-4">
+        <a [href]="info?.location" target="_blank">
+          <div class="p-3 rounded-full">
+            <i class="fa-solid fa-location-dot text-black text-xl"></i>
+          </div>
         </a>
+        <div>
+          <h3 class="text-lg font-semibold">Location</h3>
+          <a [href]="info?.location" target="_blank" class="text-sm text-gray-300 hover:underline">
+            {{info?.location}}
+          </a>
+        </div>
       </div>
-    </div>
-    <div class="link-contact flex items-center gap-4">
-      <div class=" p-3 rounded-full">
-        <i class="fa-solid fa-location-dot text-black text-xl"></i>
-      </div>
-      <div>
-        <h3 class="text-lg font-semibold">Location</h3>
-        <a href="https://www.google.com/maps?q=Nasr+City,+Cairo,+Egypt"
-           target="_blank"
-           class="text-sm text-gray-300 hover:underline">
-          Nasr City, cairo, Egypt
+
+      <div class="link-contact flex items-center gap-4">
+        <a href="tel:{{info?.phone}}" target="_blank">
+          <div class="p-3 rounded-full">
+            <i class="fa-solid fa-phone text-black text-xl"></i>
+          </div>
         </a>
-      </div>
-    </div>
-     <div class="link-contact flex items-center gap-4">
-      <div class=" p-3 rounded-full">
-        <i class="fa-solid fa-phone text-black text-xl"></i>
-      </div>
-      <div>
-        <h3 class="text-lg font-semibold">Phone</h3>
-        <a href="tel:+201234567890" class="text-sm text-gray-300 hover:underline">
-          +20 123 456 76
-        </a>
+        <div>
+          <h3 class="text-lg font-semibold">Phone</h3>
+          <a href="tel:{{info?.phone}}" target="_blank" class="text-sm text-gray-300 hover:underline">
+            +{{info?.phone}}
+          </a>
+        </div>
       </div>
     </div>
   </div>
-    </div>
 </div>

@@ -59,7 +59,8 @@ export class AdminExperience implements OnInit, OnDestroy {
         institution: ['', Validators.required],
         degree: ['', Validators.required],
         start: ['', Validators.required],
-        end: ['', Validators.required]
+        end: ['', Validators.required],
+        description: ['', [Validators.required, this.wordCountValidator(10, 25)]]
       })
     });
 

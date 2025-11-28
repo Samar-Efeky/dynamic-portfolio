@@ -1,5 +1,5 @@
 <div class="blogs-section py-20 overflow-hidden">
-    <div class="text-center px-2 py-5 lg:px-20  title-section from-top" appInView>
+  <div class="text-center px-2 py-5 lg:px-20  title-section from-top" appInView>
     <div class="flex items-center justify-center">
       <div class="border-t-2 w-16 mx-3 title-line"></div>
       <h2 class="md:text-2xl font-semibold">Recent blogs</h2>
@@ -9,31 +9,29 @@
       Latest articles from my blog.
     </p>
   </div>
-   <section class="container mx-auto px-6 py-5">
- <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-15 items-stretch">
-  @for(item of blogs; track $index){
-     <div 
-       class="blog-item h-full flex flex-col zoom-in" appInView>
-     <span class="span-color  text-xl">{{ item.mainTitle}}</span>
-    <h3 class="flex items-center gap-2 md:text-2xl  my-4">
-      {{ item.title }}
-    </h3>
 
-    <p class="leading-relaxed mb-6 flex-grow">
-      {{ item.desc }}
-    </p>
+  <section class="container mx-auto px-6 py-5">
+    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-15 items-stretch">
+      @for(item of data?.blogs?.slice(0,3); track $index){
+         <div class="blog-item h-full flex flex-col zoom-in" appInView>
+           <span class="span-color text-xl">{{ item?.subtitle}}</span>
+           <h3 class="flex items-center gap-2 md:text-2xl my-4">
+             {{ item?.title }}
+           </h3>
+           <p class="leading-relaxed mb-6 flex-grow">
+             {{ item?.description}}
+           </p>
+         </div>
+      }
+    </div>
+  </section>
 
-  </div>
-  }
-
-</div>
-
-
-</section>
-<a routerLink="/portfolio/blogs" (click)="scrollToTop()">
-        <div class="circle-button m-auto my-3  flex flex-col justify-center items-center ">
-            <i class="fa-solid fa-arrow-right mx-2"></i>
-            <span class="capitalize">More Blogs</span>
-        </div>
+  @if(data?.blogs?.length>=3){
+    <a [routerLink]="['/portfolio', username, 'blogs']"  (click)="scrollToTop()">
+      <div class="circle-button m-auto my-3 flex flex-col justify-center items-center">
+        <i class="fa-solid fa-arrow-right mx-2"></i>
+        <span class="capitalize">More Blogs</span>
+      </div>
     </a>
+  }
 </div>

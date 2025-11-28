@@ -2,5 +2,9 @@
   .single-certification-box {
     margin-bottom: 25px;
     text-align: center;
+    transition: transform var(--transition) ease;
+    &:hover{
+      transform: translateY(-5%);
+    }
   }
 }

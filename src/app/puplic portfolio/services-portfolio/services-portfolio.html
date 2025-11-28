@@ -7,7 +7,7 @@
       </h2>
     </div>
   </div>
-  <section class="container mx-auto px-6 py-20">
+  <section class="container mx-auto pl-6 py-20">
   <div class="grid lg:grid-cols-2 gap-10 mb-16">
     <h2 class="md:text-5xl text-3xl font-bold leading-tight lg:px-5">
       High-impact <br />
@@ -15,25 +15,25 @@
       your business
     </h2>
 
-    <p class=" leading-relaxed text-lg">
-     Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit quia atque ea voluptas voluptatibus corrupti alias itaque placeat natus illo? Dolorem provident repellat deleniti sint unde deserunt quas placeat atque!
+    <p class=" leading-relaxed text-lg lg:pr-20">
+      {{about?.additionalDescription?.paragraph2}}
     </p>
   </div>
  <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-15 items-stretch">
-  @for(item of services; track $index){
+  @for(item of data?.services;track $index){
      <div  class="service-item h-full flex flex-col zoom-in" appInView>
 
     <h3 class="flex items-center gap-2 text-2xl font-semibold mb-4" >
-      <span class="span-color font-bold text-xl">{{ item.number }}</span>
-      {{ item.title }}
+      <span class="span-color font-bold text-xl">0{{$index+1}}</span>
+      {{ item?.title }}
     </h3>
 
     <p class="leading-relaxed mb-6 flex-grow">
-      {{ item.desc }}
+      {{ item?.description}}
     </p>
 
     <ul class="border-t pt-3 space-y-3 mt-auto">
-      @for(x of item.list; track $index){
+      @for(x of item?.features; track $index){
          <li class="list-disc ml-5 marker:text-[#11e2d1]">
         {{ x }}
       </li>

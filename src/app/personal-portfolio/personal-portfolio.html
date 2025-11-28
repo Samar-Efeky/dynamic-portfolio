@@ -1,8 +1,18 @@
-<app-public-navbar></app-public-navbar>
-<router-outlet></router-outlet>
-<app-footer-portfolio></app-footer-portfolio>
-@if(showScrollButton){
-    <button (click)="scrollToTop()" class="scroll-top fixed bottom-10 right-10  px-4 py-4">
-  <i class="fa-solid fa-arrow-up"></i>
-</button>
-}
+<!-- Loader -->
+<app-loading *ngIf="isLoading"></app-loading>
+<div *ngIf="!isLoading">
+
+  <!-- Navbar -->
+  <app-public-navbar></app-public-navbar>
+
+  <!-- Main routed content -->
+  <router-outlet></router-outlet>
+
+  <!-- Footer -->
+  <app-footer-portfolio></app-footer-portfolio>
+
+  <!-- Scroll-to-top button -->
+  <button *ngIf="showScrollButton" (click)="scrollToTop()" class="scroll-top fixed bottom-10 right-10 px-4 py-4">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+</div>

@@ -1,13 +1,9 @@
-<section class="skills-area md:container mx-auto py-10 from-bottom" appInView>
-  <div class="flex flex-wrap justify-center gap-10">
-    @for(skill of skills; track $index){
-       <div 
-      class="skills-item w-[45%] lg:w-[30%] xl:w-[20%]"
-    >
-      <div class="skills-header">
-        <h3 class="skills-title">{{ skill.title }}</h3>
+<section class="skills-area md:container mx-auto pb-10 pt-5 from-bottom" appInView>
+  @if(skills.length){
+      <div class="flex flex-wrap justify-center gap-5">
+          @for(skill of skills;track skill){
+            <span class="p-2">{{skill}}</span>
+          }
       </div>
-    </div>
-    }
-  </div>
+  }
 </section>

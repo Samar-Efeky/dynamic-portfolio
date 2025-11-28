@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, effect, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { InViewDirective } from "../../directives/in-view.directive";
+import { AdminBlogsService } from '../../services/admin-blogs.service';
+import { UserStateService } from '../../services/user-state.service';
 
 @Component({
   selector: 'app-home-blogs',
@@ -9,31 +11,41 @@ import { InViewDirective } from "../../directives/in-view.directive";
   templateUrl: './home-blogs.html',
   styleUrl: './home-blogs.scss'
 })
-export class HomeBlogs {
-    blogs = [
-    {
-      mainTitle: 'Productivity',
-      title: 'Need Web Hosting for Your Websites?',
-      desc: `Rerum quam quos. Aut asperiores sit mollitia. Rem neque et voluptatem eos quia sed
-      eligendi et. Eaque velit eligendi ut magnam. Cumque ducimus laborum doloribus facere maxime
-      vel earum quidem enim suscipit.`
-    },
-    {
-      mainTitle: 'SEO',
-      title: '5 Marketing Productivity Apps for Your Team',
-      desc: `Quibusdam quis autem voluptatibus earum vel ex error ea magni. Rerum quam quos. Aut
-      asperiores sit mollitia. Rem neque et voluptatem eos quia sed eligendi et.`
-    },
-    {
-      mainTitle: 'Sponsored',
-      title: '5 Effective Web Design Principles',
-      desc: `Rerum quam quos. Quibusdam quis autem voluptatibus earum vel ex error ea magni. Aut
-      asperiores sit mollitia. Rem neque et voluptatem eos quia sed eligendi et.`
-    }
-  ];
-    scrollToTop() {
-  window.scrollTo({
-    top: 0
-  });
-}
+export class HomeBlogs implements OnDestroy {
+username:any=null;
+  data: any = null;
+  private destroyed = false;
+  private dataLoaded = false;
+  private currentUid: string | null = null;
+
+  constructor(
+    private userState: UserStateService,
+    private adminBlogsService: AdminBlogsService,
+  ) {
+
+    effect(() => {
+      if (this.destroyed) return;
+      this.username=userState.username();
+      const uid = this.userState.uid();
+      if (!uid) return;
+      if (this.dataLoaded && this.currentUid === uid) return;
+
+      this.currentUid = uid;
+      this.dataLoaded = true;
+      this.loadData(uid);
+    });
+  }
+
+  async loadData(uid: string) {
+    this.data = await this.adminBlogsService.getBlogs(uid);
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0 });
+  }
+
+  ngOnDestroy() {
+    this.destroyed = true;
+    this.data = null;
+  }
 }

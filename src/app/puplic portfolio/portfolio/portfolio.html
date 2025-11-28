@@ -1,34 +1,42 @@
-<app-hero-section></app-hero-section>
-<app-slider-titles></app-slider-titles>
- <section>
-    <div id="information" class="information-section  py-10">
-        <div class="text-center my-5 lg:px-10 px-3 description-info">
-            <i class="fa-brands fa-cloudscale text-[2rem] md:text-[3rem] py-3"
-            style="color: var(--primaryColor);"></i>
-            <p class=" md:text-[1.3rem] md:text-[1.4rem] lg:text-[1.6rem]">I'm Samar Mohamed, I'm a Brand & Webflow Designer, Currently residing in the lush Victoria Street London, 
-                Matias operates globally and is ready to take on any design challenge.
-            </p>
-            <nav class="info-nav flex flex-wrap justify-center gap-3 mb-8 py-10">
-                <button routerLink="/portfolio" routerLinkActive="active-link" 
-                [routerLinkActiveOptions]="{exact: true}"
-                class="px-4 py-2 " >Skills</button>
-                <button routerLink="/portfolio/experience" routerLinkActive="active-link"
-                 class="px-4 py-2 " >experience</button>
-                <button routerLink="/portfolio/education" routerLinkActive="active-link"
-                 class="px-4 py-2 " >education</button>
-                <button routerLink="/portfolio/certification" routerLinkActive="active-link"
-                 class="px-4 py-2 " >certification</button>
-            </nav>
-            <div class="info-content p-5 lg:w-[90%] w-[100%] mx-auto rounded-lg">
-        <div class="overflow-hidden ">
-            <router-outlet></router-outlet>
+<!-- Loader -->
+<app-loading *ngIf="isLoading()"></app-loading>
+
+<!-- المحتوى الرئيسي يظهر بعد انتهاء التحميل -->
+<div *ngIf="!isLoading()">
+  <app-hero-section></app-hero-section>
+  <app-slider-titles></app-slider-titles>
+
+  <section>
+    <div id="information" class="information-section py-10">
+      <div class="text-center my-5 lg:px-10 px-3 description-info">
+
+        <i class="fa-brands fa-cloudscale text-[2rem] md:text-[3rem] py-3"
+           style="color: var(--primaryColor);"></i>
+
+        <p class="md:text-[1.4rem] lg:text-[1.6rem]">
+          I'm {{info?.fullName}},
+          {{about?.mainDescription?.split(' ').slice(0, 30).join(' ')}}
+        </p>
+
+        <nav class="info-nav flex flex-wrap justify-center gap-3 mb-8 py-10">
+          <button [routerLink]="['.']" routerLinkActive="active-link"
+                  [routerLinkActiveOptions]="{exact: true}" class="p-3">Skills</button>
+          <button [routerLink]="['experience']" routerLinkActive="active-link" class="p-3">Experience</button>
+          <button [routerLink]="['education']" routerLinkActive="active-link" class="p-3">Education</button>
+          <button [routerLink]="['certification']" routerLinkActive="active-link" class="p-3">Certification</button>
+        </nav>
+
+        <div class="info-content py-5 lg:w-[90%] w-[100%] mx-auto rounded-lg">
+          <router-outlet></router-outlet>
         </div>
+
       </div>
-        </div>
     </div>
- </section>
-<app-home-projects></app-home-projects> 
-<app-home-services></app-home-services>
-<app-testimonial id="testimonial"></app-testimonial>
-<app-home-blogs></app-home-blogs>
-<app-home-data></app-home-data>
+  </section>
+
+  <app-home-projects></app-home-projects>
+  <app-home-services></app-home-services>
+  <app-testimonial  *ngIf="!isLoading()" id="testimonial"></app-testimonial>
+  <app-home-blogs></app-home-blogs>
+  <app-home-data></app-home-data>
+</div>

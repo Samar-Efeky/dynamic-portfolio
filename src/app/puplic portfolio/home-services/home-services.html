@@ -8,50 +8,25 @@
     </h2>
 
     <p class=" leading-relaxed mb-10">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum suscipit
-      debitis quam dignissimos veritatis atque pariatur magnam obcaecati fugit
-      reprehenderit vel numquam facere esse est deserunt, perferendis commodi
-      voluptatem similique.
+      {{about?.mainDescription}}
     </p>
 
-    <button class=" px-10 py-3 zoom-in" appInView routerLink="/portfolio/services" (click)="scrollToTop()">
+    <button class=" px-10 py-3 zoom-in" appInView [routerLink]="['/portfolio', username, 'services']"  (click)="scrollToTop()">
       View All Services
     </button>
   </div>
   <div class="space-y-14">
-    <div>
+    @for(item of data?.services?.slice(0,2);track item){
+         <div>
       <h3 class="flex items-center gap-3 lg:text-3xl  font-semibold mb-4">
-        <span class="span-color font-bold text-2xl">01.</span>
-        Digital Marketing
+        <span class="span-color font-bold text-2xl">0{{$index+1}}</span>
+        {{item?.title}}
       </h3>
       <p class=" leading-relaxed">
-        Quibusdam quis autem voluptatibus earum vel ex error ea magni. Rerum 
-        quam quos. Aut asperiores sit mollitia. Rem neque et voluptatem eos quia 
-        sed eligendi et. Eaque velit eligendi ut magnam.
+       {{item?.description}}
       </p>
     </div>
-    <div>
-      <h3 class="flex items-center gap-3 lg:text-3xl  font-semibold mb-4">
-        <span class="span-color font-bold text-2xl">02.</span>
-        Project Management
-      </h3>
-      <p class=" leading-relaxed">
-        Rerum quam quos. Quibusdam quis autem voluptatibus earum vel ex error ea
-        magni. Aut asperiores sit mollitia. Rem neque et voluptatem eos quia sed
-        eligendi et. Eaque velit eligendi ut magnam.
-      </p>
-    </div>
-    <div>
-      <h3 class="flex items-center gap-3 lg:text-3xl  font-semibold mb-4">
-        <span class="span-color font-bold text-2xl">03.</span>
-        Content Marketing
-      </h3>
-      <p class=" leading-relaxed">
-        Eaque velit eligendi. Quibusdam quis autem voluptatibus earum vel ex error
-        ea magni. Rerum quam quos. Aut asperiores sit mollitia.
-      </p>
-    </div>
+    } 
   </div>
 
 </section>
-

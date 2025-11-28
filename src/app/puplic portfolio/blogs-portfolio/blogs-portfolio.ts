@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { HomeData } from "../home-data/home-data";
 import { InViewDirective } from "../../directives/in-view.directive";
+import { UserStateService } from '../../services/user-state.service';
+import { AdminBlogsService } from '../../services/admin-blogs.service';
 
 @Component({
   selector: 'app-blogs-portfolio',
@@ -10,44 +12,39 @@ import { InViewDirective } from "../../directives/in-view.directive";
   styleUrl: './blogs-portfolio.scss'
 })
 export class BlogsPortfolio {
-    blogs = [
-    {
-      mainTitle: 'Productivity',
-      title: 'Need Web Hosting for Your Websites?',
-      desc: `Rerum quam quos. Aut asperiores sit mollitia. Rem neque et voluptatem eos quia sed
-      eligendi et. Eaque velit eligendi ut magnam. Cumque ducimus laborum doloribus facere maxime
-      vel earum quidem enim suscipit.`
-    },
-    {
-      mainTitle: 'SEO',
-      title: '5 Marketing Productivity Apps for Your Team',
-      desc: `Quibusdam quis autem voluptatibus earum vel ex error ea magni. Rerum quam quos. Aut
-      asperiores sit mollitia. Rem neque et voluptatem eos quia sed eligendi et.`
-    },
-    {
-      mainTitle: 'Sponsored',
-      title: '5 Effective Web Design Principles',
-      desc: `Rerum quam quos. Quibusdam quis autem voluptatibus earum vel ex error ea magni. Aut
-      asperiores sit mollitia. Rem neque et voluptatem eos quia sed eligendi et.`
-    },
-    {
-      mainTitle: 'Productivity',
-      title: 'Need Web Hosting for Your Websites?',
-      desc: `Rerum quam quos. Aut asperiores sit mollitia. Rem neque et voluptatem eos quia sed
-      eligendi et. Eaque velit eligendi ut magnam. Cumque ducimus laborum doloribus facere maxime
-      vel earum quidem enim suscipit.`
-    },
-    {
-      mainTitle: 'SEO',
-      title: '5 Marketing Productivity Apps for Your Team',
-      desc: `Quibusdam quis autem voluptatibus earum vel ex error ea magni. Rerum quam quos. Aut
-      asperiores sit mollitia. Rem neque et voluptatem eos quia sed eligendi et.`
-    },
-    {
-      mainTitle: 'Sponsored',
-      title: '5 Effective Web Design Principles',
-      desc: `Rerum quam quos. Quibusdam quis autem voluptatibus earum vel ex error ea magni. Aut
-      asperiores sit mollitia. Rem neque et voluptatem eos quia sed eligendi et.`
-    }
-  ];
+   data: any = null;
+  private destroyed = false;
+  private dataLoaded = false;
+  private currentUid: string | null = null;
+
+  constructor(
+    private userState: UserStateService,
+    private adminBlogsService: AdminBlogsService,
+  ) {
+
+    effect(() => {
+      if (this.destroyed) return;
+
+      const uid = this.userState.uid();
+      if (!uid) return;
+      if (this.dataLoaded && this.currentUid === uid) return;
+
+      this.currentUid = uid;
+      this.dataLoaded = true;
+      this.loadData(uid);
+    });
+  }
+
+  async loadData(uid: string) {
+    this.data = await this.adminBlogsService.getBlogs(uid);
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0 });
+  }
+
+  ngOnDestroy() {
+    this.destroyed = true;
+    this.data = null;
+  }
 }

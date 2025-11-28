@@ -53,10 +53,10 @@ export class AdminAbout implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.form = this.fb.group({
-      mainDescription: ['', [Validators.required, this.wordCountValidator(30, 60)]],
-      howIGotHere: ['', [Validators.required, this.wordCountValidator(30, 60)]],
-      additional1: ['', [Validators.required, this.wordCountValidator(30, 60)]],
-      additional2: ['', [Validators.required, this.wordCountValidator(30, 60)]]
+      mainDescription: ['', [Validators.required, this.wordCountValidator(30, 100)]],
+      howIGotHere: ['', [Validators.required, this.wordCountValidator(30, 100)]],
+      additional1: ['', [Validators.required, this.wordCountValidator(30, 100)]],
+      additional2: ['', [Validators.required, this.wordCountValidator(30, 100)]]
     });
 
     this.inspiringWordControl = new FormControl('', [

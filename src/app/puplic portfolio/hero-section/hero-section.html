@@ -1,22 +1,23 @@
 <header>
   <div
-    class="header-section min-h-screen flex flex-col lg:flex-row items-center justify-between bg-cover bg-center bg-no-repeat relative
-     px-4 py-10 lg:py-0 pt-[150px] lg:pt-[80px]"
+    class="header-section min-h-screen flex flex-col lg:flex-row items-center justify-between bg-cover
+     bg-center bg-no-repeat relative
+     px-4 py-10 lg:py-0 pt-[100px] lg:pt-[80px]"
     style="background-image: url('img/background-header.jpg');">
     <div class="left-info hidden lg:flex flex-col items-center justify-between h-[70%] px-3 text-lg gap-6">
-      <img src="img/image1.png" class="cursor-pointer w-5" alt="">
-      <span class="writing-vertical-rl">( +20 ) 1207-752-327</span>
+      <img src="img/image1.png" class="cursor-pointer w-5" alt="image1">
+      <span class="writing-vertical-rl"><a [href]="'tel:'+info?.phone">+{{info?.phone}}</a></span>
       <span (click)="onClick('information')" class="writing-vertical-rl">SCROLL DOWN</span>
       <img (click)="onClick('information')" src="img/image2.png" class="cursor-pointer w-10" alt="">
     </div>
     <div class="flex flex-col lg:flex-row items-center lg:items-start gap-10 w-full">
 
-      <div class="header-image text-center w-full order-1 lg:order-2">
-        <img src="img/header-img.jpg" 
+      <div class="header-image text-center w-full order-1 lg:order-2 ">
+        <img [src]="info?.profileImage" loading="lazy"
           class="w-full max-w-[260px] sm:max-w-[340px] md:max-w-[450px] lg:w-[80%] xl:w-[70%] mx-auto "
           alt="Header Image">
       </div>
-      <div class="center-content xl:ps-10 lg:text-left text-center flex-grow w-full lg:w-2/3 order-2 lg:order-1 ">
+      <div class="center-content pt-[50px]  xl:ps-10 lg:text-left text-center flex-grow w-full lg:w-2/3 order-2 lg:order-1 ">
         <div class="availability mb-4">
           <p class="lg:text-[1.4rem] text-[1.2rem] pb-4 inline-block border-b border-gray-300">
             Currently Available For Freelance Worldwide
@@ -26,8 +27,8 @@
 
        <div class="overflow-hidden">
          <h1 class="font-bold text-[3rem] sm:text-[4rem] md:text-[6rem] leading-tight from-top" appInView>
-          professional web<br>
-          <span class="job-title">developer</span>
+          {{ firstWords }}<br>
+          <span class="job-title">{{lastWord}}</span>
         </h1>
        </div>
 
@@ -42,12 +43,21 @@
     <div class="right-info hidden lg:flex flex-col items-center justify-between h-[70%] px-3 text-lg gap-6">
       <span class="writing-vertical-rl">FOLLOW ME</span>
       <img src="img/image2.png" class="cursor-pointer w-10 " alt="">
-      <div class="flex flex-col items-center gap-7 social-media">
-        <i class="fa-brands fa-facebook"></i>
-        <i class="fa-brands fa-twitter"></i>
-        <i class="fa-brands fa-linkedin"></i>
-        <i class="fa-brands fa-youtube"></i>
+      @if(info?.socialLinks?.length){
+           <div class="flex flex-col items-center gap-7 social-media">
+        @for (social of info.socialLinks; track social.platform) {
+        <a [href]="social.url" target="_blank" class="px-2">
+          <i class="fa-brands"
+             [ngClass]="{
+               'fa-linkedin': social.platform.toLowerCase() === 'linkedin',
+               'fa-github': social.platform.toLowerCase() === 'github',
+               'fa-facebook': social.platform.toLowerCase() === 'facebook',
+               'fa-twitter': social.platform.toLowerCase() === 'twitter'
+             }"></i>
+        </a>
+        }
       </div>
+      }
     </div>
 
   </div>

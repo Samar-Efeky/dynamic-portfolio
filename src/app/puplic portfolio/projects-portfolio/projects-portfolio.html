@@ -1,39 +1,79 @@
 <div class="projects-page pt-10 overflow-hidden">
+
+  <!-- Title Section -->
   <div class="title-section text-center px-2 py-5 lg:px-20 lg:py-10 from-top" appInView>
-    <p class="px-2 pt-5 mx-auto text-white capitalize sm:text-[2rem]">My Projects & Portfolio</p>
-    <div class="main-title-section  flex justify-center">
+    <p class="px-2 pt-5 mx-auto text-white capitalize sm:text-[2rem]">
+      My Projects & Portfolio
+    </p>
+
+    <div class="main-title-section flex justify-center">
       <h2 class="md:text-2xl font-semibold text-white">
         <span class="text-white">Home / </span>Projects
       </h2>
     </div>
   </div>
-<div class="about-content">
-  <div class="work-section w-full my-10">
-    <div class="container mx-auto px-4 lg:px-20">
-      <div class="flex flex-wrap -mx-3 justify-center">
-        @for(image of images; track $index){
-          <div class="w-full md:w-1/2 lg:w-1/3 px-3 mb-6 overflow-hidden">
-            <div class="work-content work-image-click flex flex-col justify-between
-             h-full from-left" appInView>
-              <div class="w-full aspect-[4/3] overflow-hidden rounded-md">
-                <img [src]="image" class="w-full h-full object-cover" alt="">
-              </div>
-              <div class="flex justify-between items-center pt-4">
-                <div>
-                  <span>Product Design</span>
-                  <p class="my-2">Brand Identity & Motion Design</p>
+
+  <!-- Content -->
+  <div class="about-content">
+    <div class="work-section w-full my-10">
+      <div class="container mx-auto px-4 lg:px-20">
+
+        @if (projectsList?.projects?.length > 0) {
+
+          <div class="flex flex-wrap -mx-3">
+
+            @for (project of projectsList?.projects; track project?.id) {
+
+              <div class="w-full md:w-1/2 lg:w-1/3 px-3 mb-6 overflow-hidden">
+
+                <div
+                  [routerLink]="['/portfolio', username, 'project-details', project?.id, uid]"
+                  (click)="scrollToTop()"
+                  class="work-content work-image-click flex flex-col justify-between h-full from-left"
+                  appInView
+                >
+
+                  <!-- Project Image -->
+                  <div class="w-full aspect-[4/3] overflow-hidden rounded-md">
+                    <img
+                      [src]="project?.gallery?.[0]"
+                      class="w-full h-full object-cover"
+                      [alt]="project?.projectTitle || 'Project'"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <!-- Project Info -->
+                  <div class="flex justify-between items-center pt-4">
+                    <div>
+                      <span>Project</span>
+                      <p class="my-2">{{ project?.projectTitle }}</p>
+                    </div>
+
+                    <div class="work-icon p-3 rounded-md bg-gray-100">
+                      <i class="fa-solid fa-arrow-up"></i>
+                    </div>
+                  </div>
+
                 </div>
-                <div class="work-icon p-3 rounded-md bg-gray-100">
-                  <i class="fa-solid fa-arrow-up"></i>
-                </div>
               </div>
-            </div>
+            }
+
           </div>
+
+        } @else {
+
+          <!-- Empty State (optional) -->
+          <p class="text-center text-white py-10">No projects found.</p>
+
         }
+
       </div>
     </div>
   </div>
-</div>
-<app-home-blogs></app-home-blogs>
-<app-testimonial></app-testimonial>
+
+  <!-- Extra Sections -->
+  <app-home-blogs></app-home-blogs>
+  <app-testimonial></app-testimonial>
+
 </div>

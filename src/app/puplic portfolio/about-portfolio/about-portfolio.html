@@ -5,36 +5,42 @@
       <h2 class="md:text-2xl font-semibold">About</h2>
       <div class="border-t-2 w-16 mx-3 title-line"></div>
     </div>
-    <p class="mx-auto px-4 md:px-20 font-semibold lg:text-[3.5rem] sm:text-[1.4rem] text-[1rem]">
-      Hi, I'm Samar 
+    @if(username){
+      <p class="mx-auto px-4 md:px-20 font-semibold lg:text-[3.5rem] sm:text-[1.4rem] text-[1rem]">
+      Hi, I'm {{username}}
     </p>
+    }
   </div>
   <div class="flex lg:flex-row flex-col py-10 px-3">
     <div class="lg:w-[50%] w-[100%] overflow-hidden">
         <h2 class="lg:text-[3.5rem] md:text-[3rem] px-5 from-bottom
-         sm:text-[2.5rem] text-[1.6rem] font-semibold" appInView>Some inspiring words to describe yourself</h2>
+         sm:text-[2.5rem] text-[1.6rem] font-semibold" appInView>
+        @for(item of about?.inspiringWords;track item){
+          <span>{{item}}</span>,
+        }
+      </h2>
     </div>
     <div class="lg:w-[50%] w-[100%] overflow-hidden">
-        <p class="leading-relaxed px-5 from-bottom" appInView>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, sunt similique beatae accusantium ducimus doloremque
-             quae tempora necessitatibus eveniet eos quibusdam rem reprehenderit reiciendis eligendi totam nemo iure laborum 
-             doloribus.
+        <p class="leading-relaxed px-5 from-bottom" appInView>
+          {{about?.mainDescription}}
         </p>
     </div>
   </div>
     <div class="xl:w-[30%] lg:w-[40%] sm:w-[60%] w-[80%] mx-auto py-10">
-        <img src="img/header-img.jpg" class="w-full" alt="image">
+        <img [src]="info?.profileImage" class="w-full" alt="image">
     </div>
   <div class="px-10 py-20">
-    <div class="px-10 overflow-hidden">
+    <app-slider-titles></app-slider-titles>
+    <div class="px-10 pt-10 overflow-hidden">
         <h2 class="md:text-[2rem] text-[1.8rem] font-medium"
          style="color: var(--primaryColor);">How I Got Here</h2>
-        <p class="leading-relaxed py-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda dolorem quia maxime ut eaque architecto at accusantium, ullam beatae. Exercitationem totam eligendi, ad ducimus facilis voluptate nisi perspiciatis odio corrupti.</p>
+        <p class="leading-relaxed py-5">{{about?.howIGotHere}}</p>
     </div>
      <div class="px-10 py-10 overflow-hidden">
         <h2 class="md:text-[2rem] text-[1.8rem] font-medium "
         style="color: var(--primaryColor);" >A Few More Words About Myself</h2>
-        <p class="leading-relaxed py-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda dolorem quia maxime ut eaque architecto at accusantium, ullam beatae. Exercitationem totam eligendi, ad ducimus facilis voluptate nisi perspiciatis odio corrupti.</p>
-        <p class="leading-relaxed py-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet dignissimos quae non laboriosam dolore amet rerum veniam, ab magnam alias nostrum asperiores doloremque ipsa incidunt quis maiores optio sunt culpa?</p>
+        <p class="leading-relaxed py-5">{{about?.additionalDescription?.paragraph1}}</p>
+        <p class="leading-relaxed py-5">{{about?.additionalDescription?.paragraph2}}</p>
     </div>
   </div>
   <app-home-services></app-home-services>
