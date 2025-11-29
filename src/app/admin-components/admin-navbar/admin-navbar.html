@@ -15,7 +15,7 @@
       <li routerLink="/admin/services" routerLinkActive="active-link" (click)="toggleSidebar();onScrollTop()">Services</li>
       <li routerLink="/admin/blogs" routerLinkActive="active-link" (click)="toggleSidebar();onScrollTop()">blogs</li>
       <li routerLink="/admin/testimonials" routerLinkActive="active-link" (click)="toggleSidebar();onScrollTop()">testimonials</li>
-      <li class="cv-link-sidebar" (click)="downloadCV()">
+      <li class="cv-link-sidebar" (click)="downloadCV();toggleSidebar()">
         <button class="w-[70%] mx-auto py-2 px-4" [disabled]="!livePortfolioEnabled">Download CV</button>
       </li>
     </ul>

@@ -20,8 +20,8 @@
 
   <!-- Close Button -->
   <button (click)="closeLightbox()" 
-          class="absolute top-4 right-4 px-3 pb-1 text-3xl z-50 no-after-button">
-    <i class="fa-solid fa-xmark"></i>
+          class="absolute top-4 right-4 lg:p-2 p-1 text-3xl z-50  no-after-button flex items-center">
+    <i class="fa-solid fa-xmark text-[16px]"></i>
   </button>
 
   <!-- Image Container -->
@@ -29,14 +29,16 @@
 
     <!-- Prev Arrow -->
     <button (click)="prevImage()" 
-            class="absolute left-2 top-1/2 transform -translate-y-1/2  px-3 pb-2  text-4xl z-50 no-after-button">
-      <i class="fa-solid fa-chevron-left"></i>
+            class="absolute left-2 top-1/2 transform -translate-y-1/2 flex items-center lg:px-2 px-1 py-3
+              text-4xl z-50 no-after-button">
+      <i class="fa-solid fa-chevron-left text-[16px]"></i>
     </button>
 
     <!-- Next Arrow -->
     <button (click)="nextImage()" 
-            class="absolute right-2 top-1/2 transform -translate-y-1/2  px-3 pb-2  text-4xl z-50 no-after-button">
-      <i class="fa-solid fa-chevron-right"></i>
+            class="absolute right-2 top-1/2 transform -translate-y-1/2  flex items-center lg:px-2 px-1 py-3
+            text-4xl z-50 no-after-button">
+      <i class="fa-solid fa-chevron-right text-[16px]"></i>
     </button>
 
     <!-- Image Display -->

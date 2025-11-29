@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&display=swap');
+h2{
+    font-family: "Caprasimo", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 6rem;
+  letter-spacing: 2px;
+  background: var(--primaryColor);
+  background-clip: text; 
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent;
+}
+span{
+    font-size: 7rem;
+}
+.container-fluid{
+    height: 60vh;
+}

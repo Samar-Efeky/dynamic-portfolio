@@ -24,19 +24,21 @@
        (click)="closeLightbox()">
 
     <button (click)="closeLightbox()" 
-            class="absolute top-4 right-4 px-3 pb-1 text-3xl z-50 no-after-button">
-      <i class="fa-solid fa-xmark "></i>
+            class="absolute top-4 right-4 flex items-center lg:p-2 p-1  text-3xl z-50 no-after-button">
+      <i class="fa-solid fa-xmark text-[16px]"></i>
     </button>
 
     <div class=" w-[90vw] h-[90vw] max-w-[800px] max-h-[600px]" (click)="$event.stopPropagation()">
       <button (click)="prevImage()" 
-              class="absolute left-2 top-1/2 transform -translate-y-1/2 px-3 pb-2 text-4xl z-50 no-after-button">
-        <i class="fa-solid fa-chevron-left "></i>
+              class="absolute left-2 top-1/2 transform -translate-y-1/2 flex items-center lg:px-2 px-1 py-3
+               text-4xl z-50 no-after-button">
+        <i class="fa-solid fa-chevron-left text-[16px]"></i>
       </button>
 
       <button (click)="nextImage()" 
-              class="absolute right-2 top-1/2 transform -translate-y-1/2 px-3 pb-2 text-4xl z-50 no-after-button">
-        <i class="fa-solid fa-chevron-right "></i>
+              class="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center lg:px-2 px-1 py-3
+               text-4xl z-50 no-after-button">
+        <i class="fa-solid fa-chevron-right text-[16px]"></i>
       </button>
 
       <img [src]="project?.gallery?.[currentIndex]" 

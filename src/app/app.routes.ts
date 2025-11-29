@@ -22,6 +22,7 @@ import { SignIn } from './admin-components/sign-in/sign-in';
 import { SignUp } from './admin-components/sign-up/sign-up';
 import { AuthGuard } from './guards/auth.guard';
 import { ProjectDetails } from './puplic portfolio/project-details/project-details';
+import { NotfoundPageComponent } from './puplic portfolio/notfound-page/notfound-page.component';
 export const routes: Routes = [
   {
     path: 'admin',
@@ -34,7 +35,8 @@ export const routes: Routes = [
       { path: 'projects', component: AdminProjects },
       { path: 'services', component: AdminServices },
       { path: 'blogs', component: AdminBlogs },
-      { path: 'testimonials', component: AdminTestimonials }
+      { path: 'testimonials', component: AdminTestimonials },
+      {path:'**', component:NotfoundPageComponent}
     ]
   },
   {
@@ -60,10 +62,11 @@ export const routes: Routes = [
       { path: 'projects', component: ProjectsPortfolio },
       { path: 'blogs', component: BlogsPortfolio },
       { path: 'contact', component: ContactPortfolio },
-      {path:'project-details/:id/:uid', component:ProjectDetails}
+      {path:'project-details/:id/:uid', component:ProjectDetails},
+      {path:'**', component:NotfoundPageComponent}
     ]
   },
   { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
-  { path: '**', redirectTo: 'sign-in' }
+  {path:'**', component:NotfoundPageComponent}
 ];
 
