@@ -223,7 +223,7 @@ editProject(i: number) {
 }
 updateProject() {
   if (this.form.invalid || this.editingIndex === null) return;
-
+  this.autoResizeAll();
   this.projects[this.editingIndex] = {
     id: this.projects[this.editingIndex].id, 
     ...this.form.value

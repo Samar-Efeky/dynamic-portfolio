@@ -3,7 +3,7 @@
     <div>
       <h2 class="span-color text-lg font-semibold mb-4">About {{info?.username}}</h2>
       <p class="text-sm  leading-relaxed">
-        {{about?.mainDescription}}
+        {{about?.mainDescription?.split(' ').slice(0, 40).join(' ')}} ...
       </p>
     </div>
     <div class="md:text-center">
