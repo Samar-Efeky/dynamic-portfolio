@@ -237,6 +237,19 @@ updateProject() {
 canUpdateProject() {
   return this.form.valid && this.editingIndex !== null;
 }
+moveProjectUp(i: number) {
+  if (i === 0) return;
+  const temp = this.projects[i];
+  this.projects[i] = this.projects[i - 1];
+  this.projects[i - 1] = temp;
+}
+
+moveProjectDown(i: number) {
+  if (i === this.projects.length - 1) return;
+  const temp = this.projects[i];
+  this.projects[i] = this.projects[i + 1];
+  this.projects[i + 1] = temp;
+}
 
   // ================= Auto Resize =================
   autoResize(event: Event) {

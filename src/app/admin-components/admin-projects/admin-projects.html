@@ -151,6 +151,22 @@
             </div>
           </div>
           <div class="absolute top-1 right-1 flex">
+           <div class="flex p-1  mx-2 ">
+
+  <i class="fa-solid fa-arrow-up-long text-white cursor-pointer text-[14px]"
+     (click)="moveProjectUp(i)"
+     [class.opacity-30]="i === 0"
+     [class.pointer-events-none]="i === 0">
+  </i>
+
+  <i class="fa-solid fa-arrow-down-long text-white cursor-pointer text-[14px]"
+     (click)="moveProjectDown(i)"
+     [class.opacity-30]="i === projects.length - 1"
+     [class.pointer-events-none]="i === projects.length - 1">
+  </i>
+
+</div>
+
               <button (click)="editProject(i)" class="no-after-button px-2 mr-2">
                 <i class="fa-solid fa-pen-to-square text-[12px]"></i>
               </button>
