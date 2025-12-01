@@ -219,11 +219,13 @@ editProject(i: number) {
   this.skillsControl.setValue([...p.skills]);
   this.galleryControl.setValue([...p.gallery]);
   this.featuresControl.setValue([...p.features]);
+    setTimeout(() => {
+    this.autoResizeAll();
+  }, 0);
   window.scrollTo({ top: 300, behavior: 'smooth' });
 }
 updateProject() {
   if (this.form.invalid || this.editingIndex === null) return;
-  this.autoResizeAll();
   this.projects[this.editingIndex] = {
     id: this.projects[this.editingIndex].id, 
     ...this.form.value
