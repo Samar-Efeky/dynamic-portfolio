@@ -19,7 +19,8 @@
   </div>
 
   <!-- Lightbox -->
-  <div *ngIf="lightboxOpen"
+   @if(lightboxOpen){
+       <div 
        class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
        (click)="closeLightbox()">
 
@@ -45,9 +46,10 @@
            class="w-full h-full object-cover rounded-md shadow-lg" alt="Lightbox Image" />
     </div>
   </div>
+   }
   <div class="mt-20 overflow-hidden">
     <span class="span-color text-[20px]">Description</span>
-    <p class="py-3 from-left" appInView>{{project?.['projectDescription']}}</p>
+    <p class="py-3">{{project?.['projectDescription']}}</p>
     <span class="span-color pt-10 text-[20px]">live preview : </span>
     <a [href]="project?.['liveLink']" class="inline" target="_blank">{{project?.['liveLink']}}</a>
     <span class="span-color pt-10 text-[20px] block">skills</span>

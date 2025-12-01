@@ -54,14 +54,22 @@ export class PublicNavbar implements OnDestroy {
   }
 
   private handleFragmentScroll() {
-    const tree = this.router.parseUrl(this.router.url);
-    if (!tree.fragment) return;
+  const tree = this.router.parseUrl(this.router.url);
+  const fragment = tree.fragment;
+  if (!fragment) return;
 
-    setTimeout(() => {
-      const el = document.getElementById(tree.fragment!);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 200);
-  }
+  const checkAndScroll = () => {
+    const el = document.getElementById(fragment);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      setTimeout(checkAndScroll, 100);
+    }
+  };
+
+  checkAndScroll();
+}
+
 
   isLinkActive(path: string, fragment?: string): boolean {
     const info = this.info();

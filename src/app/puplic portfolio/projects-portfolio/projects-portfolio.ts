@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, EffectRef } from '@angular/core';
+import { Component, effect, EffectRef, inject, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
 import { Testimonial } from "../testimonial/testimonial";
 import { HomeBlogs } from "../home-blogs/home-blogs";
 import { InViewDirective } from "../../directives/in-view.directive";
 import { UserStateService } from '../../services/user-state.service';
 import { AdminProjectsService } from '../../services/admin-projects.service';
 import { AdminInfoService } from '../../services/admin-info.service';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-work-portfolio',
@@ -22,7 +22,7 @@ import { AdminInfoService } from '../../services/admin-info.service';
   templateUrl: './projects-portfolio.html',
   styleUrl: './projects-portfolio.scss',
 })
-export class ProjectsPortfolio {
+export class ProjectsPortfolio implements  OnDestroy{
   projectsList: any = null;
   info: any = null;
   username: string = '';
@@ -30,11 +30,12 @@ export class ProjectsPortfolio {
 
   private effectRef!: EffectRef;
 
-  constructor(
-    private userState: UserStateService,
-    private adminProjectService: AdminProjectsService,
-    private adminInfoService: AdminInfoService
-  ) {
+  private loadingService = inject(LoadingService);
+  private userState = inject(UserStateService);
+  private adminProjectService = inject(AdminProjectsService);
+  private adminInfoService = inject(AdminInfoService);
+
+  constructor() {
     this.initEffect();
   }
 
@@ -47,9 +48,20 @@ export class ProjectsPortfolio {
   }
 
   async loadData(uid: string) {
-    this.projectsList = await this.adminProjectService.getProjects(uid);
-    this.info = await this.adminInfoService.getAdminInfo(uid);
-    this.username = this.info?.username ?? '';
+    this.loadingService.show(); 
+    try {
+      const [projects, info] = await Promise.all([
+        this.adminProjectService.getProjects(uid),
+        this.adminInfoService.getAdminInfo(uid)
+      ]);
+      this.projectsList = projects;
+      this.info = info;
+      this.username = info?.['username'] ?? '';
+    } catch (err) {
+      console.error('Error fetching ProjectsPortfolio data:', err);
+    } finally {
+      this.loadingService.hide(); 
+    }
   }
 
   scrollToTop() {
@@ -57,12 +69,9 @@ export class ProjectsPortfolio {
   }
 
   ngOnDestroy() {
-    // Destroy the effect safely
     if (this.effectRef) {
       this.effectRef.destroy();
     }
-
-    // Clear stored data
     this.projectsList = null;
     this.info = null;
     this.username = '';

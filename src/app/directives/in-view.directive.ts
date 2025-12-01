@@ -1,5 +1,6 @@
 import { Directive, ElementRef, Renderer2, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { LoadingService } from '../services/loading.service';
 
 // Create a shared IntersectionObserver instance to be reused across all directive instances
 let sharedObserver: IntersectionObserver | null = null;
@@ -13,7 +14,8 @@ export class InViewDirective implements OnInit {
   constructor(
     private el: ElementRef,               
     private renderer: Renderer2,           
-    @Inject(PLATFORM_ID) private platformId: Object 
+    @Inject(PLATFORM_ID) private platformId: Object ,
+    private loadingService:LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -26,10 +28,13 @@ export class InViewDirective implements OnInit {
           entries.forEach(entry => {
             // When the element enters the viewport (20% visible)
             if (entry.isIntersecting) {
-              // Add the 'show' class to trigger animations or transitions
-              (entry.target as HTMLElement).classList.add('show');
-              // Stop observing this element after it becomes visible
-              sharedObserver?.unobserve(entry.target);
+               this.loadingService.isLoading$.subscribe(isLoading => {
+                if (!isLoading) {
+                  // Add 'show' class only after loading finished
+                  (entry.target as HTMLElement).classList.add('show');
+                  sharedObserver?.unobserve(entry.target);
+                }
+              });
             }
           });
         }, { threshold: 0.2 }); // 20% visibility threshold

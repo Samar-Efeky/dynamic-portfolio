@@ -4,6 +4,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { AdminProjectsService } from '../../services/admin-projects.service';
 import { CommonModule } from '@angular/common';
 import { InViewDirective } from '../../directives/in-view.directive';
+import { LoadingService } from '../../services/loading.service';
 
 interface Project {
   id: string;
@@ -31,14 +32,15 @@ export class ProjectDetails implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private projectsService: AdminProjectsService
+    private projectsService: AdminProjectsService,
+    private loadingService:LoadingService
   ) {}
 
   ngOnInit() {
     this.route.paramMap
     .pipe(takeUntil(this.destroy$))
     .subscribe(params => {
-      const uid = params.get('uid');   // ← خدي UID من الرابط
+      const uid = params.get('uid');   
       this.projectId = params.get('id');
 
       if (uid && this.projectId) {
@@ -48,8 +50,7 @@ export class ProjectDetails implements OnInit, OnDestroy {
   }
 
   async loadProject(uid: string, projectId: string) {
-   
-
+    this.loadingService.show();
     try {
       const projectData = await this.projectsService.getProjectById(uid, projectId);
       if (!projectData) return;
@@ -61,6 +62,8 @@ export class ProjectDetails implements OnInit, OnDestroy {
       }
     } catch (err) {
       console.error('Error loading project:', err);
+    } finally {
+      this.loadingService.hide();
     }
   }
 

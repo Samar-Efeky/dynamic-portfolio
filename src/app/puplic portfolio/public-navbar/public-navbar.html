@@ -39,8 +39,8 @@
 
       <!-- Testimonial -->
       <li>
-        <a [routerLink]="['.']"
-           fragment="testimonial"
+        <a [routerLink]="['/portfolio',info()?.username]"
+            [fragment]="'testimonial'"
            [class.active-link]="isLinkActive('.', 'testimonial')"
            (click)="toggleSidebar()">
           Testimonial

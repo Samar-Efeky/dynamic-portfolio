@@ -1,9 +1,8 @@
-import { Component, OnDestroy, effect } from '@angular/core';
+import { Component, OnDestroy, effect, signal } from '@angular/core';
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { AdminInfoService } from '../../services/admin-info.service';
 import { UserStateService } from '../../services/user-state.service';
 import { Subject, takeUntil } from 'rxjs';
-
 @Component({
   selector: 'app-hero-section',
   standalone: true,
@@ -14,7 +13,6 @@ import { Subject, takeUntil } from 'rxjs';
 export class HeroSection implements OnDestroy {
   info: any = null;
   about: any = null;
-
   private destroy$ = new Subject<void>();
 
   constructor(

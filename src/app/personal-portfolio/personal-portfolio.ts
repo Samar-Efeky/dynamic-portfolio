@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, PLATFORM_ID } from '@angular/core';
+import { Component, HostListener, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { PublicNavbar } from "../puplic portfolio/public-navbar/public-navbar";
 import { RouterOutlet, ActivatedRoute } from '@angular/router';
 import { FooterPortfolio } from "../puplic portfolio/footer-portfolio/footer-portfolio";
@@ -15,7 +15,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
   templateUrl: './personal-portfolio.html',
   styleUrl: './personal-portfolio.scss',
 })
-export class PersonalPortfolio {
+export class PersonalPortfolio implements  OnInit{
 private platformId = inject(PLATFORM_ID);
   username: string | null = null;
   uid: string | null = null;
@@ -30,28 +30,38 @@ private platformId = inject(PLATFORM_ID);
   ) {}
 
   ngOnInit() {
-    
-    this.loadingService.show();
+    // متابعة حالة اللودينج
     this.loadingService.isLoading$.subscribe(status => {
       this.isLoading = status;
     });
+
+    // جلب الداتا مع عرض اللودينج
     this.route.paramMap.subscribe(async params => {
       const username = params.get('username');
       if (!username) return;
 
+      this.loadingService.show(); // اللودينج يبدأ فورًا عند الطلب
+
       this.username = username;
       this.userState.username.set(username);
-      this.loadingService.show();
-      const adminData = await this.adminInfoService.getAdminInfoByUsername(username);
-      this.uid = adminData?.uid ?? null;
-      this.userState.uid.set(this.uid);
-      this.loadingService.hide();
+
+      try {
+        const adminData = await this.adminInfoService.getAdminInfoByUsername(username);
+        this.uid = adminData?.uid ?? null;
+        this.userState.uid.set(this.uid);
+      } catch (err) {
+        console.error('Error fetching admin data:', err);
+      } finally {
+        this.loadingService.hide(); 
+      }
     });
 
-      if (isPlatformBrowser(this.platformId)) {
+    // Scroll listener
+    if (isPlatformBrowser(this.platformId)) {
       window.addEventListener('scroll', this.onWindowScroll.bind(this));
     }
   }
+
 
   scrollToTop() {
     if (isPlatformBrowser(this.platformId)) {

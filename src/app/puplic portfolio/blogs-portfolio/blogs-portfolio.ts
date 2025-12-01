@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect } from '@angular/core';
+import { Component, effect, OnDestroy } from '@angular/core';
 import { HomeData } from "../home-data/home-data";
 import { InViewDirective } from "../../directives/in-view.directive";
 import { UserStateService } from '../../services/user-state.service';
 import { AdminBlogsService } from '../../services/admin-blogs.service';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-blogs-portfolio',
@@ -11,7 +12,7 @@ import { AdminBlogsService } from '../../services/admin-blogs.service';
   templateUrl: './blogs-portfolio.html',
   styleUrl: './blogs-portfolio.scss'
 })
-export class BlogsPortfolio {
+export class BlogsPortfolio implements OnDestroy{
    data: any = null;
   private destroyed = false;
   private dataLoaded = false;
@@ -20,6 +21,7 @@ export class BlogsPortfolio {
   constructor(
     private userState: UserStateService,
     private adminBlogsService: AdminBlogsService,
+    private loadingService:LoadingService
   ) {
 
     effect(() => {
@@ -36,7 +38,12 @@ export class BlogsPortfolio {
   }
 
   async loadData(uid: string) {
-    this.data = await this.adminBlogsService.getBlogs(uid);
+     this.loadingService.show();
+     try{
+      this.data= await this.adminBlogsService.getBlogs(uid);
+     }finally{
+      this.loadingService.hide();
+     }
   }
 
   scrollToTop() {

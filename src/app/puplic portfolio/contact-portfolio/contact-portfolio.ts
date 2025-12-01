@@ -8,6 +8,7 @@ import { AdminInfoService } from '../../services/admin-info.service';
 import { AdminAboutService } from '../../services/admin-about.service';
 import { CommonModule } from '@angular/common';
 import { Subject, takeUntil } from 'rxjs';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-contact-portfolio',
@@ -25,6 +26,7 @@ export class ContactPortfolio implements OnDestroy {
     private userState: UserStateService,
     private adminInfoService: AdminInfoService,
     private adminAboutService: AdminAboutService,
+    private loadingService:LoadingService
   ) {
     effect(() => {
       const uid = this.userState.uid();
@@ -35,8 +37,19 @@ export class ContactPortfolio implements OnDestroy {
   }
 
   async loadData(uid: string) {
-    this.info = await this.adminInfoService.getAdminInfo(uid);
-    this.about = await this.adminAboutService.getAbout(uid);
+    this.loadingService.show(); 
+    try {
+      const [info, about] = await Promise.all([
+        this.adminInfoService.getAdminInfo(uid),
+        this.adminAboutService.getAbout(uid)
+      ]);
+      this.info = info;
+      this.about = about;
+    } catch (err) {
+      console.error('Error fetching ContactPortfolio data:', err);
+    } finally {
+      this.loadingService.hide(); 
+    }
   }
 
   ngOnDestroy() {

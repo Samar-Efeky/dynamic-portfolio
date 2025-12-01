@@ -4,7 +4,6 @@ import { InViewDirective } from "../../directives/in-view.directive";
 import { UserStateService } from '../../services/user-state.service';
 import { AdminServicesService } from '../../services/admin-services.service';
 import { AdminAboutService } from '../../services/admin-about.service';
-
 @Component({
   selector: 'app-home-services',
   imports: [RouterLink, InViewDirective],
@@ -22,7 +21,7 @@ export class HomeServices implements OnDestroy {
   constructor(
     private userState: UserStateService,
     private adminAboutService: AdminAboutService,
-    private adminServices: AdminServicesService
+    private adminServices: AdminServicesService,
   ) {
 
     effect(() => {
@@ -38,7 +37,6 @@ export class HomeServices implements OnDestroy {
       this.loadData(uid);
     });
   }
-
   async loadData(uid: string) {
     this.about = await this.adminAboutService.getAbout(uid);
     this.data = await this.adminServices.getServices(uid);

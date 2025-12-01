@@ -1,6 +1,4 @@
-<!-- Loader -->
-<app-loading *ngIf="isLoading()"></app-loading>
-<div *ngIf="!isLoading()">
+<div >
   <app-hero-section></app-hero-section>
   <app-slider-titles></app-slider-titles>
 
@@ -34,7 +32,7 @@
 
   <app-home-projects></app-home-projects>
   <app-home-services></app-home-services>
-  <app-testimonial  *ngIf="!isLoading()" id="testimonial"></app-testimonial>
+  <app-testimonial  id="testimonial"></app-testimonial>
   <app-home-blogs></app-home-blogs>
   <app-home-data></app-home-data>
 </div>

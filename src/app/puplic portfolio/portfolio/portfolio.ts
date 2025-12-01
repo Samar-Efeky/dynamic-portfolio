@@ -1,4 +1,4 @@
-import { Component, effect, signal } from '@angular/core';
+import { Component, effect, EffectRef, OnDestroy, signal } from '@angular/core';
 import { HeroSection } from "../hero-section/hero-section";
 import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { HomeProjects } from "../home-projects/home-projects";
@@ -11,41 +11,53 @@ import { AdminAboutService } from '../../services/admin-about.service';
 import { UserStateService } from '../../services/user-state.service';
 import { SliderTitles } from '../slider-titles/slider-titles';
 import { CommonModule } from '@angular/common';
-import { Loading } from '../../loading/loading';
-
+import { LoadingService } from '../../services/loading.service';
 @Component({
   selector: 'app-portfolio',
   standalone: true,
   imports: [
     HeroSection, SliderTitles, RouterOutlet, RouterLink, RouterLinkActive,
-    HomeProjects, HomeServices, Testimonial, HomeBlogs, HomeData, Loading, CommonModule
+    HomeProjects, HomeServices, Testimonial, HomeBlogs, HomeData, CommonModule
   ],
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.scss',
 })
-export class Portfolio {
-  info: any = null;
+export class Portfolio implements  OnDestroy{
+   info: any = null;
   about: any = null;
-  isLoading = signal(true);
 
+  private effectRef!: EffectRef; 
   constructor(
     private userState: UserStateService,
     private adminInfoService: AdminInfoService,
     private adminAboutService: AdminAboutService,
+    private loadingService: LoadingService
   ) {
-    effect(async () => {
+    this.effectRef = effect(async () => {
       const uid = this.userState.uid();
       if (!uid) return;
 
-      this.isLoading.set(true); 
-      const [info, about] = await Promise.all([
-        this.adminInfoService.getAdminInfo(uid),
-        this.adminAboutService.getAbout(uid)
-      ]);
-      this.info = info;
-      this.about = about;
-
-      this.isLoading.set(false); 
+      this.loadingService.show(); 
+      try {
+        const [info, about] = await Promise.all([
+          this.adminInfoService.getAdminInfo(uid),
+          this.adminAboutService.getAbout(uid)
+        ]);
+        this.info = info;
+        this.about = about;
+      } catch (err) {
+        console.error('Error fetching portfolio data:', err);
+      } finally {
+        this.loadingService.hide(); 
+      }
     });
   }
-}
+
+  ngOnDestroy() {
+    if (this.effectRef) {
+      this.effectRef.destroy();
+    }
+    this.info = null;
+    this.about = null;
+  }
+}  
