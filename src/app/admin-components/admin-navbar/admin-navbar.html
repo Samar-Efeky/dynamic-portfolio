@@ -18,12 +18,17 @@
       <li class="cv-link-sidebar" (click)="downloadCV();toggleSidebar()">
         <button class="w-[70%] mx-auto py-2 px-4" [disabled]="!livePortfolioEnabled">Download CV</button>
       </li>
+      <li class="live-sidebar" (click)="openPortfolioInNewTab()">
+        <button [disabled]="!livePortfolioEnabled" 
+         class="w-[70%] mx-auto py-2 px-4">Live Portfolio</button>
+      </li>
     </ul>
     <div class="flex">
         <button class="cv-download py-2 px-4" (click)="downloadCV()" [disabled]="!livePortfolioEnabled">Download CV</button>
-      <button (click)="openPortfolioInNewTab()" [disabled]="!livePortfolioEnabled"  class="sm:px-4 px-2 sm:py-2 mx-3 ">Live Portfolio</button>
+      <button (click)="openPortfolioInNewTab()" [disabled]="!livePortfolioEnabled"
+        class="sm:px-4 px-2 sm:py-2 mx-3 live-port">Live Portfolio</button>
      @if(userInitial){
-      <div class="user-profile relative">
+      <div class="user-profile relative mx-2">
         <div class="user-avatar px-4 cursor-pointer"
           [style.background]="avatarColor">
             {{ userInitial }}

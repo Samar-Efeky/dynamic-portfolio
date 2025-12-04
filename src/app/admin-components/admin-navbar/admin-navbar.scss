@@ -17,12 +17,12 @@ nav {
   height: 38px;
   border-radius: 50%;
   color: white;
-  font-weight:500;
+  font-weight:400;
   display: flex;
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
-  font-size: 19px;
+  font-size: 16px;
 }
 .user-logout{
   transform: translateX(10%);
@@ -76,7 +76,7 @@ ul {
 .active-link {
   color: var(--primaryColor);
 }
-.cv-link-sidebar{
+.cv-link-sidebar,.live-sidebar{
     display: none;
 }
 .icon-sidebar{
@@ -127,10 +127,10 @@ ul {
   ul {
     width: 80%;
   }
-  .cv-link-sidebar{
+  .cv-link-sidebar,.live-sidebar{
     display: block;
   }
-  .cv-download{
+  .cv-download,.live-port{
     display: none;
   }
 }
