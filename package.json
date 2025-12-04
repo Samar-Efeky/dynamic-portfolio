@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@angular/animations": "^20.3.4",
+    "@angular/cdk": "^20.2.14",
     "@angular/common": "^20.3.4",
     "@angular/compiler": "^20.3.4",
     "@angular/core": "^20.3.4",
@@ -27,6 +28,7 @@
     "jspdf-autotable": "^5.0.2",
     "magnific-popup": "^1.2.0",
     "ngx-owl-carousel-o": "^20.0.1",
+    "ngx-skeleton-loader": "^11.3.0",
     "rxjs": "~7.8.1",
     "tslib": "^2.8.1",
     "zone.js": "^0.15.1"

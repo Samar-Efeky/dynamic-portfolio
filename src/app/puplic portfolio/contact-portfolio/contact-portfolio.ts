@@ -42,6 +42,7 @@ export class ContactPortfolio implements OnDestroy {
       const [info, about] = await Promise.all([
         this.adminInfoService.getAdminInfo(uid),
         this.adminAboutService.getAbout(uid)
+
       ]);
       this.info = info;
       this.about = about;

@@ -9,14 +9,13 @@ import { HomeData } from "../home-data/home-data";
 import { AdminInfoService } from '../../services/admin-info.service';
 import { AdminAboutService } from '../../services/admin-about.service';
 import { UserStateService } from '../../services/user-state.service';
-import { SliderTitles } from '../slider-titles/slider-titles';
 import { CommonModule } from '@angular/common';
 import { LoadingService } from '../../services/loading.service';
 @Component({
   selector: 'app-portfolio',
   standalone: true,
   imports: [
-    HeroSection, SliderTitles, RouterOutlet, RouterLink, RouterLinkActive,
+    HeroSection, RouterOutlet, RouterLink, RouterLinkActive,
     HomeProjects, HomeServices, Testimonial, HomeBlogs, HomeData, CommonModule
   ],
   templateUrl: './portfolio.html',
@@ -24,8 +23,6 @@ import { LoadingService } from '../../services/loading.service';
 })
 export class Portfolio implements  OnDestroy{
    info: any = null;
-  about: any = null;
-
   private effectRef!: EffectRef; 
   constructor(
     private userState: UserStateService,
@@ -39,12 +36,10 @@ export class Portfolio implements  OnDestroy{
 
       this.loadingService.show(); 
       try {
-        const [info, about] = await Promise.all([
+        const [info] = await Promise.all([
           this.adminInfoService.getAdminInfo(uid),
-          this.adminAboutService.getAbout(uid)
         ]);
         this.info = info;
-        this.about = about;
       } catch (err) {
         console.error('Error fetching portfolio data:', err);
       } finally {
@@ -58,6 +53,5 @@ export class Portfolio implements  OnDestroy{
       this.effectRef.destroy();
     }
     this.info = null;
-    this.about = null;
   }
 }  

@@ -23,6 +23,7 @@ import { SignUp } from './admin-components/sign-up/sign-up';
 import { AuthGuard } from './guards/auth.guard';
 import { ProjectDetails } from './puplic portfolio/project-details/project-details';
 import { NotfoundPageComponent } from './puplic portfolio/notfound-page/notfound-page.component';
+import { BlogDetailsComponent } from './puplic portfolio/blog-details/blog-details.component';
 export const routes: Routes = [
   {
     path: 'admin',
@@ -63,6 +64,7 @@ export const routes: Routes = [
       { path: 'blogs', component: BlogsPortfolio },
       { path: 'contact', component: ContactPortfolio },
       {path:'project-details/:id/:uid', component:ProjectDetails},
+      {path:'blog-details/:id/:uid', component:BlogDetailsComponent},
       {path:'**', component:NotfoundPageComponent}
     ]
   },

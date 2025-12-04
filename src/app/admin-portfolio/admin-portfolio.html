@@ -1,5 +1,5 @@
 @if(loading$ | async){
-    <div
+    <div 
      class="loading-data fixed inset-0 bg-black/50 flex justify-center items-center z-50">
   <div class="w-20 h-20 border-4 border-main border-t-transparent rounded-full animate-spin"
        style="border-color: var(--primaryColor);"></div>
@@ -16,7 +16,8 @@
   </div>
 </div>
  }
- <div *ngIf="uiService.cvSuccess$ | async" 
+ @if(uiService.cvSuccess$ | async){
+    <div  
      class="w-full save-data fixed flex justify-center items-center z-50">
   <div class="px-6 py-4 text-center gap-3 cursor-pointer animate-fade-in"
        (click)="uiService.hideCVSuccess()">
@@ -24,28 +25,7 @@
     <span class="font-semibold text-lg block">CV downloaded successfully!</span>
   </div>
 </div>
-<div class="w-full px-3 pt-5 pb-10 mb-20">
-    <div class="h-[200px] relative w-full rounded-lg" style="background-color: var(--cardColor);">
-        <div class="overley w-full h-full flex justify-center items-center">
-            <h2 class="uppercase text-[2rem] md:text-[3rem] lg:text-[4rem] font-bold">portfolio cms</h2>
-        </div>
-         <div class="image-profile w-[90px] h-[90px] sm:w-[100px] sm:h-[100px] xl:w-[130px] xl:h-[130px] absolute
-          bottom-0 left-10 lg:left-20">
-                 <img [src]="userImage" alt="image-profile" class="w-full h-full object-cover rounded-full"/>
-                <div class="p-2 w-[200px]">
-                    <ul class="" >
-                        <li>
-                            <label class="cursor-pointer">
-                                <input id="upload" type="file" accept="image/*" (change)="onImageChange($event)" class="hidden">
-                                 <span class=" py-1 text-white">Change Photo</span>
-                            </label>
-                        </li>
-                        <li (click)="logout()">Sign Out</li>
-                    </ul>
-                </div>
-        </div>
-    </div>
-</div>
+ }
 <div class="overflow-hidden ">
     <app-admin-navbar></app-admin-navbar>
 <div class="add-info pt-20">

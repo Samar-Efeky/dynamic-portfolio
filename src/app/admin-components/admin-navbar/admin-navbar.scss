@@ -11,6 +11,39 @@ nav {
     }
   }
 }
+.user-profile{
+    .user-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: white;
+  font-weight:500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 19px;
+}
+.user-logout{
+  transform: translateX(10%);
+  background-color: var(--cardColor);
+  transition: all var(--transition) ease;
+  visibility: hidden;
+  opacity: 0;
+  .log-out{
+    transition: background-color var(--transition) ease;
+    &:hover{
+      background-color: var(--blackColor);
+    }
+  }
+}
+&:hover{
+    .user-logout{
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
 .icon-sidebar {
   background-color: var(--inputColor);
   border-radius: 5px;
@@ -18,6 +51,7 @@ nav {
 }
 ul {
     position: absolute;
+    z-index: 9999999999999999;
     top: 100%;
     right: 0px;
     transition: transform 0.4s ease;
@@ -66,7 +100,7 @@ ul {
 @media screen and (max-width: 1100px) {
     ul {
     position: absolute;
-    top: 100%; // important
+    top: 100%; 
     right: 0;
     height: 100vh;
     width: 35%;

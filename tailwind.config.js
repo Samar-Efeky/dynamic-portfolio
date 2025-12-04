@@ -4,12 +4,12 @@ module.exports = {
     "./src/**/*.{html,ts,scss}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        '3xl': '1800px',
+        '4xl': '2200px',
+      },
+    },
   },
-  plugins: [
-    // require('tailwindcss/forms'),
-    // require('tailwindcss/typography'),
-    // require('tailwindcss/line-clamp'),
-    // require('tailwindcss/aspect-ratio'),
-  ],
+  plugins: [],
 };

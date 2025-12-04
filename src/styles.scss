@@ -19,7 +19,7 @@ html{
   scroll-behavior: smooth;
 }
 body {
-    margin: 0;
+  margin: 0;
     padding: 0;
    overflow-x: hidden;
     scroll-behavior: smooth;
@@ -28,6 +28,14 @@ body {
     font: {
         size: var(--fontSize);
     };
+}
+.section-container{
+  padding: 40px 30px;
+  margin: 0px auto;
+  width: 90%;
+  @media screen and (max-width:768px){
+    padding: 0px 15px;
+  }
 }
 img {
     max-width: 100%;

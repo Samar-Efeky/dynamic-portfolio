@@ -34,7 +34,7 @@ export class AdminDataCheckService {
       const infoData = await this.info.getAdminInfo(uid);
       const projectsData = await this.projects.getProjects(uid);
       const servicesData = await this.services.getServices(uid);
-      const testimonialData = await this.testimonials.getTestimonials(uid);
+      // const testimonialData = await this.testimonials.getTestimonials(uid);
 
       const allResults = [
         aboutData,
@@ -43,7 +43,7 @@ export class AdminDataCheckService {
         infoData,
         projectsData,
         servicesData,
-        testimonialData
+        // testimonialData
       ];
 
       const allSaved = allResults.every(data => {

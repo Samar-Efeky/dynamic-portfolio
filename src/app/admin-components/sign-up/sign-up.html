@@ -23,13 +23,6 @@
             }
           </div>
         }
-      <label class="block mb-2 font-semibold">Profile Image (Optional)</label>
-      <input type="file" accept="image/*" (change)="onImageChange($event)" class="w-full p-3 mb-4 bg-gray-800 text-white rounded" />
-      @if(imagePreview){
-        <div class="mb-4">
-          <img [src]="imagePreview" class="h-24 w-24 rounded-full object-cover border-2 border-white" />
-      </div>
-      }
       <label class="block mb-2 font-semibold">Password</label>
       <div class="relative mb-3">
         <input [type]="showPassword ? 'text' : 'password'" formControlName="password"

@@ -12,21 +12,22 @@
 
   <section class="container mx-auto lg:px-6 px-3 py-5">
     <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-15 items-stretch">
-      @for(item of data?.blogs?.slice(0,3); track $index){
-         <div class="blog-item h-full flex flex-col zoom-in" appInView>
+      @for(item of data?.blogs?.slice(0,2); track $index){
+         <div class="blog-item h-full flex flex-col zoom-in cursor-pointer"
+         [routerLink]="['/portfolio', username, 'blog-details', item?.id, uid]" appInView>
            <span class="span-color text-xl">{{ item?.subtitle}}</span>
            <h3 class="flex items-center gap-2 md:text-2xl my-4">
              {{ item?.title }}
            </h3>
            <p class="leading-relaxed mb-6 flex-grow">
-             {{ item?.description}}
+             {{ item?.description.split(' ').slice(0, 25).join(' ')}}
            </p>
          </div>
       }
     </div>
   </section>
 
-  @if(data?.blogs?.length>=2){
+  @if(data?.blogs?.length>=3){
     <a [routerLink]="['/portfolio', username, 'blogs']"  (click)="scrollToTop()">
       <div class="circle-button m-auto my-3 flex flex-col justify-center items-center">
         <i class="fa-solid fa-arrow-right mx-2"></i>

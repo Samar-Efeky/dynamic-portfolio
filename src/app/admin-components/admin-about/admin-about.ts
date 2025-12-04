@@ -25,7 +25,7 @@ import { AdminDataCheckService } from '../../services/admin-data-check';
 @Component({
   selector: 'app-admin-about',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ ReactiveFormsModule],
   templateUrl: './admin-about.html',
   styleUrl: './admin-about.scss'
 })
@@ -56,7 +56,12 @@ export class AdminAbout implements OnInit, AfterViewInit, OnDestroy {
       mainDescription: ['', [Validators.required, this.wordCountValidator(30, 100)]],
       howIGotHere: ['', [Validators.required, this.wordCountValidator(30, 100)]],
       additional1: ['', [Validators.required, this.wordCountValidator(30, 100)]],
-      additional2: ['', [Validators.required, this.wordCountValidator(30, 100)]]
+      additional2: ['', [Validators.required, this.wordCountValidator(30, 100)]],
+      // ======= Contact Fields =======
+    contactMainTitle: ['', Validators.required],
+    contactSubtitle: ['', Validators.required],
+    contactMainDescription: ['', Validators.required],
+    contactButtonName: ['', Validators.required]
     });
 
     this.inspiringWordControl = new FormControl('', [
@@ -107,7 +112,12 @@ export class AdminAbout implements OnInit, AfterViewInit, OnDestroy {
       mainDescription: data['mainDescription'] || '',
       howIGotHere: data['howIGotHere'] || '',
       additional1: data['additionalDescription']?.paragraph1 || '',
-      additional2: data['additionalDescription']?.paragraph2 || ''
+      additional2: data['additionalDescription']?.paragraph2 || '',
+       // Contact
+    contactMainTitle: data['contact']?.mainTitle || '',
+    contactSubtitle: data['contact']?.subtitle || '',
+    contactMainDescription: data['contact']?.mainDescription || '',
+    contactButtonName: data['contact']?.buttonName || ''
     });
 
     // Resize textareas
@@ -143,7 +153,13 @@ export class AdminAbout implements OnInit, AfterViewInit, OnDestroy {
       additionalDescription: {
         paragraph1: this.form.value.additional1,
         paragraph2: this.form.value.additional2
-      }
+      },
+    contact: {
+      mainTitle: this.form.value.contactMainTitle,
+      subtitle: this.form.value.contactSubtitle,
+      mainDescription: this.form.value.contactMainDescription,
+      buttonName: this.form.value.contactButtonName
+    }
     };
   }
 

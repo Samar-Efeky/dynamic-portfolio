@@ -7,6 +7,7 @@ import { provideAuth, getAuth,  } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideStorage, getStorage } from '@angular/fire/storage';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -15,6 +16,7 @@ export const appConfig: ApplicationConfig = {
      provideAnimationsAsync(),
      provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage())
   ]
 };

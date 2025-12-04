@@ -11,18 +11,20 @@ import { CommonModule } from '@angular/common';
 import { filter, takeUntil, Subject } from 'rxjs';
 import { AdminInfoService } from '../../services/admin-info.service';
 import { UserStateService } from '../../services/user-state.service';
+import { AdminTestimonialsService } from '../../services/admin-testimonials.service';
+import { log } from 'console';
 
 @Component({
   selector: 'app-public-navbar',
   standalone: true,
   imports: [RouterLink,  CommonModule],
-  templateUrl: './public-navbar.html',
+templateUrl: './public-navbar.html',
   styleUrls: ['./public-navbar.scss']
 })
 export class PublicNavbar implements OnDestroy {
   uid = signal<string | null>(null);
   info = signal<any>(null);
-
+  TestimonialContent:any='';
   sidebarOpen = false;
   scrolled = false;
 
@@ -30,6 +32,7 @@ export class PublicNavbar implements OnDestroy {
 
   private userState = inject(UserStateService);
   private infoService = inject(AdminInfoService);
+  private testimService=inject(AdminTestimonialsService);
   private router = inject(Router);
 
   constructor() {
@@ -41,6 +44,7 @@ export class PublicNavbar implements OnDestroy {
       if (uid) {
         const info = await this.infoService.getAdminInfo(uid);
         this.info.set(info);
+        this.TestimonialContent=await this.testimService.getTestimonials(uid);
       }
     });
 

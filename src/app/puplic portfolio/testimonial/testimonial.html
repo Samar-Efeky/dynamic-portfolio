@@ -1,4 +1,5 @@
-<section class="py-20 overflow-hidden" style="background-color: var(--blackColor);">
+@if(data?.testimonials?.length>0){
+  <div class="py-20 overflow-hidden" style="background-color: var(--blackColor);">
   <div class="text-center px-2 py-5 lg:px-20  title-section from-top" appInView>
     <div class="flex items-center justify-center">
       <div class="border-t-2 w-16 mx-3 title-line"></div>
@@ -15,7 +16,7 @@
       @for(t of data?.testimonials; track $index){
          <ng-container>
         <ng-template carouselSlide [id]="'slide-' + $index">
-          <div class="testimonial-card p-5 rounded-lg h-full flex flex-col">
+          <div class="testimonial-card p-5 rounded-lg h-full flex flex-col mx-3">
             <p class="leading-relaxed mb-6">{{ t?.description}}</p>
             <div class="flex items-center gap-4 mt-auto">
               <div class="w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20">
@@ -32,4 +33,5 @@
       }  
     </owl-carousel-o>
   </div>
-</section>
+</div>
+}

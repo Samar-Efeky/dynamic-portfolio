@@ -1,9 +1,18 @@
+@if(emailSuccess$| async){
+  <div 
+     class="w-full save-data fixed flex justify-center items-center z-50">
+  <div class="px-6 py-4 text-center gap-3 cursor-pointer animate-fade-in">
+    <i class="fa-solid fa-check lg:text-[10rem] md:text-[8rem] text-[5rem] pb-3 text-main"></i>
+    <span class="font-semibold text-lg block">Thank you for subscribing!</span>
+  </div>
+</div>
+}
 <footer class="bg-black text-white px-6 py-10  xl:px-20">
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-8 gap-4">
     <div>
       <h2 class="span-color text-lg font-semibold mb-4">About {{info?.username}}</h2>
       <p class="text-sm  leading-relaxed">
-        {{about?.mainDescription?.split(' ').slice(0, 40).join(' ')}} ...
+        {{info?.publicDescription?.split(' ').slice(0, 40).join(' ')}} ...
       </p>
     </div>
     <div class="md:text-center">
@@ -21,17 +30,17 @@
       <p class="text-sm text-gray-300 mb-4">Subscribe to get the latest updates.</p>
       <div class="flex flex-row items-center ">
         <input
-          type="email"
+          type="email" [(ngModel)]="email"
           placeholder="Your Email Address"
-          class="w-full px-4 py-2 rounded text-black focus:outline-none"
+          class="w-full px-4 py-2 rounded text-white focus:outline-none"
         />
-        <button class=" px-2 py-2 text-[0.9rem]">
+        <button class=" px-2 py-2 text-[0.9rem]" (click)="subscribe()">
           Subscribe
         </button>
       </div>
     </div>
   </div>
   <div class="mt-10 border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-center items-center text-sm text-gray-400">
-    <p>&copy; Copyright {{info?.username}} 2025 &nbsp; | &nbsp; Design by Me Distribution by Me</p>
+    <p>&copy; Copyright {{info?.username}} {{currentYear}}. All rights reserved.</p>
   </div>
 </footer>

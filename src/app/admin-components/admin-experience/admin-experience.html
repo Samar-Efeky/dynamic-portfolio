@@ -1,39 +1,52 @@
 <div class="min-h-screen w-full bg-black text-white lg:px-6 md:px-4 px-2 py-6 flex justify-center items-start">
   <div class="w-full py-10 lg:px-6 md:px-4 px-2 rounded-[7px] shadow-xl"
        style="background-color: var(--sectionColor);">
-
-    <h2 class="lg:text-[1.7rem] md:text-[1.5rem] text-[1.3rem] font-bold mb-10 span-color">
-      Experience Information
-    </h2>
-
     <form [formGroup]="form">
 
       <!-- EXPERIENCE SECTION -->
       <h3 class="text-xl font-bold mb-4 span-color">Experiences</h3>
 
       <div formGroupName="experienceInput">
-
-        <label class="block mb-2 font-semibold">Company Name</label>
-        <input type="text" formControlName="companyName"
-               class="w-full p-3 form-control mb-6"
-               placeholder="Company Name" />
-
-        <label class="block mb-2 font-semibold">Role</label>
-        <input type="text" formControlName="role"
-               class="w-full p-3 form-control mb-6"
+        <div class="mb-6">
+            <label class="block mb-2 font-semibold">Company Name</label>
+            <input type="text" formControlName="companyName"
+                  class="w-full p-3 form-control "
+                  placeholder="Company Name" />
+            @if(form.get('experienceInput.companyName')?.touched 
+                  && form.get('experienceInput.companyName')?.invalid) {
+                <p class="text-red-400 text-[15px]">Company name is required.</p>
+              }      
+        </div>
+        <div class="mb-6">
+          <label class="block mb-2 font-semibold">Role</label>
+          <input type="text" formControlName="role"
+               class="w-full p-3 form-control "
                placeholder="Front End Developer" />
+            @if(form.get('experienceInput.role')?.touched 
+              && form.get('experienceInput.role')?.invalid) {
+              <p class="text-[15px] text-red-400">Role is required.</p>
+            }    
+        </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
+          <div class="mb-6">
             <label class="block mb-2 font-semibold">Start Date</label>
             <input type="date" formControlName="startDate"
-                   class="w-full p-3 form-control mb-6" />
+                   class="w-full p-3 form-control " />
+               @if(form.get('experienceInput.startDate')?.touched 
+                  && form.get('experienceInput.startDate')?.invalid) {
+                <p class="text-[15px] text-red-400">Start date is required.</p>
+              }     
           </div>
 
-          <div>
+          <div class="mb-6">
             <label class="block mb-2 font-semibold">End Date</label>
             <input type="date" formControlName="endDate"
-                   class="w-full p-3 form-control mb-6" />
+                   class="w-full p-3 form-control" />
+              @if(form.get('experienceInput.endDate')?.touched 
+                  && form.get('experienceInput.endDate')?.invalid) {
+                <p class="text-[15px] text-red-400">End date is required.</p>
+              }     
           </div>
         </div>
 
@@ -45,41 +58,44 @@
                   class="w-full p-3 form-control mb-2"
                   placeholder="Describe your role..."></textarea>
 
-        <!-- ERROR: MUST BE BETWEEN 10 AND 25 WORDS -->
-        <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-6 text-sm"
-             *ngIf="descriptionControl.touched 
-                    && descriptionControl.errors?.['wordCount']">
-          Description must be between 10 and 25 words.
-        </div>
+        @if (descriptionControl.touched && descriptionControl.errors?.['wordCount']) {
+          <div class="text-red-400  p-2 rounded-sm mb-6 text-sm">
+            Description must be between 10 and 25 words.
+          </div>
+        }
 
-       <button type="button"
-        (click)="addExperience()"
-        [disabled]="form.get('experienceInput')?.invalid"
-        class="px-4 py-2 no-after-button mb-8">
-  Add Experience
-</button>
+        <button type="button"
+                (click)="addExperience()"
+                [disabled]="form.get('experienceInput')?.invalid"
+                class="px-4 py-2 no-after-button mb-8">
+          Add Experience
+        </button>
 
       </div>
 
       <!-- EXPERIENCE LIST -->
       <div class="space-y-4 mb-10">
-        <div *ngFor="let exp of experiences.controls; let i = index"
-             class="p-4 rounded-lg"
-             style="background-color: var(--inputColor);">
 
-          <div class="flex justify-between items-center">
-            <div>
-              <h3 class="font-bold text-main text-lg span-color">{{ exp.value.companyName }}</h3>
-              <p class="text-[17px] text-blue-300">{{ exp.value.role }} ({{ exp.value.startDate }} - {{ exp.value.endDate }})</p>
-              <p class="text-sm mt-1">{{ exp.value.description }}</p>
+        @for (exp of experiences.controls;track $index) {
+          <div class="p-4 rounded-lg"
+               style="background-color: var(--inputColor);">
+
+            <div class="flex justify-between items-center">
+
+              <div>
+                <h3 class="font-bold text-main text-lg span-color">{{ exp.value.companyName }}</h3>
+                <p class="text-[17px] text-blue-300">{{ exp.value.role }} ({{ exp.value.startDate }} - {{ exp.value.endDate }})</p>
+                <p class="text-sm mt-1">{{ exp.value.description }}</p>
+              </div>
+
+              <button (click)="removeExperience($index)" class="no-after-button px-1">
+                <i class="fa-solid fa-xmark text-[12px]"></i>
+              </button>
             </div>
 
-            <button (click)="removeExperience(i)" class="no-after-button px-1">
-              <i class="fa-solid fa-xmark text-[12px]"></i>
-            </button>
           </div>
+        }
 
-        </div>
       </div>
 
 
@@ -102,17 +118,20 @@
       </div>
 
       <div class="flex flex-wrap gap-2 mb-8">
-        <span *ngFor="let s of skills.controls; let i = index"
-              class="px-3 py-2 rounded flex items-center gap-2 text-sm"
-              style="background-color: var(--inputColor);">
 
-          {{ s.value }}
+        @for (s of skills.controls;track $index) {
+          <span class="px-3 py-2 rounded flex items-center gap-2 text-sm"
+                style="background-color: var(--inputColor);">
 
-          <button (click)="removeSkill(i)" class="no-after-button px-1">
-            <i class="fa-solid fa-xmark text-[12px]"></i>
-          </button>
+            {{ s.value }}
 
-        </span>
+            <button (click)="removeSkill($index)" class="no-after-button px-1">
+              <i class="fa-solid fa-xmark text-[12px]"></i>
+            </button>
+
+          </span>
+        }
+
       </div>
 
 
@@ -121,104 +140,145 @@
       <h3 class="text-xl font-bold mb-4 span-color">Education</h3>
 
       <div formGroupName="educationInput">
-
-        <label class="block mb-2 font-semibold">Institution</label>
-        <input type="text" formControlName="institution"
-               class="w-full p-3 form-control mb-6"
+        <div class="mb-6">
+          <label class="block mb-2 font-semibold">Institution</label>
+          <input type="text" formControlName="institution"
+               class="w-full p-3 form-control"
                placeholder="University Name" />
-
-        <label class="block mb-2 font-semibold">Degree</label>
-        <input type="text" formControlName="degree"
-               class="w-full p-3 form-control mb-6"
+          @if(form.get('educationInput.institution')?.touched
+              && form.get('educationInput.institution')?.invalid) {
+            <p class="text-[15px] text-red-400">Institution is required.</p>
+          }     
+        </div>
+        <div class="mb-6">
+             <label class="block mb-2 font-semibold">Degree</label>
+             <input type="text" formControlName="degree"
+               class="w-full p-3 form-control"
                placeholder="Bachelor of Engineering..." />
-
+             @if(form.get('educationInput.degree')?.touched
+                && form.get('educationInput.degree')?.invalid) {
+                <p class="text-[15px] text-red-400">Degree is required.</p>
+              }  
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
+          <div class="mb-6">
             <label class="block mb-2 font-semibold">Start</label>
             <input type="number" formControlName="start"
-                   class="w-full p-3 form-control mb-6" />
+                   class="w-full p-3 form-control" />
+             @if(form.get('educationInput.start')?.touched
+                && form.get('educationInput.start')?.invalid) {
+              <p class="text-[15px] text-red-400">Start date is required.</p>
+            }      
           </div>
-
-          <div>
+          <div class="mb-6">
             <label class="block mb-2 font-semibold">End</label>
             <input type="number" formControlName="end"
-                   class="w-full p-3 form-control mb-6" />
+                   class="w-full p-3 form-control " />
+            @if(form.get('educationInput.end')?.touched
+                && form.get('educationInput.end')?.invalid) {
+              <p class="text-[15px] text-red-400">End date is required.</p>
+            }      
           </div>
         </div>
+
         <label class="block mb-2 font-semibold">Description</label>
-          <textarea formControlName="description" rows="4"
+        <textarea formControlName="description" rows="4"
             class="w-full p-3 form-control mb-2"
             (input)="autoResize()"
             placeholder="Describe your education..."></textarea>
 
-  <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-6 text-sm"
-       *ngIf="form.get('educationInput.description')?.touched
-               && form.get('educationInput.description')?.errors?.['wordCount']">
-    Description must be between 20 and 30 words.
-  </div>
-       <button type="button"
-        (click)="addEducation()"
-        [disabled]="form.get('educationInput')?.invalid"
-        class="px-4 py-2 no-after-button mb-8">
-  Add Education
-</button>
+        @if (form.get('educationInput.description')?.touched &&
+             form.get('educationInput.description')?.errors?.['wordCount']) {
+           <div class="text-red-400 p-2 rounded-sm mb-6 text-sm">
+              Description must be between 20 and 30 words.
+           </div>
+        }
+
+        <button type="button"
+                (click)="addEducation()"
+                [disabled]="form.get('educationInput')?.invalid"
+                class="px-4 py-2 no-after-button mb-8">
+          Add Education
+        </button>
       </div>
 
       <!-- EDUCATION LIST -->
       <div class="space-y-4 mb-10">
-        <div *ngFor="let e of education.controls; let i = index"
-             class="p-4 rounded-lg"
-             style="background-color: var(--inputColor);">
+        @for (e of education.controls;track $index) {
 
-          <div class="flex justify-between items-center">
-            <div>
-              <h3 class="font-bold text-main span-color">{{ e.value.institution }}</h3>
-              <p class="text-[17px]">{{ e.value.degree }} ({{ e.value.start }} - {{ e.value.end }})</p>
-              <p class="text-[15px] pt-2">{{e.value.description}}</p>
+          <div class="p-4 rounded-lg"
+               style="background-color: var(--inputColor);">
+
+            <div class="flex justify-between items-center">
+              <div>
+                <h3 class="font-bold text-main span-color">{{ e.value.institution }}</h3>
+                <p class="text-[17px]">{{ e.value.degree }} ({{ e.value.start }} - {{ e.value.end }})</p>
+                <p class="text-[15px] pt-2">{{ e.value.description }}</p>
+              </div>
+
+              <button (click)="removeEducation($index)" class="no-after-button px-1">
+                <i class="fa-solid fa-xmark text-[12px]"></i>
+              </button>
             </div>
 
-            <button (click)="removeEducation(i)" class="no-after-button px-1">
-              <i class="fa-solid fa-xmark text-[12px]"></i>
-            </button>
           </div>
 
-        </div>
+        }
       </div>
 
 
 
       <!-- CERTIFICATIONS -->
-      <h3 class="text-xl font-bold mb-4 span-color">Certifications (Max 3)</h3>
+      <h3 class="text-xl font-bold mb-4 span-color">Certifications (Max 4)</h3>
 
       <input type="file"
-             (change)="uploadCert($event)"
+              (change)="onCertSelect($event)"
              class="w-full p-3 form-control mb-6" />
 
       <div class="flex gap-4 flex-wrap">
-        <div *ngFor="let cert of certifications.controls; let i = index"
-             class="relative w-32 h-32">
+        @if(certPreviews.length > 0){
+              @for (cert of certPreviews;track $index) {
 
-          <img [src]="cert.value"
-               class="w-full h-full object-cover rounded" />
+          <div  class="relative w-32 h-32">
 
-          <button (click)="removeCert(i)"
-                  class="absolute top-1 right-1 no-after-button px-1 rounded bg-black/60">
-            <i class="fa-solid fa-xmark text-[14px] text-white"></i>
-          </button>
+            <img [src]="cert"
+                 class="w-full h-full object-cover rounded" />
 
-        </div>
+            <button (click)="removeCertPreview($index)"
+                    class="absolute top-1 right-1 no-after-button px-1 rounded bg-black/60">
+              <i class="fa-solid fa-xmark text-[14px] text-white"></i>
+            </button>
+
+          </div>
+
+        }
+        }
+        @if(savedCerts.length > 0){
+             @for (cert of savedCerts;track $index) {
+
+          <div class="relative w-32 h-32">
+
+            <img [src]="cert"
+                 class="w-full h-full object-cover rounded" />
+
+            <button (click)="removeSavedCert($index)"
+                    class="absolute top-1 right-1 no-after-button px-1 rounded bg-black/60">
+              <i class="fa-solid fa-xmark text-[14px] text-white"></i>
+            </button>
+
+          </div>
+        }
+        }
       </div>
-
-
       <!-- SAVE -->
-    <div class="mt-6 flex justify-end">
-  <button 
-     [disabled]="!canSave" 
-    (click)="save()" 
-    class="px-5 py-3 text-black font-semibold mt-5 disabled:opacity-50 disabled:cursor-not-allowed">
-    Save Data
-  </button>
-</div>
+      <div class="mt-6 flex justify-end">
+        <button
+          [disabled]="!canSave"
+          (click)="save()"
+          class="px-5 py-3 text-black font-semibold mt-5 disabled:opacity-50 disabled:cursor-not-allowed">
+          Save Data
+        </button>
+      </div>
 
     </form>
 

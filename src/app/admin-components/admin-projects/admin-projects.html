@@ -1,40 +1,49 @@
 <div class="min-h-screen w-full bg-black text-white lg:px-6 md:px-4 px-2 lg:py-6 py-3 flex justify-center items-start">
   <div class="w-full py-10 lg:px-6 md:px-4 px-2 rounded-[7px] shadow-xl"
        style="background-color: var(--sectionColor);">
-
+    <!-- Section Title -->
     <h2 class="lg:text-[1.7rem] md:text-[1.5rem] text-[1.3rem] font-bold mb-10 span-color">
       Projects
     </h2>
 
-    <!-- Form to add a single project -->
+    <!-- Form to add/update a single project -->
     <form [formGroup]="form">
 
+      <!-- Project Title -->
       <label class="block mb-2 font-semibold">Project Title</label>
       <input type="text" formControlName="projectTitle"
              class="w-full p-3 form-control mb-4"
              placeholder="My Portfolio Project" />
-      <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-4"
-           *ngIf="form.get('projectTitle')?.touched && form.get('projectTitle')?.invalid">
-        Project title is required.
-      </div>
 
+      <!-- Title Error -->
+      @if(form.get('projectTitle')?.touched && form.get('projectTitle')?.invalid) {
+        <div class="text-red-400  mb-4">
+          Project title is required.
+        </div>
+      }
+
+      <!-- Project Description -->
       <label class="block mb-2 font-semibold">Project Description (40-200 words)</label>
       <textarea formControlName="projectDescription"
                 #autoResizeTextArea
-                (input)="autoResize($event) "
+                (input)="autoResize($event)"
                 class="w-full p-3 form-control mb-2"
                 placeholder="Describe the project..."></textarea>
-      <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-4"
-           *ngIf="form.get('projectDescription')?.touched && form.get('projectDescription')?.invalid">
-        Description must be 40-200 words (current: {{ wordCount('projectDescription') }})
-      </div>
 
+      <!-- Description Error -->
+      @if(form.get('projectDescription')?.touched && form.get('projectDescription')?.invalid) {
+        <div class="text-red-400 mb-4">
+          Description must be 40-200 words (current: {{ wordCount('projectDescription') }})
+        </div>
+      }
+
+      <!-- Live Link -->
       <label class="block mb-2 font-semibold">Live Link (optional)</label>
       <input type="text" formControlName="liveLink"
              class="w-full p-3 form-control mb-6"
              placeholder="https://..." />
 
-      <!-- Skills -->
+      <!-- Skills Input -->
       <label class="block mb-2 font-semibold">Skills (Min 6)</label>
       <div class="flex items-center gap-3 mb-3">
         <input type="text" #skillInputRef
@@ -45,143 +54,155 @@
                 class="px-4 py-2 no-after-button">Add</button>
       </div>
 
+      <!-- Skills List -->
       <div class="flex flex-wrap gap-2 mb-4">
-        <span *ngFor="let s of skillsControl.value; index as i"
-              class="px-3 py-2 rounded-[3px] flex items-center gap-2 text-sm"
-              style="background-color: var(--inputColor);">
-          {{ s }}
-          <button type="button" (click)="removeSkill(i)" class="ml-1 no-after-button px-1 rounded-[3px]">
-            <i class="fa-solid fa-xmark text-[12px]"></i>
-          </button>
-        </span>
+        @for(s of skillsControl.value; track $index) {
+          <span class="px-3 py-2 rounded-[3px] flex items-center gap-2 text-sm"
+                style="background-color: var(--inputColor);">
+            {{ s }}
+            <button type="button" (click)="removeSkill($index)" class="ml-1 no-after-button px-1 rounded-[3px]">
+              <i class="fa-solid fa-xmark text-[12px]"></i>
+            </button>
+          </span>
+        }
       </div>
 
-      <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-4"
-           *ngIf="skillsControl.touched && skillsControl.invalid">
-        Minimum 6 skills required (current: {{ skillsControl.value.length }})
-      </div>
+      <!-- Skills Error -->
+      @if(skillsControl.touched && skillsControl.invalid) {
+        <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-4">
+          Minimum 6 skills required (current: {{ skillsControl.value.length }})
+        </div>
+      }
 
-      <!-- Gallery -->
-      <label class="block mb-2 font-semibold">Gallery (Max 3 Images)</label>
+      <!-- Gallery Input -->
+      <label class="block mb-2 font-semibold">Gallery (Max 5 Images)</label>
       <input type="file" (change)="uploadImage($event)" class="w-full p-3 form-control mb-4" />
 
+      <!-- Gallery Images -->
       <div class="flex gap-4 flex-wrap mb-4">
-        <div *ngFor="let img of galleryControl.value; index as i" class="relative w-32 h-32">
-          <img [src]="img" class="w-full h-full object-cover rounded" />
-          <button type="button" (click)="removeImage(i)"
-                  class="absolute top-1 right-1 no-after-button px-1 rounded bg-black/60">
-            <i class="fa-solid fa-xmark text-[14px] text-white"></i>
-          </button>
+        @for(img of galleryControl.value; track $index) {
+          <div class="relative w-32 h-32">
+            <img [src]="img" class="w-full h-full object-cover rounded" />
+            <button type="button" (click)="removeImage($index)"
+                    class="absolute top-1 right-1 no-after-button px-1 rounded bg-black/60">
+              <i class="fa-solid fa-xmark text-[14px] text-white"></i>
+            </button>
+          </div>
+        }
+      </div>
+
+      <!-- Gallery Error -->
+      @if(galleryControl.touched && galleryControl.invalid) {
+        <div class="text-red-400 mb-4">
+          Maximum 5 images allowed (current: {{ galleryControl.value.length }})
         </div>
+      }
+
+      <!-- Project Features Input -->
+      <label class="block mb-2 font-semibold">Project Features (Min 3)</label>
+      <div class="flex items-center gap-3 mb-3">
+        <input type="text" #featureInputRef
+               (keydown.enter)="$event.preventDefault(); addFeature(featureInputRef.value); featureInputRef.value=''"
+               class="flex-1 p-3 form-control"
+               placeholder="Responsive design, Authentication system..." />
+        <button type="button"
+                (click)="addFeature(featureInputRef.value); featureInputRef.value=''"
+                class="px-4 py-2 no-after-button">Add</button>
       </div>
 
-      <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-4"
-           *ngIf="galleryControl.touched && galleryControl.invalid">
-        Maximum 3 images allowed (current: {{ galleryControl.value.length }})
+      <!-- Features List -->
+      <div class="flex flex-wrap gap-2 mb-4">
+        @for(f of featuresControl.value; track $index) {
+          <span class="px-3 py-2 rounded-[3px] flex items-center gap-2 text-sm"
+                style="background-color: var(--inputColor);">
+            {{ f }}
+            <button type="button" (click)="removeFeature($index)" class="ml-1 no-after-button px-1 rounded-[3px]">
+              <i class="fa-solid fa-xmark text-[12px]"></i>
+            </button>
+          </span>
+        }
       </div>
-<!-- Features -->
-<label class="block mb-2 font-semibold">Project Features (Min 3)</label>
 
-<div class="flex items-center gap-3 mb-3">
-  <input type="text" #featureInputRef
-         (keydown.enter)="$event.preventDefault(); addFeature(featureInputRef.value); featureInputRef.value=''"
-         class="flex-1 p-3 form-control"
-         placeholder="Responsive design, Authentication system..." />
+      <!-- Features Error -->
+      @if(featuresControl.touched && featuresControl.invalid) {
+        <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-4">
+          Minimum 3 features required (current: {{ featuresControl.value.length }})
+        </div>
+      }
 
-  <button type="button"
-          (click)="addFeature(featureInputRef.value); featureInputRef.value=''"
-          class="px-4 py-2 no-after-button">
-    Add
-  </button>
-</div>
+      <!-- Add / Update Buttons -->
+      @if(editingIndex === null) {
+        <button type="button"
+                class="px-5 py-3 text-black font-semibold mt-5 mb-6"
+                [disabled]="!canAddProject()"
+                (click)="addProject()">
+          Add Project
+        </button>
+      }
 
-<div class="flex flex-wrap gap-2 mb-4">
-  <span *ngFor="let f of featuresControl.value; index as i"
-        class="px-3 py-2 rounded-[3px] flex items-center gap-2 text-sm"
-        style="background-color: var(--inputColor);">
-    {{ f }}
-    <button type="button" (click)="removeFeature(i)" class="ml-1 no-after-button px-1 rounded-[3px]">
-      <i class="fa-solid fa-xmark text-[12px]"></i>
-    </button>
-  </span>
-</div>
+      @if(editingIndex !== null) {
+        <button type="button"
+                class="px-5 py-3 font-semibold mt-5 mb-6"
+                [disabled]="!canUpdateProject()"
+                (click)="updateProject()">
+          Update Project
+        </button>
+      }
 
-<div class="text-red-900 bg-red-200 p-2 rounded-sm mb-4"
-     *ngIf="featuresControl.touched && featuresControl.invalid">
-  Minimum 3 features required (current: {{ featuresControl.value.length }})
-</div>
-     <button *ngIf="editingIndex === null"
-        type="button"
-        class="px-5 py-3 text-black font-semibold mt-5 mb-6"
-        [disabled]="!canAddProject()"
-        (click)="addProject()">
-  Add Project
-</button>
-
-<!-- UPDATE button -->
-<button *ngIf="editingIndex !== null"
-        type="button"
-        class="px-5 py-3  font-semibold mt-5 mb-6 "
-        [disabled]="!canUpdateProject()"
-        (click)="updateProject()">
-  Update Project
-</button>
     </form>
 
-    <!-- Display added projects -->
-    <div *ngIf="projects.length > 0" class="space-y-4">
+    <!-- Display Added Projects -->
+
+    @if(projects.length > 0) {
       <h3 class="lg:text-lg text-md font-bold mb-3">Added Projects</h3>
-      <div *ngFor="let p of projects; index as i" class="lg:p-4 p-2 rounded-lg" style="background-color: var(--inputColor);">
-        <div class="pt-10 relative">
-          <div class="w-full">
-            <h3 class="font-bold text-main lg:text-lg text-md span-color">{{ p?.projectTitle }}</h3>
-            <p class="text-[12px]"><span class="span-color">ID:</span> {{ p.id }}</p>
-            <p class="text-sm my-1">{{ p?.projectDescription.split(' ').slice(0, 10).join(' ') }}</p>
-            <p class="text-sm mb-2" *ngIf="p?.liveLink">
-              <span>Live:</span> <a class="text-blue-400" [href]="p?.liveLink" target="_blank">{{ p?.liveLink }}</a>
-            </p>
+      <div cdkDropList (cdkDropListDropped)="drop($event)"  class="space-y-4">
+        @for(p of projects; track $index) {
+          <div cdkDrag class="lg:p-3 p-2 rounded-lg" style="background-color: var(--inputColor);">
+            <div class="pt-5 relative">
+              <div class="w-full">
+                <h3 class="font-bold text-main lg:text-lg text-md span-color">{{ p?.projectTitle }}</h3>
+                <p class="text-[12px]"><span class="span-color">ID:</span> {{ p.id }}</p>
+                <p class="text-sm my-1">{{ p?.projectDescription.split(' ').slice(0, 10).join(' ') }}</p>
 
-            <div class="flex flex-wrap gap-2 my-4">
-              <span *ngFor="let s of p?.skills" class="px-3 py-1 rounded text-xs" style="background-color: var(--sectionColor);">
-                {{ s }}
-              </span>
-            </div>
-            <div class="flex gap-2 flex-wrap mt-2">
-              <img *ngFor="let img of p?.gallery" [src]="img" class="w-20 h-20 object-cover rounded" />
+                <!-- Live Link -->
+                @if(p?.liveLink) {
+                  <p class="text-sm mb-2">
+                    <span>Live:</span> <a class="text-blue-400" [href]="p?.liveLink" target="_blank">{{ p?.liveLink }}</a>
+                  </p>
+                }
+
+                <!-- Skills -->
+                <div class="flex flex-wrap gap-2 my-4">
+                  @for(s of p?.skills; track $index) {
+                    <span class="px-3 py-1 rounded text-xs" style="background-color: var(--sectionColor);">
+                      {{ s }}
+                    </span>
+                  }
+                </div>
+
+                <!-- Gallery -->
+                <div class="flex gap-2 flex-wrap mt-2">
+                  @for(img of p?.gallery;track $index) {
+                    <img [src]="img" class="w-20 h-20 object-cover rounded" />
+                  }
+                </div>
+              </div>
+
+              <!-- Project Actions -->
+              <div class="absolute top-1 right-1 flex">
+                <i cdkDragHandle class="fa-solid fa-grip-lines mx-2 text-md cursor-move text-gray-400"></i>
+                <button (click)="editProject($index)" class="no-after-button px-2 mr-2">
+                  <i class="fa-solid fa-pen-to-square text-[12px]"></i>
+                </button>
+                <button (click)="removeProject($index)" class="no-after-button px-1">
+                  <i class="fa-solid fa-xmark text-[12px]"></i>
+                </button>
+              </div>
+
             </div>
           </div>
-          <div class="absolute top-1 right-1 flex">
-            <div class="flex p-1 mx-2 ">
-              <i class="fa-solid fa-arrow-up-long text-white cursor-pointer text-[14px]"
-                (click)="moveProjectUp(i)"
-                [class.opacity-30]="i === 0"
-                [class.pointer-events-none]="i === 0">
-              </i>
-              <i class="fa-solid fa-arrow-down-long text-white cursor-pointer text-[14px]"
-                (click)="moveProjectDown(i)"
-                [class.opacity-30]="i === projects.length - 1"
-                [class.pointer-events-none]="i === projects.length - 1">
-              </i>
-            </div>
-              <button (click)="editProject(i)" class="no-after-button px-2 mr-2">
-                <i class="fa-solid fa-pen-to-square text-[12px]"></i>
-              </button>
-              <button (click)="removeProject(i)" class="no-after-button px-1">
-                <i class="fa-solid fa-xmark text-[12px]"></i>
-              </button>
-          </div>
-        </div>
+        }
       </div>
-    </div>
-
-    <!-- Save All Projects Button -->
-    <div class="mt-6 flex justify-end">
-      <button type="button" class="px-5 py-3 text-black font-semibold mt-5"
-              [disabled]="projects.length === 0"
-              (click)="saveAllProjects()">
-        Save All Projects
-      </button>
-    </div>
-
+    }
   </div>
 </div>

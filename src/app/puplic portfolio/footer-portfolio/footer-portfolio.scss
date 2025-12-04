@@ -19,3 +19,14 @@ button:hover::after{
     height: 0px;
 }
 }
+.loading-data{
+    z-index: 99999999999999999;
+}
+.save-data{
+    z-index: 99999999999;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.7);
+    top: 0;
+    left: 0;
+    color: var(--primaryColor);
+}

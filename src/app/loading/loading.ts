@@ -2,13 +2,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LoadingService } from '../services/loading.service';
 import { CommonModule } from '@angular/common';
-
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 @Component({
   selector: 'app-loading',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, NgxSkeletonLoaderModule],
   templateUrl: './loading.html',
   styleUrl: './loading.scss',
 })
+
 export class Loading implements OnInit, OnDestroy{
  isLoading = false;
   private subscription!: Subscription; // store subscription to unsubscribe later

@@ -55,7 +55,6 @@ export class ProjectDetails implements OnInit, OnDestroy {
       const projectData = await this.projectsService.getProjectById(uid, projectId);
       if (!projectData) return;
       this.project = projectData;
-      console.log(this.project)
       if (this.project?.gallery?.length) {
         this.currentIndex = 0;
         this.mainImage = this.project.gallery[0];

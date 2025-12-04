@@ -4,8 +4,7 @@
 
     <!-- Logo -->
     <div class="logo-item" [routerLink]="['.']" (click)="scrollToTop()">
-      <i class="fa-brands fa-cloudscale"></i>
-      <h1>{{ info()?.username || 'Loading...' }}</h1>
+      <img [src]="info()?.logoImage" class="w-[120px]" alt="image logo">
     </div>
 
     <!-- Menu -->
@@ -38,14 +37,16 @@
       </li>
 
       <!-- Testimonial -->
-      <li>
-        <a [routerLink]="['/portfolio',info()?.username]"
-            [fragment]="'testimonial'"
-           [class.active-link]="isLinkActive('.', 'testimonial')"
-           (click)="toggleSidebar()">
-          Testimonial
-        </a>
-      </li>
+       @if(TestimonialContent?.testimonials?.length>0){
+          <li>
+            <a [routerLink]="['/portfolio',info()?.username]"
+                [fragment]="'testimonial'"
+              [class.active-link]="isLinkActive('.', 'testimonial')"
+              (click)="toggleSidebar()">
+              Testimonial
+            </a>
+          </li>
+       }
 
       <li [routerLink]="['blogs']"
           [class.active-link]="isLinkActive('blogs')"
@@ -66,7 +67,8 @@
 
       <!-- Social Links -->
       <li class="sidebar-social" *ngIf="info()?.socialLinks?.length">
-        <ng-container *ngFor="let social of info()?.socialLinks">
+        @for(social of info()?.socialLinks; track $index){
+             <ng-container>
           <a [href]="social.url" target="_blank" class="px-2">
             <i class="fa-brands"
                [ngClass]="{
@@ -77,6 +79,7 @@
                }"></i>
           </a>
         </ng-container>
+        }
       </li>
 
     </ul>

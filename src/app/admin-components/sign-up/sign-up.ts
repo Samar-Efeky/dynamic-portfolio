@@ -16,7 +16,6 @@ export class SignUp implements OnInit {
   signupForm!: FormGroup;
   showPassword = false;
   signUpError = '';
-  imagePreview: string | ArrayBuffer | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -27,21 +26,9 @@ export class SignUp implements OnInit {
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
-      profileImage: [null],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
-  }
-
-  onImageChange(event: any) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imagePreview = reader.result;
-      this.signupForm.patchValue({ profileImage: reader.result });
-    };
-    reader.readAsDataURL(file);
   }
 
   togglePasswordVisibility() {
@@ -54,17 +41,20 @@ export class SignUp implements OnInit {
        return;
     }
 
-    const { email, password, profileImage } = this.signupForm.value;
-    const defaultImage = 'img/img3.png';
+    const { email, password } = this.signupForm.value;
 
     this.authService.signUp(email, password)
       .then(async res => {
         const uid = res.user.uid;
-        const profile = { email, imageUrl: profileImage ?? defaultImage, createdAt: new Date().toISOString() };
-        // Redirect to admin immediately
+
+        const profile = { 
+          email,
+          createdAt: new Date().toISOString()
+        };
+
         this.router.navigate(['/admin']);
         if (isPlatformBrowser(this.platformId)) window.scrollTo({ top: 0, behavior: 'smooth' });
-        // Save profile in background
+
         await this.authService.saveUserProfile(uid, profile);
       })
       .catch(err => {

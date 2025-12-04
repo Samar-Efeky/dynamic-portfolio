@@ -40,7 +40,10 @@ export class Testimonial implements OnDestroy {
   }
 
   async loadData(uid: string) {
-    this.data = await this._AdminTestimonials.getTestimonials(uid);
+    const content=await this._AdminTestimonials.getTestimonials(uid);
+    if(content){
+        this.data = content;
+    }
   }
 
   carouselOptions: OwlOptions = {

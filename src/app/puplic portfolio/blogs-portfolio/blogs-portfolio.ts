@@ -5,10 +5,11 @@ import { InViewDirective } from "../../directives/in-view.directive";
 import { UserStateService } from '../../services/user-state.service';
 import { AdminBlogsService } from '../../services/admin-blogs.service';
 import { LoadingService } from '../../services/loading.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-blogs-portfolio',
-  imports: [CommonModule, HomeData,InViewDirective],
+  imports: [CommonModule, HomeData,InViewDirective,RouterLink],
   templateUrl: './blogs-portfolio.html',
   styleUrl: './blogs-portfolio.scss'
 })
@@ -17,6 +18,8 @@ export class BlogsPortfolio implements OnDestroy{
   private destroyed = false;
   private dataLoaded = false;
   private currentUid: string | null = null;
+  uid:any='';
+  username:any='';
 
   constructor(
     private userState: UserStateService,
@@ -27,13 +30,14 @@ export class BlogsPortfolio implements OnDestroy{
     effect(() => {
       if (this.destroyed) return;
 
-      const uid = this.userState.uid();
-      if (!uid) return;
-      if (this.dataLoaded && this.currentUid === uid) return;
+      this.uid = this.userState.uid();
+      this.username=userState.username();
+      if (!this.uid) return;
+      if (this.dataLoaded && this.currentUid === this.uid) return;
 
-      this.currentUid = uid;
+      this.currentUid = this.uid;
       this.dataLoaded = true;
-      this.loadData(uid);
+      this.loadData(this.uid);
     });
   }
 

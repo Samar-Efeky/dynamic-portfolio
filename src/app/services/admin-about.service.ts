@@ -19,4 +19,16 @@ export class AdminAboutService {
     const snap = await getDoc(ref);
     return snap.exists() ? snap.data() : null;
   }
+   async saveContact(uid: string, data: any) {
+    if (!isPlatformBrowser(this.platformId)) return;
+    const ref = doc(this.firestore, `admin-contact/${uid}`);
+    return setDoc(ref, data, { merge: true });
+  }
+
+  async getContact(uid: string) {
+    if (!isPlatformBrowser(this.platformId)) return null;
+    const ref = doc(this.firestore, `admin-contact/${uid}`);
+    const snap = await getDoc(ref);
+    return snap.exists() ? snap.data() : null;
+  }
 }

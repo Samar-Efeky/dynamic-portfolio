@@ -11,20 +11,22 @@
       <input type="text" formControlName="clientName"
        class="form-control p-3 w-full mb-4" placeholder="Client Name" />
 
-      <div class="text-red-300 mb-3" 
-           *ngIf="form.get('clientName')?.invalid && form.get('clientName')?.touched">
-        Name is required
-      </div>
+      @if(form.get('clientName')?.invalid && form.get('clientName')?.touched){
+        <div class="text-red-300 mb-3">
+          Name is required
+        </div>
+      }
 
       <!-- Client Title -->
       <label class="font-semibold mb-1 block">Client Title</label>
       <input type="text" formControlName="clientTitle"
        class="form-control p-3 w-full mb-4" placeholder="Job title or role"/>
 
-      <div class="text-red-300 mb-3"
-           *ngIf="form.get('clientTitle')?.invalid && form.get('clientTitle')?.touched">
-        Title is required
-      </div>
+      @if(form.get('clientTitle')?.invalid && form.get('clientTitle')?.touched){
+        <div class="text-red-300 mb-3">
+          Title is required
+        </div>
+      }
 
       <!-- Description -->
       <label class="font-semibold mb-1 block">Client Description</label>
@@ -34,10 +36,11 @@
                 class="form-control p-3 w-full mb-2"
                 placeholder="Write client feedback..."></textarea>
 
-      <div class="text-red-900 bg-red-200 p-2 rounded-sm mb-4"
-           *ngIf="form.get('clientDescription')?.errors && form.get('clientDescription')?.touched">
-        Must be 15–25 words (current: {{ wordCount() }})
-      </div>
+      @if(form.get('clientDescription')?.errors && form.get('clientDescription')?.touched){
+        <div class="text-red-400 mb-4">
+          Must be 15–40 words (current: {{ wordCount() }})
+        </div>
+      }
 
       <!-- Image Upload -->
       <h3 class="text-lg font-bold mb-2 span-color">Client Image</h3>
@@ -45,12 +48,14 @@
       <input type="file" (change)="uploadImage($event)" 
              class="form-control p-3 mb-4 w-full" />
 
-      <div *ngIf="clientImage" class="mb-6">
-        <img [src]="clientImage" class="w-32 h-32 rounded object-cover mb-2" />
-        <button type="button" (click)="removeImage()" class="no-after-button px-3 py-1">
-          Remove
-        </button>
-      </div>
+      @if(clientImage){
+        <div class="mb-6">
+          <img [src]="clientImage" class="w-32 h-32 rounded object-cover mb-2" />
+          <button type="button" (click)="removeImage()" class="no-after-button px-3 py-1">
+            Remove
+          </button>
+        </div>
+      }
 
       <!-- Add Button -->
       <button type="button"
@@ -65,37 +70,27 @@
     <!-- Display Added Testimonials -->
     <div class="space-y-4">
       @for(t of testimonials; track $index){
-      <div class="p-4 rounded-lg" style="background-color: var(--inputColor);">
+        <div class="p-4 rounded-lg" style="background-color: var(--inputColor);">
 
-        <div class="flex justify-between items-start">
-          <div>
-            <div class="flex items-center gap-3 mb-3">
-              <img [src]="t.image" class="w-14 h-14 rounded-full border object-cover" />
-              <div>
-                <h3 class="font-bold text-main text-lg span-color">{{ t.name }}</h3>
-                <p class="text-sm text-gray-300">{{ t.title }}</p>
+          <div class="flex justify-between items-start">
+            <div>
+              <div class="flex items-center gap-3 mb-3">
+                <img [src]="t.image" class="w-14 h-14 rounded-full border object-cover" />
+                <div>
+                  <h3 class="font-bold text-main text-lg span-color">{{ t.name }}</h3>
+                  <p class="text-sm text-gray-300">{{ t.title }}</p>
+                </div>
               </div>
+              <p class="text-sm">{{ t.description }}</p>
             </div>
-            <p class="text-sm">{{ t.description }}</p>
+
+            <button class="no-after-button px-1" (click)="removeTestimonial($index)">
+              <i class="fa-solid fa-xmark text-[12px]"></i>
+            </button>
           </div>
 
-          <button class="no-after-button px-1" (click)="removeTestimonial($index)">
-            <i class="fa-solid fa-xmark text-[12px]"></i>
-          </button>
         </div>
-        
-      </div>
       }
-    </div>
-
-    <!-- Save Button -->
-    <div class="mt-6 flex justify-end">
-      <button type="button"
-              class="px-5 py-3 text-black font-semibold"
-              [disabled]="!canSave()"
-              (click)="save()">
-        Save Data
-      </button>
     </div>
 
   </div>

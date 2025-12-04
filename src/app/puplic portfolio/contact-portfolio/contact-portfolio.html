@@ -6,25 +6,25 @@
       <div class="border-t-2 w-16 mx-3 title-line"></div>
     </div>
     <p class="mx-auto px-4 md:px-20 font-bold lg:text-[3.5rem] sm:text-[1.4rem] text-[1rem]">
-      Get In Touch 
+      {{about?.contact?.mainTitle}}
     </p>
   </div>
   <section class="py-16 lg:py-24 ">
   <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:px-20 md:px-10 px-5">
     <div>
       <h2 class="sm:text-4xl md:text-5xl text-3xl font-bold mb-6 pb-5 " >
-        Let's Work Together
+        {{about?.contact?.subtitle}}
       </h2>
 
       <p class="lg:text-lg text-md leading-relaxed  mb-8">
-       {{about?.additionalDescription?.paragraph1}}
+       {{about?.contact?.mainDescription}}
       </p>
       <a
         href="mailto:{{info?.email}}"
         class="email-btn inline-flex items-center gap-3 px-8 py-4 rounded-lg  lg:text-lg text-md zoom-in" appInView
       >
         <i class="fa-solid fa-envelope lg:text-xl text-lg"></i>
-        Send Me An Email
+        {{about?.contact?.buttonName}}
       </a>
     </div>
     <div class="flex flex-col gap-10 lg:pl-20 ">
@@ -66,11 +66,11 @@
         </a>
       </div>
       <div>
-        <h3 class="tracking-widest  mb-2 font-bold">LOCATION</h3>
+        <h3 class="tracking-widest  mb-2 font-bold">ADDRESS</h3>
 
-        <a href="{{info?.location}}" class="lg:text-xl md:text-lg text-[1rem] hover:underline block ">
-          {{info?.location}}
-        </a>
+        <p class="lg:text-xl md:text-lg text-[1rem]  ">
+          {{info?.address}}
+        </p>
       </div>
 
     </div>

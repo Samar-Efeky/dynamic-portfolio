@@ -10,13 +10,14 @@
    <section class="container mx-auto lg:px-6 px-3 py-5">
  <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-15 items-stretch">
     @for(item of data?.blogs; track $index){
-         <div class="blog-item h-full flex flex-col zoom-in" appInView>
+         <div [routerLink]="['/portfolio', username, 'blog-details', item?.id, uid]"
+          class="blog-item h-full flex flex-col zoom-in cursor-pointer" appInView>
            <span class="span-color text-xl">{{ item?.subtitle}}</span>
            <h3 class="flex items-center gap-2 md:text-2xl my-4">
              {{ item?.title }}
            </h3>
            <p class="leading-relaxed mb-6 flex-grow">
-             {{ item?.description}}
+             {{ item?.description.split(' ').slice(0, 25).join(' ')}}
            </p>
          </div>
       }

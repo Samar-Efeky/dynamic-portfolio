@@ -6,10 +6,11 @@ export class UiService {
   private _loading = new BehaviorSubject<boolean>(false);
   private _success = new BehaviorSubject<boolean>(false);
   private _cvSuccess = new BehaviorSubject<boolean>(false); 
-
+  private subscribeEmail = new BehaviorSubject<boolean>(false); 
   loading$ = this._loading.asObservable();
   success$ = this._success.asObservable();
   cvSuccess$ = this._cvSuccess.asObservable(); 
+  emailSuccess$=this.subscribeEmail.asObservable();
   showLoader() { this._loading.next(true); }
   hideLoader() { this._loading.next(false); }
 
@@ -26,6 +27,12 @@ export class UiService {
   showCVSuccess() {
     this._cvSuccess.next(true);
     setTimeout(() => this._cvSuccess.next(false), 2000);
+  }
+  showEmailSuccess(){
+    this.subscribeEmail.next(true);
+    setTimeout(() => {
+      this.subscribeEmail.next(false)
+    }, 2000);
   }
 
   hideCVSuccess() {

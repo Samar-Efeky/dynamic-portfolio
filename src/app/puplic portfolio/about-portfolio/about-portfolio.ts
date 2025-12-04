@@ -5,13 +5,11 @@ import { HomeServices } from "../home-services/home-services";
 import { UserStateService } from '../../services/user-state.service';
 import { AdminAboutService } from '../../services/admin-about.service';
 import { AdminInfoService } from '../../services/admin-info.service';
-import { SliderTitles } from "../slider-titles/slider-titles";
 import { Subject } from 'rxjs';
 import { LoadingService } from '../../services/loading.service';
-
 @Component({
   selector: 'app-about-portfolio',
-  imports: [Testimonial, InViewDirective, HomeServices, SliderTitles],
+  imports: [Testimonial, InViewDirective, HomeServices],
   templateUrl: './about-portfolio.html',
   styleUrl: './about-portfolio.scss',
 })

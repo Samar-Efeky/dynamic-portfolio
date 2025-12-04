@@ -1,6 +1,7 @@
 import { Component, effect, OnDestroy } from '@angular/core';
 import { UserStateService } from '../../services/user-state.service';
 import { AdminInfoService } from '../../services/admin-info.service';
+import { AdminAboutService } from '../../services/admin-about.service';
 
 @Component({
   selector: 'app-home-data',
@@ -10,6 +11,7 @@ import { AdminInfoService } from '../../services/admin-info.service';
 })
 export class HomeData implements OnDestroy {
   info: any = null;
+  about:any=null;
   private destroyed = false;
   private dataLoaded = false;
   private currentUid: string | null = null;
@@ -17,6 +19,7 @@ export class HomeData implements OnDestroy {
   constructor(
     private userState: UserStateService,
     private adminInfoService: AdminInfoService,
+    private adminAboutService:AdminAboutService
   ) {
     effect(() => {
       if (this.destroyed) return;
@@ -33,6 +36,7 @@ export class HomeData implements OnDestroy {
 
   async loadData(uid: string) {
     this.info = await this.adminInfoService.getAdminInfo(uid);
+    this.about=await this.adminAboutService.getAbout(uid);
   }
 
   ngOnDestroy() {

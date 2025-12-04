@@ -13,6 +13,7 @@ import { UserStateService } from '../../services/user-state.service';
 })
 export class HomeBlogs implements OnDestroy {
 username:any=null;
+uid:any=null;
   data: any = null;
   private destroyed = false;
   private dataLoaded = false;
@@ -26,13 +27,13 @@ username:any=null;
     effect(() => {
       if (this.destroyed) return;
       this.username=userState.username();
-      const uid = this.userState.uid();
-      if (!uid) return;
-      if (this.dataLoaded && this.currentUid === uid) return;
+      this.uid=userState.uid();
+      if (!this.uid) return;
+      if (this.dataLoaded && this.currentUid === this.uid) return;
 
-      this.currentUid = uid;
+      this.currentUid = this.uid;
       this.dataLoaded = true;
-      this.loadData(uid);
+      this.loadData(this.uid);
     });
   }
 

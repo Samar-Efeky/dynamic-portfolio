@@ -1,11 +1,11 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyCt6xEStGU0GOjP8RS580XcYNXiZ6DRlww",
-  authDomain: "portfolio-31a66.firebaseapp.com",
-  projectId: "portfolio-31a66",
-  storageBucket: "portfolio-31a66.firebasestorage.app",
-  messagingSenderId: "282549206924",
-  appId: "1:282549206924:web:c084914375b5b48185e0a9",
+   apiKey: "AIzaSyCkh1LWiCCMQeDswjHlBvjyeEHaH-m-bAk",
+  authDomain: "dynamic-porto.firebaseapp.com",
+  projectId: "dynamic-porto",
+  storageBucket: "dynamic-porto.firebasestorage.app",
+  messagingSenderId: "183196151132",
+  appId: "1:183196151132:web:be8fc14f594f948d42e599"
   }
 };

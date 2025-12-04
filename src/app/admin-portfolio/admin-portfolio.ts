@@ -16,7 +16,6 @@ import { CommonModule } from '@angular/common';
   standalone: true
 })
 export class AdminPortfolio implements OnDestroy {
-  userImage: string = 'img/img3.png';
   userEmail = '';
   uid = '';
   loading = true;
@@ -40,37 +39,16 @@ export class AdminPortfolio implements OnDestroy {
       this.router.navigate(['/sign-in']);
       return;
     }
-
     this.uid = storedUid;
-    const profile = await this.authService.getUserProfile(this.uid);
-    if (profile?.['imageUrl']) this.userImage = profile['imageUrl'];
-    this.userEmail = profile?.['email'] ?? '';
-    this.loading = false;
   }
-
-  onImageChange(event: any) {
-    const file = event.target.files[0];
-    if (!file || !this.uid) return;
-
-    const reader = new FileReader();
-    reader.onload = async () => {
-      const base64 = reader.result as string;
-      this.userImage = base64;
-      await this.authService.saveUserProfile(this.uid, { imageUrl: base64 });
-    };
-    reader.readAsDataURL(file);
-  }
-
   logout() {
     this.authService.logout()
       .then(() => this.router.navigate(['/sign-in']))
       .catch(err => console.error(err));
   }
-
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
-    this.userImage = 'img/img3.png';
     this.userEmail = '';
     this.uid = '';
   }

@@ -1,3 +1,6 @@
+// .header-section {
+//   height: 100vh;
+// }
 .writing-vertical-rl {
   writing-mode: vertical-rl;
   text-orientation: mixed;
@@ -27,8 +30,9 @@
     background: none;
   }
 }
-.availability p {
+.availability a {
   border-bottom: 0.1px solid var(--borderColor, #ccc);
+  cursor: pointer;
 }
 @keyframes change {
   0% { background-position: 0% 0%; }

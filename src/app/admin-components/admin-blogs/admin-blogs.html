@@ -4,83 +4,94 @@
 
     <h3 class="text-xl font-bold mb-6 span-color">Blogs</h3>
 
+    <!-- Blog Form -->
     <form [formGroup]="form">
 
-      <!-- Blog Title -->
       <label class="block mb-2 font-semibold">Blog Title</label>
       <input type="text" formControlName="blogTitle"
              class="w-full p-3 form-control mb-2"
              placeholder="How to Learn Angular Fast..." />
-      <div class="text-red-400 mb-4" *ngIf="form.get('blogTitle')?.invalid && form.get('blogTitle')?.touched">
-        Title is required
-      </div>
 
-      <!-- Blog Subtitle -->
+      @if (form.get('blogTitle')?.invalid && form.get('blogTitle')?.touched) {
+        <div class="text-red-400 mb-4">Title is required</div>
+      }
+
       <label class="block mb-2 font-semibold">Blog Subtitle</label>
       <input type="text" formControlName="blogSubtitle"
              class="w-full p-3 form-control mb-2"
              placeholder="A complete guide for beginners..." />
-      <div class="text-red-400 mb-4" *ngIf="form.get('blogSubtitle')?.invalid && form.get('blogSubtitle')?.touched">
-        Subtitle is required
-      </div>
 
-      <!-- Blog Description -->
+      @if (form.get('blogSubtitle')?.invalid && form.get('blogSubtitle')?.touched) {
+        <div class="text-red-400 mb-4">Subtitle is required</div>
+      }
+       <label class="block mb-2 font-semibold">Blog Image</label>
+        <input type="file" (change)="onImageSelect($event)" class="w-full p-3 form-control mb-4" />
+
+        <!-- show preview if exists -->
+        @if(imagePreview){
+          <img  [src]="imagePreview" class="w-32 h-32 object-cover mb-4 rounded">
+        }
+
       <label class="block mb-2 font-semibold">Description</label>
       <textarea formControlName="blogDescription"
+                 #autoResizeTextArea
                 (input)="autoResize($event)"
                 rows="2"
                 class="w-full p-3 form-control mb-2"
-                placeholder="Write 15–25 words..."></textarea>
+                placeholder="Write 30–200 words..."></textarea>
 
-      <div class="text-red-400 mb-4" 
-           *ngIf="form.get('blogDescription')?.touched && form.get('blogDescription')?.errors">
-        Description must be 15 - 25 words
-      </div>
+      @if (form.get('blogDescription')?.touched && form.get('blogDescription')?.errors) {
+        <div class="text-red-400 mb-4">Description must be 30 - 200 words</div>
+      }
+      <label class="block mb-2 font-semibold">Paragraph 1 (Optional)</label>
+      <textarea formControlName="paragraph1"  #autoResizeTextArea
+                (input)="autoResize($event)"
+          rows="3"
+          class="w-full p-3 form-control mb-4"
+          placeholder="Write paragraph 1..."></textarea>
 
-      <!-- Add Blog Button -->
+      <label class="block mb-2 font-semibold">Paragraph 2 (Optional)</label>
+      <textarea formControlName="paragraph2"  #autoResizeTextArea
+                (input)="autoResize($event)"
+          rows="3"
+          class="w-full p-3 form-control mb-4"
+          placeholder="Write paragraph 2..."></textarea>
       <button type="button"
               (click)="addBlog()"
               class="px-4 py-2 no-after-button mb-10"
               [disabled]="form.invalid">
-        Add Blog
+          {{ editIndex !== null ? 'Update Blog' : 'Add Blog' }}
       </button>
 
     </form>
 
+    <!-- Blog List -->
+    @if (blogs.length > 0) {
 
-    <!-- BLOG LIST -->
-    <div class="space-y-4" *ngIf="blogs.length > 0">
+      <div cdkDropList (cdkDropListDropped)="drop($event)" class=" grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
 
-      <div *ngFor="let b of blogs.controls; index as i"
-           class="p-4 rounded-lg"
-           style="background-color: var(--inputColor);">
-
-        <div class="flex justify-between items-start">
-
-          <div>
-            <h3 class="font-bold text-main text-lg span-color">{{ b.value.title }}</h3>
-            <p class="text-sm font-semibold text-gray-300">{{ b.value.subtitle }}</p>
-            <p class="text-sm mt-2">{{ b.value.description }}</p>
-          </div>
-
-          <button (click)="removeBlog(i)" class="no-after-button px-1">
-            <i class="fa-solid fa-xmark text-[12px]"></i>
-          </button>
-
-        </div>
-      </div>
-
-    </div>
-
-    <!-- SAVE BUTTON -->
-    <div class="mt-6 flex justify-end">
-      <button type="button"
-              class="px-5 py-3 text-black font-semibold mt-5"
-              [disabled]="!canSave()"
-              (click)="saveData()">
-        Save Data
+     @for (b of blogs; track $index; let i = $index) {
+  <div cdkDrag  class=" rounded-md h-full flex flex-col" style="background-color: var(--inputColor);">
+    <div class="relative pb-1">
+      <div class="absolute top-0 right-0">
+         <button cdkDragHandle class="no-after-button px-1 bg-black">
+        <i class="fa-solid fa-grip-lines  text-md cursor-move text-gray-400 "></i>
       </button>
+         <button (click)="editBlog(i)" class="no-after-button px-1 mx-2">
+      <i class="fa-solid fa-pen text-[12px]"></i>
+    </button>
+      <button (click)="removeBlog(i)" class="no-after-button px-1 ">
+        <i class="fa-solid fa-xmark text-[12px]"></i>
+      </button>
+      </div>
+      <div class="text-center ">
+        <img  [src]="b?.image" class="w-full object-cover rounded h-[150px] mx-auto">
+        <h3 class="font-bold text-main text-md span-color px-1">{{ b?.title }}</h3>
+      </div>
     </div>
-
+  </div>
+}
+      </div>
+    }
   </div>
 </div>
