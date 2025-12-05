@@ -50,8 +50,6 @@ nav {
     visibility: hidden;
     opacity: 0;
     pointer-events: none; 
-    transition: opacity var(--transition) ease, visibility var(--transition) ease;
-
     .log-out {
       cursor: pointer;
       padding: 0.5rem 0;
