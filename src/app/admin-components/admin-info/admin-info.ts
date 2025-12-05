@@ -170,9 +170,11 @@ export class AdminInfo implements OnInit, OnDestroy {
       : `<i class="fa-solid fa-earth-americas span-color"></i>`;
   }
    // Drag and drop for social links
-  drop(event: CdkDragDrop<any>) {
-    moveItemInArray(this.socialLinksArray.controls, event.previousIndex, event.currentIndex);
-  }
+ drop(event: CdkDragDrop<any>) {
+  moveItemInArray(this.socialLinksArray.controls, event.previousIndex, event.currentIndex);
+  this.socialLinksArray.updateValueAndValidity();
+}
+
 
   // ================================ Upload Image ================================
  async uploadImage(event: Event, type: 'profile' | 'logo') {

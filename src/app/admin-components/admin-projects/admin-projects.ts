@@ -106,10 +106,11 @@ export class AdminProjects implements OnInit, AfterViewInit, OnDestroy {
 
   // ------------------ Drag & Drop ------------------
   drop(event: CdkDragDrop<any>) {
-    // Reorder projects array after drag & drop
-    moveItemInArray(this.projects, event.previousIndex, event.currentIndex);
-  }
+  moveItemInArray(this.projects, event.previousIndex, event.currentIndex);
 
+  // Update Firestore instantly after sorting
+  this.saveAllProjects();
+}
   // ------------------ Validators ------------------
   wordCountValidator(min: number, max: number) {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -164,8 +165,6 @@ export class AdminProjects implements OnInit, AfterViewInit, OnDestroy {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
     if (!file || !this.userId) return;
-
-    this.uiService.showLoader();
     try {
       const url = await this.projectsService.uploadImage(this.userId, file);
 
@@ -181,7 +180,6 @@ export class AdminProjects implements OnInit, AfterViewInit, OnDestroy {
       console.error(err);
       alert('Error uploading image');
     } finally {
-      this.uiService.hideLoader();
       if (input) input.value = '';
     }
   }

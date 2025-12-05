@@ -125,9 +125,15 @@ export class AdminBlogs implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // ------------------ Drag & Drop ------------------
-  drop(event: CdkDragDrop<any>) {
-    moveItemInArray(this.blogs, event.previousIndex, event.currentIndex);
+ async drop(event: CdkDragDrop<any>) {
+  moveItemInArray(this.blogs, event.previousIndex, event.currentIndex);
+  if (!this.userId) return;
+  try {
+    await this.blogService.updateBlogs(this.userId, this.blogs);
+  } catch (err) {
+    console.error('Error saving order', err);
   }
+}
 
   autoResize(event: Event) {
     const el = event.target as HTMLTextAreaElement;
