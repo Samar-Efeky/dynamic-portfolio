@@ -182,6 +182,7 @@ export class AdminInfo implements OnInit, OnDestroy {
   const file = input.files?.[0];
   if (!file) return;
 
+  // اظهار المعاينة مباشرة قبل الرفع
   const reader = new FileReader();
   reader.onload = () => {
     if (type === 'profile') {
@@ -193,7 +194,35 @@ export class AdminInfo implements OnInit, OnDestroy {
     }
   };
   reader.readAsDataURL(file);
+
+  if (!this.uid) return; // لو المستخدم مش موجود، مش هنرفع الصورة
+
+  try {
+    let uploadedUrl: string;
+
+    if (type === 'profile') {
+      // لو فيه صورة قديمة، احذفها
+      if (this.form.value.profileImage) {
+        await this.adminService.deleteFileByUrl(this.form.value.profileImage);
+      }
+      // رفع الصورة الجديدة
+      uploadedUrl = await this.adminService.uploadImageFile(file, 'profile', this.uid);
+      // تحديث الفورم بالـ URL الجديد
+      this.form.patchValue({ profileImage: uploadedUrl });
+    } else {
+      if (this.form.value.logoImage) {
+        await this.adminService.deleteFileByUrl(this.form.value.logoImage);
+      }
+      uploadedUrl = await this.adminService.uploadImageFile(file, 'logo', this.uid);
+      this.form.patchValue({ logoImage: uploadedUrl });
+    }
+
+  } catch (err) {
+    console.error('Error uploading image', err);
+    alert('There was an error uploading the image.');
+  }
 }
+
 
   // ================================ Upload Video ================================
  async uploadVideo(event: Event) {

@@ -46,151 +46,199 @@ avatarColor: string = '#444';
   // ===== DOWNLOAD CV =====
 async downloadCV() {
   try {
-    this.uiService.showLoader();
-    if (!this.uid) { alert('User not logged in.'); this.uiService.hideLoader(); return; }
 
-    // ===== FETCH DATA =====
+    this.uiService.showLoader();
+    if (!this.uid) return alert("User not logged in.");
+
     const info = await this.adminInfoService.getAdminInfo(this.uid);
     const about = await this.adminAboutService.getAbout(this.uid);
     const experience = await this.adminExperienceService.getExperience(this.uid);
     const projects = await this.adminProjectsService.getProjects(this.uid);
 
-    if (!info || !about || !experience || !projects) {
-      this.uiService.hideLoader();
-      alert('Some data is missing.');
-      return;
-    }
-
     const skills = experience?.['skills'] || [];
     const education = experience?.['education'] || [];
-
-    const doc = new jsPDF();
-    let y = 15;
-    const sectionSpacing = 8; 
-    const lineHeight = 5; 
-
-    const addSectionTitle = (title: string) => {
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(14);
-      doc.text(title, 10, y);
-      y += lineHeight;
-    };
-
-    const addNormalText = (text: string, indent = 10) => {
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(10); 
-      const lines = doc.splitTextToSize(text, 186);
-      doc.text(lines, indent, y);
-      y += lines.length * lineHeight;
-    };
-
-    // ===== BASIC INFO =====
-    doc.setFontSize(16);
-    doc.setFont('helvetica', 'bold');
-    doc.text(info?.['fullName'] || 'Your Name', 105, y, { align: 'center' });
-    y += 8;
-
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
-    if (info?.['email']) { doc.text(`Email: ${info['email']}`, 10, y); y += 4; }
-    if (info?.['phone']) { doc.text(`Phone: ${info['phone']}`, 10, y); y += sectionSpacing; }
-
-    // ===== ABOUT ME =====
-    if (about?.['mainDescription']) {
-      addSectionTitle('About Me');
-      addNormalText(about['mainDescription']);
-      y += sectionSpacing;
-    }
-
-    // ===== EXPERIENCE =====
-   const expList = experience?.['experiences'] || [];
-if (expList.length) {
-  addSectionTitle('Experience');
-
-  y += 4; // ← Add extra space after section title
-
-  expList.forEach((exp: any) => {
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(12);
-    doc.text(`${exp.role} - ${exp.companyName}`, 10, y);
-    y += lineHeight;
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    doc.text(`${exp.startDate} - ${exp.endDate || 'Present'}`, 10, y);
-    y += lineHeight;
-
-    if (exp.description) addNormalText(`• ${exp.description}`, 12);
-    y += 2; 
-  });
-
-  y += sectionSpacing;
-}
-
-
-    // ===== SKILLS =====
-    if (skills.length) {
-      addSectionTitle('Skills');
-      addNormalText(skills.join(', '));
-      y += sectionSpacing;
-    }
-
-    // ===== PROJECTS =====
+    const expList = experience?.['experiences'] || [];
     const projList = projects?.['projects'] || [];
-    if (projList.length) {
-      addSectionTitle('Projects');
-      projList.forEach((p: any) => {
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(12);
-        doc.text(p.projectTitle, 10, y);
-        y += lineHeight;
 
-        addNormalText((p.projectDescription || '').split(' ').slice(0, 25).join(' ') + '...');
+    const doc = new jsPDF({ unit: "pt", format: "a4" });
+    let y = 40;
+    const maxHeight = doc.internal.pageSize.height - 60;
+
+    // === PAGE CHECK ===
+    const checkPage = (spaceNeeded = 20) => {
+      if (y + spaceNeeded > maxHeight) {
+        doc.addPage();
+        y = 40;
+      }
+    };
+
+    // === MULTILINE PRINT ===
+    const printMultiline = (textArray: string[], x: number) => {
+      textArray.forEach(line => {
+        checkPage(25);
+        doc.text(line, x, y);
+        y += 14;
+      });
+    };
+
+    // === SECTION TITLE ===
+    const sectionTitle = (title: string) => {
+      checkPage(40);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(14);
+      doc.text(title.toUpperCase(), 40, y);
+      y += 18;
+      doc.setLineWidth(1);
+      doc.line(40, y, 555, y);
+      y += 16;
+    };
+
+    // ================= HEADER =================
+    checkPage(50);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(22);
+    doc.text(info?.['fullName'] || '', 40, y);
+    y += 26;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    doc.text(info?.['jobTitle'] || '', 40, y);
+    y += 18;
+
+    doc.setFontSize(10);
+    doc.text(
+      `${info?.['phone'] || ''} | ${info?.['email'] || ''} | ${info?.['location'] || ''}`,
+      40,
+      y
+    );
+    y += 20;
+
+    doc.line(40, y, 555, y);
+    y += 16;
+
+    // ================= SUMMARY =================
+    if (about?.['mainDescription']) {
+      sectionTitle("Summary");
+      doc.setFontSize(10);
+      const summaryLines = doc.splitTextToSize(about['mainDescription'], 515);
+      printMultiline(summaryLines, 40);
+      y += 6;
+    }
+
+    // ================= EXPERIENCE =================
+    if (expList.length) {
+      sectionTitle("Experience");
+
+      expList.forEach((exp: any) => {
+
+        checkPage(50);
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(11);
+        doc.text(exp.role || "", 40, y);
+        y += 14;
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.text(`${exp.companyName || ""} | ${exp.startDate} - ${exp.endDate || "Present"}`, 40, y);
+        y += 14;
+
+        if (exp.description) {
+          const desc = doc.splitTextToSize("• " + exp.description, 500);
+          printMultiline(desc, 50);
+        }
+
+        y += 10; 
+      });
+
+      y += 10;
+    }
+
+    // ================= SKILLS =================
+    if (skills.length) {
+      sectionTitle("Skills");
+
+      let startX = 40;
+      const maxWidth = 515;
+
+      skills.forEach((skill: string) => {
+        const tagWidth = doc.getTextWidth(skill) + 16;
+
+        if (startX + tagWidth > maxWidth) {
+          startX = 40;
+          y += 24;
+          checkPage(30);
+        }
+
+        doc.setDrawColor(20);
+        doc.setFillColor(240, 240, 240);
+        doc.roundedRect(startX, y - 12, tagWidth, 22, 6, 6, "FD");
+        doc.text(skill, startX + 8, y + 3);
+
+        startX += tagWidth + 8;
+      });
+
+      y += 30;
+    }
+
+    // ================= PROJECTS =================
+    if (projList.length) {
+      sectionTitle("Projects");
+
+      projList.forEach((p: any) => {
+
+        checkPage(50);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(11);
+        doc.text(p.projectTitle || "", 40, y);
+        y += 14;
+
+        const desc = doc.splitTextToSize(p.projectDescription || "", 515);
+        printMultiline(desc, 40);
 
         if (p.liveLink) {
-          doc.text(`Live: ${p.liveLink}`, 12, y);
-          y += lineHeight;
+          checkPage(20);
+          doc.setTextColor(30, 60, 160);
+          doc.text(p.liveLink, 40, y);
+          doc.setTextColor(0, 0, 0);
+          y += 16;
         }
-        y += 2;
+
+        y += 6;
       });
-      y += sectionSpacing;
+
+      y += 10;
     }
 
-    // ===== EDUCATION =====
+    // ================= EDUCATION =================
     if (education.length) {
-      addSectionTitle('Education');
-       y += 4;
+      sectionTitle("Education");
+
       education.forEach((ed: any) => {
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(12);
-        doc.text(ed.degree, 10, y);
-        y += lineHeight;
+        checkPage(40);
 
-        doc.setFont('helvetica', 'normal');
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(11);
+        doc.text(ed.degree || "", 40, y);
+        y += 14;
+
+        doc.setFont("helvetica", "normal");
         doc.setFontSize(10);
-        doc.text(`${ed.institution} (${ed.start} - ${ed.end})`, 10, y);
-        y += lineHeight;
-
-        if (ed.description) addNormalText(ed.description, 12);
-        y += 2; 
+        doc.text(`${ed.institution} (${ed.start} - ${ed.end})`, 40, y);
+        y += 20;
       });
-      y += sectionSpacing;
     }
 
-    // ===== SAVE PDF =====
-    const pdfBlob = doc.output('blob');
     this.uiService.hideLoader();
-    saveAs(pdfBlob, `${info?.['fullName'] || 'CV'}.pdf`);
+    saveAs(doc.output("blob"), `${info?.['fullName'] || 'CV'}.pdf`);
     this.uiService.showCVSuccess();
 
-  } catch (error) {
-    console.error('Error downloading CV:', error);
+  } catch (err) {
     this.uiService.hideLoader();
-    alert('Something went wrong while downloading CV. Please try again.');
+    console.error(err);
+    alert("Error while generating CV");
   }
 }
-
-
   // ===== LIFECYCLE HOOKS =====
   ngAfterViewInit() {
     // Subscribe to current user
