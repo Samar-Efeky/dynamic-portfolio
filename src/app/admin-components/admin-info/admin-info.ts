@@ -170,11 +170,10 @@ export class AdminInfo implements OnInit, OnDestroy {
       : `<i class="fa-solid fa-earth-americas span-color"></i>`;
   }
    // Drag and drop for social links
- drop(event: CdkDragDrop<any>) {
+  drop(event: CdkDragDrop<any>) {
   moveItemInArray(this.socialLinksArray.controls, event.previousIndex, event.currentIndex);
   this.socialLinksArray.updateValueAndValidity();
 }
-
 
   // ================================ Upload Image ================================
  async uploadImage(event: Event, type: 'profile' | 'logo') {
@@ -182,7 +181,9 @@ export class AdminInfo implements OnInit, OnDestroy {
   const file = input.files?.[0];
   if (!file) return;
 
-  // اظهار المعاينة مباشرة قبل الرفع
+  // -------------------------------
+  // عرض المعاينة فورًا قبل الرفع
+  // -------------------------------
   const reader = new FileReader();
   reader.onload = () => {
     if (type === 'profile') {
@@ -195,34 +196,39 @@ export class AdminInfo implements OnInit, OnDestroy {
   };
   reader.readAsDataURL(file);
 
-  if (!this.uid) return; // لو المستخدم مش موجود، مش هنرفع الصورة
+  // لو المستخدم مش موجود، لا نفعل رفع الصور
+  if (!this.uid) return;
 
   try {
     let uploadedUrl: string;
 
     if (type === 'profile') {
-      // لو فيه صورة قديمة، احذفها
+      // مسح الصورة القديمة إذا موجودة
       if (this.form.value.profileImage) {
         await this.adminService.deleteFileByUrl(this.form.value.profileImage);
       }
+
       // رفع الصورة الجديدة
       uploadedUrl = await this.adminService.uploadImageFile(file, 'profile', this.uid);
+
       // تحديث الفورم بالـ URL الجديد
       this.form.patchValue({ profileImage: uploadedUrl });
     } else {
+      // مسح صورة الشعار القديمة إذا موجودة
       if (this.form.value.logoImage) {
         await this.adminService.deleteFileByUrl(this.form.value.logoImage);
       }
+
+      // رفع الشعار الجديد
       uploadedUrl = await this.adminService.uploadImageFile(file, 'logo', this.uid);
+
+      // تحديث الفورم بالـ URL الجديد
       this.form.patchValue({ logoImage: uploadedUrl });
     }
-
   } catch (err) {
     console.error('Error uploading image', err);
-    alert('There was an error uploading the image.');
   }
 }
-
 
   // ================================ Upload Video ================================
  async uploadVideo(event: Event) {

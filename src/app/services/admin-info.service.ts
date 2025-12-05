@@ -6,7 +6,6 @@ import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AdminInfoService {
-  // Inject Firestore, Storage, and Platform ID
   private firestore = inject(Firestore);
   private storage = inject(Storage);
   private platformId = inject(PLATFORM_ID);
@@ -59,12 +58,24 @@ export class AdminInfoService {
   async deleteFileByUrl(url: string) {
     if (!url) return;
     try {
-      const storageRef = ref(this.storage, url);
+      const path = this.getStoragePathFromUrl(url);
+      if (!path) return;
+      const storageRef = ref(this.storage, path);
       await deleteObject(storageRef);
       console.log('File deleted successfully');
     } catch (err) {
       console.error('Error deleting file:', err);
     }
+  }
+
+  // -------------------------------
+  // Helper: extract storage path from full URL
+  // -------------------------------
+  private getStoragePathFromUrl(url: string): string {
+    const decodeUrl = decodeURIComponent(url);
+    const parts = decodeUrl.split('/o/')[1]; // الجزء بعد /o/
+    if (!parts) return '';
+    return parts.split('?')[0]; // الجزء قبل query params
   }
 
   // -------------------------------
@@ -86,7 +97,6 @@ export class AdminInfoService {
       uploadTask.on(
         'state_changed',
         (snapshot) => {
-          // Calculate upload progress percentage
           const percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           progress.next(Math.round(percent));
         },
