@@ -1,5 +1,4 @@
 <div class="projects-page pt-10 overflow-hidden">
-
   <!-- Title Section -->
   <div class="title-section text-center px-2 py-5 lg:px-20 lg:py-10 from-top" appInView>
     <p class="px-2 pt-5 mx-auto text-white capitalize sm:text-[2rem]">
@@ -15,12 +14,12 @@
 
   <!-- Content -->
   <div class="about-content">
-    <div class="work-section w-full my-10">
-      <div class="container mx-auto px-4 lg:px-20">
+    <div class="work-section w-full ">
+      <div class="padding-section margin-y-section">
 
         @if (projectsList?.projects?.length > 0) {
 
-          <div class="flex flex-wrap -mx-3">
+          <div class="flex flex-wrap ">
 
             @for (project of projectsList?.projects; track project?.id) {
 

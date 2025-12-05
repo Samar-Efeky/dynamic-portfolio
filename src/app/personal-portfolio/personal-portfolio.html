@@ -1,7 +1,6 @@
+<div class="main-margin">
 <!-- Loader -->
 <app-loading ></app-loading>
-<div>
-
   <!-- Navbar -->
   <app-public-navbar></app-public-navbar>
 
@@ -12,7 +11,9 @@
   <app-footer-portfolio></app-footer-portfolio>
 
   <!-- Scroll-to-top button -->
-  <button *ngIf="showScrollButton" (click)="scrollToTop()" class="scroll-top fixed bottom-5 right-5 px-4 py-4">
+   @if(showScrollButton){
+      <button (click)="scrollToTop()" class="scroll-top fixed bottom-5 right-5 px-4 py-4">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
+   }
 </div>

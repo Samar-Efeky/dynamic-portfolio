@@ -1,5 +1,5 @@
-<div class="certification-area mt-5 from-bottom" appInView>
-  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 px-4">
+<div class="certification-area  from-bottom" appInView>
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 ">
     @if(certifications){
        @for (img of certifications; track $index) {
       <div class="single-certification-box w-full cursor-pointer"
@@ -13,8 +13,8 @@
 </div>
 
 <!-- Lightbox Overlay -->
-
-<div *ngIf="lightboxOpen"
+@if(lightboxOpen){
+  <div 
      class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
      (click)="closeLightbox()">
 
@@ -46,3 +46,4 @@
          class="w-full h-full object-cover rounded-md shadow-lg" />
   </div>
 </div>
+}

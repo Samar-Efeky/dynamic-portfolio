@@ -1,4 +1,4 @@
-import { Component, effect, Input, signal } from '@angular/core';
+import { Component, effect, DestroyRef } from '@angular/core';
 import { InViewDirective } from "../../directives/in-view.directive";
 import { AdminExperienceService } from '../../services/admin-experience.service';
 import { UserStateService } from '../../services/user-state.service';
@@ -10,23 +10,31 @@ import { UserStateService } from '../../services/user-state.service';
   styleUrl: './experience.scss',
 })
 export class Experience {
-   info: any = null;
-    experience:any[]=[];
-      constructor(
-        private userState: UserStateService,
-        private adminExperience: AdminExperienceService,
-      ) {
-        effect(() => {
-          const uid = this.userState.uid();
-          if (!uid) return;
-    
-          this.loadData(uid);
-        });
-      }
-    
-      async loadData(uid: string) {
-        this.info = await this.adminExperience.getExperience(uid);
-        this.experience=this.info.experiences;
-      }
   
+  info: any = null;
+  experience: any[] = [];
+
+  constructor(
+    private userState: UserStateService,
+    private adminExperience: AdminExperienceService,
+    private destroyRef: DestroyRef
+  ) {
+
+    const effectRef = effect(() => {
+      const uid = this.userState.uid();
+      if (!uid) return;
+
+      this.loadData(uid);
+    });
+
+    // Cleanup to prevent memory leak
+    this.destroyRef.onDestroy(() => {
+      effectRef.destroy();
+    });
+  }
+
+  async loadData(uid: string) {
+    this.info = await this.adminExperience.getExperience(uid);
+    this.experience = this.info.experiences;
+  }
 }

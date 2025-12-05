@@ -1,27 +1,28 @@
-<div class="about-page pt-20 overflow-hidden">
-     <div class="text-center px-2 py-5 lg:px-20  title-section from-top" appInView>
+<div class="about-page overflow-hidden">
+  <div class="padding-section margin-y-section pt-20">
+       <div class="text-center title-section from-top" appInView>
     <div class="flex items-center justify-center">
       <div class="border-t-2 w-16 mx-3 title-line"></div>
       <h2 class="md:text-2xl font-semibold">About</h2>
       <div class="border-t-2 w-16 mx-3 title-line"></div>
     </div>
     @if(username){
-      <p class="mx-auto px-4 md:px-20 font-semibold lg:text-[3.5rem] sm:text-[1.4rem] text-[1rem]">
+      <p class=" font-semibold lg:text-[3.5rem] sm:text-[1.4rem] text-[1rem]">
       Hi, I'm {{username}}
     </p>
     }
   </div>
-  <div class="flex lg:flex-row flex-col py-10 px-3">
+  <div class="flex lg:flex-row flex-col py-10 ">
     <div class="lg:w-[50%] w-[100%] overflow-hidden">
-        <h2 class="lg:text-[3.5rem] md:text-[3rem] px-5 from-bottom
-         sm:text-[2.5rem] text-[1.6rem] font-semibold" appInView>
+        <h2 class="lg:text-[3rem] md:text-[2.4rem]   from-bottom
+         sm:text-[2rem] text-[1.4rem] font-semibold" appInView>
         @for(item of about?.inspiringWords;track item){
           <span>{{item}}</span>,
         }
       </h2>
     </div>
     <div class="lg:w-[50%] w-[100%] overflow-hidden">
-        <p class="leading-relaxed px-5 lg:pt-0 pt-4 from-bottom" appInView>
+        <p class="leading-relaxed  lg:pt-0 pt-4 from-bottom" appInView>
           {{about?.mainDescription}}
         </p>
     </div>
@@ -30,17 +31,18 @@
         <img [src]="info?.profileImage" class="w-full" alt="image">
     </div>
   <div class="w-full py-20">
-    <div class="md:px-10 sm:px-5 px-3 pt-10 overflow-hidden">
-        <h2 class="md:text-[2rem] text-[1.8rem] font-medium"
+    <div class=" pt-10 overflow-hidden">
+        <h2 class="md:text-[1.8rem] text-[1.4rem] font-medium"
          style="color: var(--primaryColor);">How I Got Here</h2>
         <p class="leading-relaxed py-5">{{about?.howIGotHere}}</p>
     </div>
-     <div class="md:px-10 sm:px-5 px-3 py-10 overflow-hidden">
-        <h2 class="md:text-[2rem] text-[1.8rem] font-medium "
+     <div class=" py-10 overflow-hidden">
+        <h2 class="md:text-[1.8rem] text-[1.4rem] font-medium "
         style="color: var(--primaryColor);" >A Few More Words About Myself</h2>
         <p class="leading-relaxed py-5">{{about?.additionalDescription?.paragraph1}}</p>
         <p class="leading-relaxed py-5">{{about?.additionalDescription?.paragraph2}}</p>
     </div>
+  </div>
   </div>
   <app-home-services></app-home-services>
   <app-testimonial></app-testimonial>

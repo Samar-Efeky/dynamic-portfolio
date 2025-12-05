@@ -22,8 +22,6 @@ export class AdminNavbar implements AfterViewInit, OnDestroy {
   @ViewChild('navbar') navbar!: ElementRef;
 
   sidebarOpen = false;
-  isFixed = false;
-  navbarOffsetTop = 0;
   livePortfolioEnabled = false;
   userEmail: string | null = null;
   uid: string | null = null;
@@ -195,8 +193,6 @@ if (expList.length) {
 
   // ===== LIFECYCLE HOOKS =====
   ngAfterViewInit() {
-    this.navbarOffsetTop = this.navbar.nativeElement.offsetTop;
-
     // Subscribe to current user
     this.auth.currentUser$
       .pipe(takeUntil(this.destroy$))
@@ -259,10 +255,5 @@ logout() {
 
   onScrollTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    this.isFixed = window.scrollY >= this.navbarOffsetTop;
   }
 }

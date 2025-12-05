@@ -1,10 +1,10 @@
-<div class="min-h-screen w-full bg-black text-white lg:px-6 md:px-4 px-2 py-6 flex justify-center items-start">
-  <div class="w-full py-10 lg:px-6 md:px-4 px-2 rounded-[7px] shadow-xl"
+<div class="min-h-screen w-full bg-black text-white  flex justify-center items-start">
+  <div class="w-full  main-padding-admin rounded-[7px] shadow-xl"
        style="background-color: var(--sectionColor);">
     <form [formGroup]="form">
 
       <!-- EXPERIENCE SECTION -->
-      <h3 class="text-xl font-bold mb-4 span-color">Experiences</h3>
+      <h3 class="md:text-[1.3rem] text-[1.2rem] font-bold mb-4 span-color">Experiences</h3>
 
       <div formGroupName="experienceInput">
         <div class="mb-6">
@@ -101,7 +101,7 @@
 
 
       <!-- SKILLS -->
-      <h3 class="text-xl font-bold mb-4 span-color">Skills (Min 6)</h3>
+      <h3 class="md:text-[1.3rem] text-[1.2rem] font-bold mb-4 span-color">Skills (Min 6)</h3>
 
       <div class="flex items-center gap-3 mb-3">
         <input type="text"
@@ -137,7 +137,7 @@
 
 
       <!-- EDUCATION -->
-      <h3 class="text-xl font-bold mb-4 span-color">Education</h3>
+      <h3 class="md:text-[1.3rem] text-[1.2rem] font-bold mb-4 span-color">Education</h3>
 
       <div formGroupName="educationInput">
         <div class="mb-6">
@@ -229,7 +229,7 @@
 
 
       <!-- CERTIFICATIONS -->
-      <h3 class="text-xl font-bold mb-4 span-color">Certifications (Max 4)</h3>
+      <h3 class="md:text-[1.3rem] text-[1.2rem] font-bold mb-4 span-color">Certifications (Max 4)</h3>
 
       <input type="file"
               (change)="onCertSelect($event)"

@@ -1,4 +1,8 @@
 nav {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 999999999999999;
   background-color: var(--sectionColor);
   border-bottom: 0.1px solid var(--borderColor);
   .logo-item {
@@ -11,6 +15,11 @@ nav {
     }
   }
 }
+.main-padding ul {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
 .user-avatar {
    width: 38px; 
   height: 38px; 
@@ -71,7 +80,7 @@ nav {
 }
 ul {
     position: absolute;
-    z-index: 9999999999999999;
+    z-index: 999999999999999999999999999999999999999;
     top: 100%;
     right: 0px;
     transition: transform 0.4s ease;
@@ -79,7 +88,7 @@ ul {
     width: 20%;
     background-color: var(--sectionColor);
     border-top: 1px solid var(--borderColor);
-    border-right: 0.1px solid var(--borderColor);
+    border-left: 0.1px solid var(--borderColor);
     height: 100vh;
 
   li {
@@ -101,13 +110,6 @@ ul {
 }
 .icon-sidebar{
     display: none;
-}
-.nav-fixed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 9999;
 }
 @media screen and (max-width: 1300px) {
   ul{

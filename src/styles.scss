@@ -1,6 +1,11 @@
 @use "tailwindcss/base";
 @use "tailwindcss/components";
 @use "tailwindcss/utilities";
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 :root{
     --primaryColor:#11e2d1;
     --blackColor:#000000;
@@ -21,7 +26,6 @@ html{
 body {
   margin: 0;
     padding: 0;
-   overflow-x: hidden;
     scroll-behavior: smooth;
     background-color: var(--blackColor);
     color: var(--whiteColor);
@@ -29,12 +33,61 @@ body {
         size: var(--fontSize);
     };
 }
-.section-container{
-  padding: 40px 30px;
-  margin: 0px auto;
+.main-margin{
+ max-width: 1700px;
+  margin: auto;
+}
+.main-padding{
+  max-width: 1700px;
+  margin: auto;
+}
+.padding-section{
   width: 90%;
-  @media screen and (max-width:768px){
-    padding: 0px 15px;
+  margin: auto;
+   @media screen and (max-width:1200px){
+     width: 95%;
+  }
+  @media screen and (max-width:600px){
+   width: 97%;
+  }
+}
+.margin-y-section{
+  margin: 50px auto;
+  @media screen and (max-width:600px){
+   margin: 30px auto;
+  }
+}
+.padding-y-section{
+  padding: 50px 10px;
+   @media screen and (max-width:1200px){
+     padding: 40px 10px;
+  }
+  @media screen and (max-width:600px){
+   padding: 30px 5px;
+  }
+}
+.main-margin-admin{
+  padding: 5px 50px;
+  @media screen and (max-width:1200px){
+    padding: 5px 30px;
+  }
+  @media screen and (max-width:600px){
+    padding: 5px 10px;
+  }
+}
+.main-padding-admin{
+  padding: 25px;
+  @media screen and (max-width:600px){
+   padding: 15px 10px;
+  }
+}
+.margin-y-admin{
+  margin:130px auto;
+  @media screen and (max-width:1200px){
+    margin:80px auto;
+  }
+  @media screen and (max-width:600px){
+  margin:50px auto;
   }
 }
 img {
@@ -221,11 +274,11 @@ p{
 }
 textarea {
     &.form-control {
-        // height: auto !important;
         padding-top: 15px;
     }
 }
 .title-section{
+  padding-bottom: 50px;
   h2{
   color: var(--primaryColor);
     font-family:Georgia, 'Times New Roman', Times, serif;
@@ -246,7 +299,6 @@ textarea {
   }
   i{
     color: var(--primaryColor);
-    padding-right: 8px;
     font-size: 1.6rem;
   }
 }
