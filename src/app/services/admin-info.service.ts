@@ -43,23 +43,27 @@ export class AdminInfoService {
 
   // -------------------------------
   // Upload profile or logo image
-  // Returns the download URL
+  // Returns both downloadURL and storagePath
   // -------------------------------
-  async uploadImageFile(file: File, type: 'profile' | 'logo', uid: string): Promise<string> {
-    const path = type === 'profile' ? 'profile-images' : 'logo-images';
-    const fileRef = ref(this.storage, `${path}/${uid}-${file.name}`);
-    await uploadBytes(fileRef, file);
-    return getDownloadURL(fileRef);
-  }
+ async uploadImageFileWithPath(file: File, type: 'profile' | 'logo', uid: string): Promise<{ downloadURL: string, storagePath: string }> {
+  const timestamp = Date.now();
+  const path = type === 'profile' 
+    ? `profile-images/${uid}-${timestamp}-${file.name}` 
+    : `logo-images/${uid}-${timestamp}-${file.name}`;
+
+  const fileRef = ref(this.storage, path);
+  await uploadBytes(fileRef, file);
+  const downloadURL = await getDownloadURL(fileRef);
+  return { downloadURL, storagePath: path };
+}
+
 
   // -------------------------------
-  // Delete file from Firebase Storage by URL
+  // Delete file from Firebase Storage by storage path
   // -------------------------------
-  async deleteFileByUrl(url: string) {
-    if (!url) return;
+  async deleteFileByPath(path: string) {
+    if (!path) return;
     try {
-      const path = this.getStoragePathFromUrl(url);
-      if (!path) return;
       const storageRef = ref(this.storage, path);
       await deleteObject(storageRef);
       console.log('File deleted successfully');
@@ -69,18 +73,7 @@ export class AdminInfoService {
   }
 
   // -------------------------------
-  // Helper: extract storage path from full URL
-  // -------------------------------
-  private getStoragePathFromUrl(url: string): string {
-    const decodeUrl = decodeURIComponent(url);
-    const parts = decodeUrl.split('/o/')[1]; // الجزء بعد /o/
-    if (!parts) return '';
-    return parts.split('?')[0]; // الجزء قبل query params
-  }
-
-  // -------------------------------
   // Upload video file with progress tracking
-  // Returns observable for progress and a promise for download URL
   // -------------------------------
   uploadVideoFileWithProgress(file: File, uid: string, fieldName: string) {
     const progress = new Subject<number>();
