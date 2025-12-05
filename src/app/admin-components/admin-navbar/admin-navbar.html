@@ -28,12 +28,12 @@
       <button (click)="openPortfolioInNewTab()" [disabled]="!livePortfolioEnabled"
         class="sm:px-4 px-2 sm:py-2 mx-3 live-port">Live Portfolio</button>
      @if(userInitial){
-      <div class="user-profile relative mx-2">
+      <div class="user-profile relative mx-2 ">
         <div class="user-avatar px-4 cursor-pointer"
           [style.background]="avatarColor">
             {{ userInitial }}
         </div>
-        <div class="user-logout absolute top-[100%] right-0  mt-1 p-3 rounded-md text-white text-center">
+        <div class="user-logout absolute top-[100%] right-0  mt-1 p-4 rounded-md text-white text-center">
           @if(userEmail) {
             <span class="text-gray-500">{{userEmail}}</span>
           }
