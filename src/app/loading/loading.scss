@@ -1,0 +1,9 @@
+/* Optional: add fade-in animation */
+:host ::ng-deep div[ng-reflect-ng-if="true"] {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
