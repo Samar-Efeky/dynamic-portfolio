@@ -88,7 +88,7 @@ async downloadCV() {
       doc.setFontSize(14);
       doc.text(title.toUpperCase(), 40, y);
       y += 18;
-      doc.setLineWidth(1);
+      doc.setLineWidth(0.3);
       doc.line(40, y, 555, y);
       y += 16;
     };
@@ -96,9 +96,9 @@ async downloadCV() {
     // ================= HEADER =================
     checkPage(50);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(22);
+    doc.setFontSize(18);
     doc.text(info?.['fullName'] || '', 40, y);
-    y += 26;
+    y += 15;
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(12);
@@ -118,12 +118,17 @@ async downloadCV() {
 
     // ================= SUMMARY =================
     if (about?.['mainDescription']) {
-      sectionTitle("Summary");
-      doc.setFontSize(10);
-      const summaryLines = doc.splitTextToSize(about['mainDescription'], 515);
-      printMultiline(summaryLines, 40);
-      y += 6;
-    }
+  sectionTitle("Summary");
+
+  // النص العادي
+  doc.setFont("helvetica", "normal"); // هنا نحدد normal
+  doc.setFontSize(10);
+
+  const summaryLines = doc.splitTextToSize(about['mainDescription'], 515);
+  printMultiline(summaryLines, 40);
+  y += 6;
+}
+
 
     // ================= EXPERIENCE =================
     if (expList.length) {
@@ -156,59 +161,67 @@ async downloadCV() {
 
     // ================= SKILLS =================
     if (skills.length) {
-      sectionTitle("Skills");
+  sectionTitle("Skills");
 
-      let startX = 40;
-      const maxWidth = 515;
+  let startX = 40;
+  const maxWidth = 515;
 
-      skills.forEach((skill: string) => {
-        const tagWidth = doc.getTextWidth(skill) + 16;
+  skills.forEach((skill: string) => {
+    const tagWidth = doc.getTextWidth(skill) + 16;
 
-        if (startX + tagWidth > maxWidth) {
-          startX = 40;
-          y += 24;
-          checkPage(30);
-        }
-
-        doc.setDrawColor(20);
-        doc.setFillColor(240, 240, 240);
-        doc.roundedRect(startX, y - 12, tagWidth, 22, 6, 6, "FD");
-        doc.text(skill, startX + 8, y + 3);
-
-        startX += tagWidth + 8;
-      });
-
-      y += 30;
+    if (startX + tagWidth > maxWidth) {
+      startX = 40;
+      y += 24;
+      checkPage(30);
     }
+
+    doc.setDrawColor(20);
+    doc.setFillColor(240, 240, 240);
+    doc.roundedRect(startX, y - 12, tagWidth, 22, 6, 6, "FD");
+
+    doc.setFontSize(10); // ← هنا نحدد حجم الخط اللي تحبيه
+    doc.text(skill, startX + 8, y + 3);
+
+    startX += tagWidth + 8;
+  });
+
+  y += 30;
+}
 
     // ================= PROJECTS =================
-    if (projList.length) {
-      sectionTitle("Projects");
+   if (projList.length) {
+  sectionTitle("Projects");
 
-      projList.forEach((p: any) => {
+  projList.forEach((p: any) => {
 
-        checkPage(50);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(11);
-        doc.text(p.projectTitle || "", 40, y);
-        y += 14;
+    checkPage(50);
 
-        const desc = doc.splitTextToSize(p.projectDescription || "", 515);
-        printMultiline(desc, 40);
+    // عنوان المشروع Bold
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.text(p.projectTitle || "", 40, y);
+    y += 14;
 
-        if (p.liveLink) {
-          checkPage(20);
-          doc.setTextColor(30, 60, 160);
-          doc.text(p.liveLink, 40, y);
-          doc.setTextColor(0, 0, 0);
-          y += 16;
-        }
+    // وصف المشروع Normal
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10); // حجم الخط اللي تحبيه للوصف
+    const desc = doc.splitTextToSize(p.projectDescription.split(' ').slice(0, 30).join(' ') || "", 515);
+    printMultiline(desc, 40);
 
-        y += 6;
-      });
-
-      y += 10;
+    if (p.liveLink) {
+      checkPage(20);
+      doc.setTextColor(30, 60, 160);
+      doc.text(p.liveLink, 40, y);
+      doc.setTextColor(0, 0, 0);
+      y += 16;
     }
+
+    y += 6;
+  });
+
+  y += 10;
+}
+
 
     // ================= EDUCATION =================
     if (education.length) {
