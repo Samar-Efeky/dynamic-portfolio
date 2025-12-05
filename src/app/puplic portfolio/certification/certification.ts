@@ -17,6 +17,8 @@ export class Certification {
   lightboxOpen = false;
   currentIndex = 0;
 
+  private destroyed = false;
+
   constructor(
     private userState: UserStateService,
     private adminExperience: AdminExperienceService,
@@ -30,14 +32,18 @@ export class Certification {
       this.loadData(uid);
     });
 
-    // Cleanup to prevent memory leak
     this.destroyRef.onDestroy(() => {
+      this.destroyed = true;
       effectRef.destroy();
     });
   }
 
   async loadData(uid: string) {
-    this.info = await this.adminExperience.getExperience(uid);
+    const data = await this.adminExperience.getExperience(uid);
+
+    if (this.destroyed) return; 
+
+    this.info = data;
     this.certifications = this.info.certifications;
   }
 
@@ -51,12 +57,12 @@ export class Certification {
   }
 
   prevImage() {
-    this.currentIndex = 
+    this.currentIndex =
       (this.currentIndex - 1 + this.certifications.length) % this.certifications.length;
   }
 
   nextImage() {
-    this.currentIndex = 
+    this.currentIndex =
       (this.currentIndex + 1) % this.certifications.length;
   }
 }

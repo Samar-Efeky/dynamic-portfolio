@@ -28,8 +28,9 @@
         {{about?.contact?.buttonName}}
       </a>
     </div>
-    <div class="flex flex-col gap-10 lg:pl-20 ">
-      <div>
+         <div class="flex flex-col gap-10 lg:pl-20 ">
+          @if(info?.socialLinks?.length){
+             <div>
         <h3 class="tracking-widest  mb-4 font-bold">
           FOLLOW ON SOCIAL
         </h3>
@@ -50,6 +51,7 @@
           }
         </div>
       </div>
+          }
       <div>
         <h3 class="tracking-widest  mb-2 font-bold">EMAIL</h3>
         <a

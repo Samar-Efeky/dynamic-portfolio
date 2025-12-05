@@ -107,7 +107,7 @@ export class AdminInfo implements OnInit, OnDestroy {
       address: ['', Validators.required],
       mainJobTitle: ['', Validators.required],
       buttonInHeroSection:[''],
-      socialLinks: this.fb.array([], [minLengthArray(3)]),
+      socialLinks: this.fb.array([]),
       profileImage: ['', Validators.required],
       profileImagePath: [''],
       logoImage: ['', Validators.required],
@@ -289,9 +289,12 @@ export class AdminInfo implements OnInit, OnDestroy {
         this.logoImagePreview = downloadURL;
         this.logoImageFile = null;
       }
+        // ===== Ensure socialLinks is always an array =====
+    const formData = { ...this.form.value };
+    if (!formData.socialLinks) formData.socialLinks = [];
 
       // ===== Save all form data =====
-      await this.adminService.saveAdminInfo(this.uid, this.form.value);
+      await this.adminService.saveAdminInfo(this.uid,formData);
       await this.dataCheck.checkAllData(this.uid);
 
       this.uiService.hideLoader();

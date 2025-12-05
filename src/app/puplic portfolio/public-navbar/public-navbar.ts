@@ -12,8 +12,6 @@ import { filter, takeUntil, Subject } from 'rxjs';
 import { AdminInfoService } from '../../services/admin-info.service';
 import { UserStateService } from '../../services/user-state.service';
 import { AdminTestimonialsService } from '../../services/admin-testimonials.service';
-import { log } from 'console';
-
 @Component({
   selector: 'app-public-navbar',
   standalone: true,
@@ -57,27 +55,26 @@ export class PublicNavbar implements OnDestroy {
       .subscribe(() => this.handleFragmentScroll());
   }
 
-  private handleFragmentScroll() {
+private handleFragmentScroll() {
   const tree = this.router.parseUrl(this.router.url);
   const fragment = tree.fragment;
   if (!fragment) return;
 
-  const checkAndScroll = () => {
+  const tryScroll = (attempt = 0) => {
     const el = document.getElementById(fragment);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else {
-      setTimeout(checkAndScroll, 100);
+    } else if (attempt < 20) { 
+      setTimeout(() => tryScroll(attempt + 1), 100);
     }
   };
-
-  checkAndScroll();
+  setTimeout(() => tryScroll(), 300);
 }
 
 
   isLinkActive(path: string, fragment?: string): boolean {
     const info = this.info();
-    if (!info?.username) return false; // <-- prevent null errors
+    if (!info?.username) return false; 
 
     const tree = this.router.parseUrl(this.router.url);
     const currentPath =

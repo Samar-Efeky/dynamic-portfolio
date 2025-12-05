@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, HostListener, inject, OnInit, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { PublicNavbar } from "../puplic portfolio/public-navbar/public-navbar";
 import { RouterOutlet, ActivatedRoute } from '@angular/router';
 import { FooterPortfolio } from "../puplic portfolio/footer-portfolio/footer-portfolio";
@@ -7,41 +7,44 @@ import { UserStateService } from '../services/user-state.service';
 import { LoadingService } from '../services/loading.service';
 import { Loading } from "../loading/loading";
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-personal-portfolio',
   standalone: true,
-  imports: [PublicNavbar, RouterOutlet, FooterPortfolio, Loading,CommonModule],
+  imports: [PublicNavbar, RouterOutlet, FooterPortfolio, Loading, CommonModule],
   templateUrl: './personal-portfolio.html',
   styleUrl: './personal-portfolio.scss',
 })
-export class PersonalPortfolio implements  OnInit{
-private platformId = inject(PLATFORM_ID);
+export class PersonalPortfolio implements OnInit, OnDestroy {
+
+  private platformId = inject(PLATFORM_ID);
+  private subscriptions: Subscription = new Subscription();
+
   username: string | null = null;
   uid: string | null = null;
   showScrollButton = false;
-  isLoading = true; 
+  isLoading = true;
 
   constructor(
     private route: ActivatedRoute,
     private adminInfoService: AdminInfoService,
     private userState: UserStateService,
     private loadingService: LoadingService
-  ) {}
+  ) { }
 
   ngOnInit() {
-    // متابعة حالة اللودينج
-    this.loadingService.isLoading$.subscribe(status => {
+
+    const loadSub = this.loadingService.isLoading$.subscribe(status => {
       this.isLoading = status;
     });
+    this.subscriptions.add(loadSub);
 
-    // جلب الداتا مع عرض اللودينج
-    this.route.paramMap.subscribe(async params => {
+    const routeSub = this.route.paramMap.subscribe(async params => {
       const username = params.get('username');
       if (!username) return;
 
-      this.loadingService.show(); // اللودينج يبدأ فورًا عند الطلب
-
+      this.loadingService.show();
       this.username = username;
       this.userState.username.set(username);
 
@@ -52,16 +55,15 @@ private platformId = inject(PLATFORM_ID);
       } catch (err) {
         console.error('Error fetching admin data:', err);
       } finally {
-        this.loadingService.hide(); 
+        this.loadingService.hide();
       }
     });
+    this.subscriptions.add(routeSub);
 
-    // Scroll listener
     if (isPlatformBrowser(this.platformId)) {
       window.addEventListener('scroll', this.onWindowScroll.bind(this));
     }
   }
-
 
   scrollToTop() {
     if (isPlatformBrowser(this.platformId)) {
@@ -70,8 +72,16 @@ private platformId = inject(PLATFORM_ID);
   }
 
   onWindowScroll() {
-     if (isPlatformBrowser(this.platformId)) {
-this.showScrollButton = window.scrollY > 500;
-     }
+    if (isPlatformBrowser(this.platformId)) {
+      this.showScrollButton = window.scrollY > 500;
+    }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+
+    if (isPlatformBrowser(this.platformId)) {
+      window.removeEventListener('scroll', this.onWindowScroll.bind(this));
+    }
   }
 }

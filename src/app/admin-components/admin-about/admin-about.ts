@@ -1,7 +1,4 @@
 import {
-  CommonModule
-} from '@angular/common';
-import {
   Component,
   OnInit,
   OnDestroy,

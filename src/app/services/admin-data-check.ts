@@ -50,7 +50,10 @@ export class AdminDataCheckService {
         if (!data) return false;
         for (let key of Object.keys(data)) {
           const value = data[key];
-          if (Array.isArray(value) && value.length === 0) return false;
+          if (Array.isArray(value) && value.length === 0) {
+            if (key === 'socialLinks') continue; 
+            return false;
+          }
           if (value === null || value === undefined) return false;
         }
         return true;

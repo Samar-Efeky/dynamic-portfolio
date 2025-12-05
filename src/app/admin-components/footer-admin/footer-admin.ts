@@ -7,4 +7,5 @@ import { CommonModule } from '@angular/common';
   styleUrl: './footer-admin.scss',
 })
 export class FooterAdmin {
+  currentYear: number = new Date().getFullYear();
 }

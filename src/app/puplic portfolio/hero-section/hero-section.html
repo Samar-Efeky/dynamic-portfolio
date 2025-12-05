@@ -57,7 +57,8 @@
       </div>
 
     </div>
-    <div class="right-info hidden lg:flex flex-col items-center justify-between h-[70%] px-3 text-lg gap-6">
+    @if(info?.socialLinks?.length){
+        <div class="right-info hidden lg:flex flex-col items-center justify-between h-[70%] px-3 text-lg gap-6">
       <span class="writing-vertical-rl">FOLLOW ME</span>
       <img src="img/image2.png" class="cursor-pointer w-10 " alt="">
       @if(info?.socialLinks?.length){
@@ -76,6 +77,7 @@
       </div>
       }
     </div>
+    }
 
   </div>
 </header>

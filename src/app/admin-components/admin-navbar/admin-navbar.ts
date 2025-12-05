@@ -84,13 +84,14 @@ async downloadCV() {
     // === SECTION TITLE ===
     const sectionTitle = (title: string) => {
       checkPage(40);
+      y += 12;
       doc.setFont("helvetica", "bold");
-      doc.setFontSize(14);
+      doc.setFontSize(12);
       doc.text(title.toUpperCase(), 40, y);
-      y += 18;
+      y += 14;
       doc.setLineWidth(0.3);
       doc.line(40, y, 555, y);
-      y += 16;
+      y += 14;
     };
 
     // ================= HEADER =================
@@ -103,7 +104,7 @@ async downloadCV() {
     doc.setFont("helvetica", "normal");
     doc.setFontSize(12);
     doc.text(info?.['jobTitle'] || '', 40, y);
-    y += 18;
+    y += 12;
 
     doc.setFontSize(10);
     doc.text(
@@ -112,16 +113,10 @@ async downloadCV() {
       y
     );
     y += 20;
-
-    doc.line(40, y, 555, y);
-    y += 16;
-
     // ================= SUMMARY =================
     if (about?.['mainDescription']) {
   sectionTitle("Summary");
-
-  // النص العادي
-  doc.setFont("helvetica", "normal"); // هنا نحدد normal
+  doc.setFont("helvetica", "normal"); 
   doc.setFontSize(10);
 
   const summaryLines = doc.splitTextToSize(about['mainDescription'], 515);
@@ -165,7 +160,7 @@ async downloadCV() {
 
   let startX = 40;
   const maxWidth = 515;
-
+    y+=12
   skills.forEach((skill: string) => {
     const tagWidth = doc.getTextWidth(skill) + 16;
 
@@ -179,7 +174,7 @@ async downloadCV() {
     doc.setFillColor(240, 240, 240);
     doc.roundedRect(startX, y - 12, tagWidth, 22, 6, 6, "FD");
 
-    doc.setFontSize(10); // ← هنا نحدد حجم الخط اللي تحبيه
+    doc.setFontSize(10); 
     doc.text(skill, startX + 8, y + 3);
 
     startX += tagWidth + 8;
@@ -195,16 +190,12 @@ async downloadCV() {
   projList.forEach((p: any) => {
 
     checkPage(50);
-
-    // عنوان المشروع Bold
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
     doc.text(p.projectTitle || "", 40, y);
     y += 14;
-
-    // وصف المشروع Normal
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(10); // حجم الخط اللي تحبيه للوصف
+    doc.setFontSize(10); 
     const desc = doc.splitTextToSize(p.projectDescription.split(' ').slice(0, 30).join(' ') || "", 515);
     printMultiline(desc, 40);
 
@@ -221,8 +212,6 @@ async downloadCV() {
 
   y += 10;
 }
-
-
     // ================= EDUCATION =================
     if (education.length) {
       sectionTitle("Education");

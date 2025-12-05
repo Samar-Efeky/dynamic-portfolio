@@ -1,4 +1,3 @@
-// src/app/admin-components/admin-projects/admin-projects.component.ts
 import { Component, OnInit, AfterViewInit, OnDestroy, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';

@@ -62,7 +62,9 @@
 
       <!-- Phone -->
       <li class="sidebar-tel">
-        <a *ngIf="info()?.phone" [href]="'tel:' + info()?.phone">+{{ info()?.phone }}</a>
+        @if(info()?.phone){
+          <a [href]="'tel:' + info()?.phone">+{{ info()?.phone }}</a>
+        }
       </li>
 
       <!-- Social Links -->
