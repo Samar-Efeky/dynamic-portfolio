@@ -225,7 +225,7 @@
     <div class="mt-6 flex justify-end">
       <button type="button"
               (click)="saveData()"
-              [disabled]="form.invalid"
+              [disabled]="form.invalid || form.get('username')?.pending"
               class="px-5 py-3 text-black font-semibold mt-5">
         Save Data
       </button>
