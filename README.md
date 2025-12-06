@@ -1,59 +1,309 @@
-# DynamicPortfolio
+# Dynamic Portfolio – Angular 20 + Firebase  
+A fully dynamic personal portfolio builder where users can sign up, fill their information, upload images & CV, manage projects, blogs, services, testimonials, and generate a shareable live portfolio link.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.5.
+This project is beginner-friendly and includes a complete Admin Dashboard for managing all portfolio content.
 
-## Development server
+---
 
-To start a local development server, run:
+# 📌 Table of Contents
+- [Features](#features)
+- [Requirements](#requirements)
+- [Project Setup](#project-setup)
+- [Firebase Setup](#firebase-setup)
+- [Configure Environment Files](#configure-environment-files)
+- [Run the Project](#run-the-project)
+- [Using the Admin Dashboard](#using-the-admin-dashboard)
+- [Deploy to Firebase Hosting](#deploy-to-firebase-hosting)
+- [Troubleshooting](#troubleshooting)
+
+---
+
+# 🚀 Features
+
+### ✔ User Authentication  
+- Firebase Authentication (Email + Password)
+
+### ✔ Admin Dashboard  
+Users can log in and manage:
+- Personal information  
+- About section  
+- Projects  
+- Blogs  
+- Services  
+- Testimonials  
+- Upload CV  
+- Publish a **live portfolio link**  
+  - Opens in a new tab  
+  - Fully dynamic  
+  - Shareable with anyone
+
+### ✔ Firestore Database  
+Stores all user data:
+- Text content  
+- Project info  
+- Blog info  
+- Services  
+- Testimonials  
+
+### ✔ Firebase Storage  
+Stores:
+- Images  
+- User profile picture  
+- Projects images  
+- Blog images  
+
+---
+
+# 🛠 Requirements
+
+Before starting, please install the following:
+
+### 🔗 Node.js (Latest LTS recommended)  
+https://nodejs.org/
+
+### 🔗 Angular CLI  
+https://angular.io/cli
+
+To install manually:
+```bash
+npm install -g @angular/cli
+```
+
+### 🔗 Firebase CLI  
+https://firebase.google.com/docs/cli
+
+Install it using:
+```bash
+npm install -g firebase-tools
+```
+
+### 🔗 A Google Account  
+Required for Firebase Console:  
+https://console.firebase.google.com/
+
+---
+
+# 📥 Project Setup
+
+### 1. Install dependencies
+```bash
+npm install
+```
+
+📸 Screenshot Example:  
+`/screenshots/install-dependencies.png`
+
+---
+
+# 🔥 Firebase Setup
+
+Follow these steps carefully. Even beginners can do it.
+
+---
+
+### **1. Go to Firebase Console**
+https://console.firebase.google.com/
+
+📸 `/screenshots/create-firebase-project.png`
+
+---
+
+### **2. Enable Authentication**
+Go to:
+**Build → Authentication → Get Started**  
+Choose **Email/Password** 
+Choose **Google** 
+📸 `/screenshots/auth.png`
+
+---
+
+### **3. Enable Firestore Database**
+
+Go to:
+**Build → Firestore Database → Create Database**
+
+Choose **Production Mode**
+
+📸 `/screenshots/firestore.png`
+
+---
+
+### **4. Enable Firebase Storage**
+Go to:
+**Build → Storage → Get Started**
+
+📸 `/screenshots/storage.png`
+
+---
+
+### **5. Enable Firebase Hosting**
+Go to:
+**Hosting → Get Started**
+📸 `/screenshots/hosting.png`
+---
+
+### **6. Get Your Firebase Web App Config**
+Go to:
+**Project Settings → General → Web App**
+
+Copy the config object
+
+---
+
+# ⚙ Configure Environment Files
+
+Open:
+
+```
+src/environments/environment.ts
+src/environments/environment.prod.ts
+```
+
+Paste your Firebase config:
+
+```ts
+export const environment = {
+  firebase: {
+    apiKey: "",
+    authDomain: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
+  },
+  production: false
+};
+```
+
+⚠ Replace empty strings with the real values.
+
+---
+
+# ▶ Run the Project Locally
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Then open:
+👉 **http://localhost:4200**
 
-## Code scaffolding
+📸 `/screenshots/local-run.png`
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
+# 🧑‍💻 Using the Admin Dashboard
+
+After creating your account & logging in, you can:
+
+### ✔ Add Personal Information
+- Name  
+- Title  
+- About Section  
+- Profile Image  
+
+### ✔ Add Services  
+### ✔ Add Projects  
+### ✔ Add Blogs  
+### ✔ Add Testimonials  
+### ✔ Upload CV  
+### ✔ Publish Your Live Portfolio
+
+After publishing, a button appears:
+
+**View Live Portfolio**
+
+Click it to open:
+- Your personal website  
+- With all dynamic content  
+- Shareable with anyone  
+
+📸 Add examples:  
+- `/screenshots/admin-dashboard.png`  
+- `/screenshots/add-project.png`  
+- `/screenshots/add-blog.png`    
+- `/screenshots/live-portfolio.png`  
+
+---
+
+# 🌐 Deploy to Firebase Hosting
+
+### 1. Login to Firebase
 ```bash
-ng generate component component-name
+firebase login
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
+### 2. Initialize Firebase
 ```bash
-ng generate --help
+firebase init
 ```
 
-## Building
+Select:
+- Hosting  
+- Your Firebase Project  
+- Public folder: `dist/dynamic-portfolio`  
+- SPA: Yes  
 
-To build the project run:
+---
 
+### 3. Build Angular Project
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
+### 4. Deploy
 ```bash
-ng test
+firebase deploy
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+Your public URL will appear like:
+```
+https://your-portfolio.web.app
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+# ❗ Troubleshooting
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### 🔴 Project not loading?  
+Check your environment.ts config.
+
+### 🔴 Images not appearing?  
+Check Firebase Storage Rules.
+
+### 🔴 Login not working?  
+Enable Email/Password authentication.
+
+### 🔴 Using a custom domain (Vercel, Netlify, etc.)? Login still not working?
+
+If you deployed the project on any custom domain other than Firebase Hosting, you must add that domain to Firebase Authorized Domains.
+
+Follow these steps:
+
+1. Go to **Firebase Console**  
+2. Open **Authentication**  
+3. Click **Settings** (⚙️ icon at the top right)  
+4. Scroll to **Authorized domains**  
+5. Click **Add domain**  
+6. Add your new domain  
+
+**Examples:**
+- `yourname.vercel.app`  
+- `yourdomain.com`  
+- `netlify.app`  
+
+⚠️ If the domain is not added, Firebase Authentication will block login requests and show errors like:  
+- **“This domain is not authorized”**  
+- **“auth/unauthorized-domain”**
+
+### 🔴 Deploy failing?  
+Run:
+```bash
+firebase login
+firebase logout
+firebase login
+```
+
+---
+
+Thank you for using **Dynamic Portfolio 🚀**
