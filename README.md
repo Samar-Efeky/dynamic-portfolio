@@ -91,8 +91,7 @@ npm install
 ```
 
 📸 Screenshot Example:  
-`/screenshots/install-dependencies.png`
-
+![Install Dependencies Screenshot](screenshots/install-dependencies.png)
 ---
 
 # 🔥 Firebase Setup
