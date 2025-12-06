@@ -5,7 +5,7 @@ This project is beginner-friendly and includes a complete Admin Dashboard for ma
 
 ---
 
-# 📌 Table of Contents
+# Table of Contents
 - [Features](#features)
 - [Requirements](#requirements)
 - [Project Setup](#project-setup)
@@ -103,7 +103,7 @@ Follow these steps carefully. Even beginners can do it.
 ### **1. Go to Firebase Console**
 https://console.firebase.google.com/
 
-📸 `/screenshots/create-firebase-project.png`
+📸 ![Create Firebase Project](screenshots/create-firebase-project.png)
 
 ---
 
@@ -112,7 +112,7 @@ Go to:
 **Build → Authentication → Get Started**  
 Choose **Email/Password** 
 Choose **Google** 
-📸 `/screenshots/auth.png`
+📸 ![Authentication Screenshot](screenshots/auth.png)
 
 ---
 
@@ -123,7 +123,7 @@ Go to:
 
 Choose **Production Mode**
 
-📸 `/screenshots/firestore.png`
+📸 ![Firestore Screenshot](screenshots/firestore.png)
 
 ---
 
@@ -131,14 +131,15 @@ Choose **Production Mode**
 Go to:
 **Build → Storage → Get Started**
 
-📸 `/screenshots/storage.png`
+📸 ![Storage Screenshot](screenshots/storage.png)
 
 ---
 
 ### **5. Enable Firebase Hosting**
 Go to:
 **Hosting → Get Started**
-📸 `/screenshots/hosting.png`
+📸 ![Hosting Screenshot](screenshots/hosting.png)
+
 ---
 
 ### **6. Get Your Firebase Web App Config**
@@ -187,7 +188,7 @@ ng serve
 Then open:
 👉 **http://localhost:4200**
 
-📸 `/screenshots/local-run.png`
+📸 ![Local Run Screenshot](screenshots/local-run.png)
 
 ---
 
@@ -218,10 +219,10 @@ Click it to open:
 - Shareable with anyone  
 
 📸 Add examples:  
-- `/screenshots/admin-dashboard.png`  
-- `/screenshots/add-project.png`  
-- `/screenshots/add-blog.png`    
-- `/screenshots/live-portfolio.png`  
+- ![Admin Dashboard Screenshot](screenshots/admin-dashboard.png)  
+- ![Add Project Screenshot](screenshots/add-project.png)  
+- ![Add Blog Screenshot](screenshots/add-blog.png)    
+- ![Live Portfolio Screenshot](screenshots/live-portfolio.png)  
 
 ---
 
