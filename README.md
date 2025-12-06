@@ -18,7 +18,7 @@ This project is beginner-friendly and includes a complete Admin Dashboard for ma
 
 ---
 
-# 🚀 Features
+#features
 
 ### ✔ User Authentication  
 - Firebase Authentication (Email + Password)
@@ -54,7 +54,7 @@ Stores:
 
 ---
 
-# 🛠 Requirements
+#Requirements
 
 Before starting, please install the following:
 
@@ -83,7 +83,7 @@ https://console.firebase.google.com/
 
 ---
 
-# 📥 Project Setup
+#Project-Setup
 
 ### 1. Install dependencies
 ```bash
@@ -94,7 +94,7 @@ npm install
 ![Install Dependencies Screenshot](screenshots/install-dependencies.png)
 ---
 
-# 🔥 Firebase Setup
+#Firebase-Setup
 
 Follow these steps carefully. Even beginners can do it.
 
@@ -150,7 +150,7 @@ Copy the config object
 
 ---
 
-# ⚙ Configure Environment Files
+#Configure-Environment-Files
 
 Open:
 
@@ -179,7 +179,7 @@ export const environment = {
 
 ---
 
-# ▶ Run the Project Locally
+#Run-the-Project
 
 ```bash
 ng serve
@@ -192,7 +192,7 @@ Then open:
 
 ---
 
-# 🧑‍💻 Using the Admin Dashboard
+#Using-the-Admin-Dashboard
 
 After creating your account & logging in, you can:
 
@@ -226,7 +226,7 @@ Click it to open:
 
 ---
 
-# 🌐 Deploy to Firebase Hosting
+#Deploy-to-Firebase-Hosting
 
 ### 1. Login to Firebase
 ```bash
@@ -263,7 +263,7 @@ https://your-portfolio.web.app
 
 ---
 
-# ❗ Troubleshooting
+#Troubleshooting
 
 ### 🔴 Project not loading?  
 Check your environment.ts config.
